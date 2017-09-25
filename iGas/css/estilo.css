@@ -1,0 +1,14 @@
+#formulario{
+	padding-right: 300px;
+	padding-left: 300px;
+	padding-top: 200px;
+	padding-bottom: 200px;
+}
+
+.form-group{
+	background-color: #2F4F4F;
+}
+
+.form-group label{
+	color: white; 
+}
