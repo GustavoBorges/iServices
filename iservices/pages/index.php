@@ -416,7 +416,7 @@
                                 <img src="/iservices/img/logo.png" alt="Logo da empresa"></img>
                             </div>
                             <div class="modal-body">
-                                <form action="cadastroUsuario.php" method="POST">
+                                <form action="/iservices/functions/cadastro.php" method="POST">
                                     <label>Nome:</label>
                                     <input type="text" name="nome" class="form-control"></input>
                                     <label>Email:</label>
@@ -459,18 +459,19 @@
                                 <img src="/iservices/img/logo.png" alt="Logo da empresa" class="logoTelaLogin"></img>
                             </div>
                             <div class="modal-body">
-                                <form action="validaLoginUsuario.php" role="form" method="POST">
+                                <form action="/iservices/functions/validacao.php" role="form" method="POST">
                                     <label for="email">Email:&nbsp</label>
                                     <input type="email" name="email" class="form-control" id="email"></input>
                                     <label for="senha">Senha:&nbsp</label>
                                     <input type="password" name="senha" class="form-control" id="senha"></input>
                                     <div class="modal-footer">
                                         <a href="#">Esqueceu a sua senha?</a>
-                                        <button type="submit" class="btn btn-info" name="acessar" value="Acessar">Acessar</button>
+                                        <button type="submit" class="btn btn-info" name="acessar" value="AcessarUsuario">Acessar</button>
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
                                         </br>
                                         <a href="#modal" data-toggle="modal">Cadastra-se</a>
                                     </div>
+                                    <?php echo "<p class='text-danger'>$campoVazio</p>";?>
                                 </form>
                             </div>
                         </div>
@@ -485,7 +486,7 @@
                                 <img src="/iservices/img/logo.png" alt="Logo da empresa" class="logoCadastroServico"></img>
                             </div>
                             <div class="modal-body">
-                                <form action="cadastroCliente.php" method="POST">
+                                <form action="/iservices/functions/cadastro.php" method="POST">
                                     <label for="razaoSocial">Nome/Razação Social:</label>
                                     <input type="text" name="razaoSocial" id="razaoSocial" class="form-control"></input>
                                     <label for="cpfcnpj">CPF/CNPJ:</label>
@@ -528,7 +529,7 @@
                                 <img src="/iservices/img/logo.png" alt="Logo da empresa" class="logoTelaLogin"></img>
                             </div>
                             <div class="modal-body">
-                                <form action="validaLoginCliente.php" role="form" method="POST">
+                                <form action="/iservices/functions/validacao.php" role="form" method="POST">
                                     <label>CPF/CNPJ:&nbsp</label>
                                     <input type="text" name="cnpj" class="form-control"></input>
                                     <label>Senha:&nbsp</label>
