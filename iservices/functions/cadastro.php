@@ -20,7 +20,7 @@
 <?php
 
 
-	if(isset($_POST['cadastrar']) && $_POST['cadastrar'] == "Cadastrar"){
+	if (isset($_POST['cadastrar']) && $_POST['cadastrar'] == "Cadastrar"){
 
 		$nome = trim($_POST['nome']);
 		$email = trim($_POST['email']);
@@ -107,10 +107,40 @@
 			  }
 }			
 
-		else {
-	echo "<script language='javascript' type='text/javascript'>alert('Não foi possível inserir o registro!');window.location.href='/iservices/pages/index.php'</script>";
+	elseif (isset($_GET['envia']) && $_GET['envia'] == "Submit"){
+
+
+	$tipo = trim($_GET['tipoServico']);
+	$valor = moeda(trim($_GET['valor']));
+	$descricao = trim($_GET['descricao']);
+	$idCliente = $_SESSION['idUsuario'];
+
+	if($tipo == "" || $valor == "" || $descricao == ""){
+		echo "<script type='text/javascript' language='javascript'>alert('Preencha todos os campos!');window.location.href='/iservices/pages/cliente.php'</script>";
+	}else{
+		if($tipo == "Selecione Serviço"){
+			echo "<script type='text/javascript' language='javascript'>alert('Selecione um serviço!');window.location.href='/iservices/pages/cliente.php'</script>";
+			} else { 
+
+				$sql = mysqli_query($conexao, "INSERT INTO servico (tiposervico, valor, descricao, idCliente) 
+					VALUES ('$tipo', '$valor', '$descricao', '$idCliente')");
+				
+				echo "<script type='text/javascript' language='javascript'>alert('Serviço cadastrado com sucesso!!');</script>";
+				header("location: /iservices/pages/cliente.php"); 
+		}
+										}
+
+} 
+
+function moeda($get_valor){
+	$reescreve = array('.', ',');
+	$reescrevendo = array('' , '.');
+	$valor = str_replace($reescreve, $reescrevendo, $get_valor);
+	return $valor;
 }
-	
+
 	mysqli_close($conexao);
 
+
 ?>
+

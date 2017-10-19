@@ -95,12 +95,12 @@
 
 		$idCliente = $_SESSION['idUsuario'];
 
-		$recebeContratoFinalizado = mysqli_query($conexao, "SELECT c.idContrato, s.tiposervico, s.valor, s.descricao, u.nome, u.email, u.telefone, c.status FROM contrato AS c
+		$recebeContratoFinalizado = mysqli_query($conexao, "SELECT c.idContrato, s.tiposervico, s.valor, s.descricao, u.nome, u.email, u.telefone, REPLACE(c.status, 0, 'Finalizado') AS status FROM contrato AS c
 												INNER JOIN servico AS s
 												ON c.idServico = s.idServico
 												INNER JOIN usuario AS u
 												ON c.idUsuario = u.idUsuario
-												WHERE c.idCliente = '{$idCliente}' AND c.status = 'Finalizado' OR c.status = 'Cancelado' OR c.status = 'Rejeitado' OR c.status = 'Concluido'");
+												WHERE c.idCliente = {$idCliente} AND c.status = '0'");
 
 		while ($recebe = mysqli_fetch_array($recebeContratoFinalizado)) {
 				array_push($carregaContratoFinalizado, $recebe);
