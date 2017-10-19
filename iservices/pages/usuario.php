@@ -29,18 +29,19 @@ $recebeu = recebeNomeUsuario($conexao);
     </head>
     <body>
         <div class="navbar-header">
-            <a class="navbar-brand">iServices</a>
+            <a href="localhost:8080/iservices/pages/index.php" target= "_blank" class="navbar-brand">iServices</a>
         </div>
         <div class="container">
             <ul class="nav nav-tabs">
                 <li role="presentation" class="active"><a href="#servicos" aria-controls="servicos" data-toggle="tab" role="tab">Buscar Serviços</a></li>
                 <li role="presentation"><a href="#historico" aria-controls="historico" data-toggle="tab" role="tab">Histórico</a></li>
                 <li role="presentation"><a href="#contratos" aria-controls="contratos" data-toggle="tab" role="tab">Serviços Contratados</a></li>
-                <li class="navbar-right"><a href=""  id="dropdownLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Seja bem vindo, <?=$recebeu;?>!</a>
+                <li class="navbar-right"><a href=""  id="dropdownLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="glyphicon glyphicon-user"></i>&nbspSeja bem vindo, <?=$recebeu;?>!</a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown" href="#">Meu Perfil</a></li>
-                        <li><a class="dropdown" href="#">Contratos</a></li>
-                        <li><a class="dropdown" href="/iservices/functions/validacao.php?act=logout">Sair</a></li>
+                        <li><a class="dropdown" href="#"><i class="glyphicon glyphicon-pencil"></i>&nbspMeu Perfil</a></li>
+                        <li><a class="dropdown" href="#"><i class="glyphicon glyphicon-file"></i>&nbspContratos</a></li>
+                        <li><a class="dropdown" href="/iservices/functions/validacao.php?act=logout"><i class="glyphicon glyphicon-off"></i>&nbspSair</a></li>
                     </ul>
                 </li>
             </ul>
@@ -54,7 +55,7 @@ $recebeu = recebeNomeUsuario($conexao);
         <div class="container" style="margin-top:2px;">
             <div class="row">
                 <div class="panel panel-primary panel-table animated slideInDown">
-                    <div class="panel-heading " style="padding:20px;">
+                    <div class="panel-heading " style="padding:37px;">
                         <div class="row">
                             <div class="col col-xs-12 text-center">
                                 <h1 class="panel-title">Serviços</h1>
@@ -88,7 +89,7 @@ $recebeu = recebeNomeUsuario($conexao);
                                     <td>R$<?=$recebe['valor'];?></td>
                                     <td><?=$recebe['descricao'];?></td>
                                     <td class="actions">
-                                        <a data-name="<?=$recebe['tiposervico'];?>"data-id="<?=$recebe['idServico'];?>" class="contrata btn btn-danger" data-toggle="modal"><i class="glyphicon glyphicon-file" ></i>&nbspContratar</a>
+                                        <a data-name="<?=$recebe['tiposervico'];?>"data-id="<?=$recebe['idServico'];?>" class="contrata btn btn-danger" data-toggle="modal"><i class="glyphicon glyphicon-file"></i>&nbspContratar</a>
                                     </td>                                    
                                     <td><a class="detail-icon" href="#"><i class="glyphicon glyphicon-plus-sign"></i></a></td>
                                 </tr>
@@ -99,13 +100,12 @@ $recebeu = recebeNomeUsuario($conexao);
                 </div>
             </div>
         </div>
-
     </div>
     <div role="tabpanel" class="tab-pane" id="contratos">
         <div class="container" style="margin-top:2px;">
             <div class="row">
                 <div class="panel panel-primary panel-table animated slideInDown">
-                    <div class="panel-heading " style="padding:20px;">
+                    <div class="panel-heading " style="padding:37px;">
                         <div class="row">
                             <div class="col col-xs-12 text-center">
                                 <h1 class="panel-title">Contratos</h1>
@@ -196,7 +196,7 @@ $recebeu = recebeNomeUsuario($conexao);
         <div class="container" style="margin-top:2px;">
             <div class="row">
                 <div class="panel panel-primary panel-table animated slideInDown">
-                    <div class="panel-heading " style="padding:20px;">
+                    <div class="panel-heading " style="padding:37px;">
                         <div class="row">
                             <div class="col col-xs-12 text-center">
                                 <h1 class="panel-title">Histórico</h1>

@@ -28,18 +28,19 @@ $recebeu = recebeNomeCliente($conexao);
     </head>
     <body>
         <div class="navbar-header">
-            <a class="navbar-brand">iServices</a>
+            <a href="localhost:8080/iservices/pages/index.php" target= "_blank" class="navbar-brand">iServices</a>
         </div>
         <div class="container">
             <ul class="nav nav-tabs">
                 <li role="presentation" class="active"><a href="#cadastro" arial-controls="cadastro" data-toggle="tab" role="tab">Serviços</a></li>
                 <li role="presentation"><a href="#historico" arial-controls="historico" data-toggle="tab" role="tab">Histórico</a></li>
                 <li role="presentation"><a href="#servicoSolicitado" arial-controls="servicoSolicitado" data-toggle="tab" role="tab">Serviços Solicitados</a></li>
-                <li class="navbar-right"><a href=""  id="dropdownLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Seja bem vindo, <?=$recebeu;?>!</a>
+                <li class="navbar-right"><a href=""  id="dropdownLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="glyphicon glyphicon-user"></i>&nbspSeja bem vindo, <?=$recebeu;?>!</a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown" href="#">Meu Perfil</a></li>
-                        <li><a class="dropdown" href="#">Contratos</a></li>
-                        <li><a class="dropdown" href="/iservices/functions/validacao.php?act=logout">Sair</a></li>
+                        <li><a class="dropdown" href="#"><i class="glyphicon glyphicon-pencil"></i>&nbspMeu Perfil</a></li>
+                        <li><a class="dropdown" href="#"><i class="glyphicon glyphicon-file"></i>&nbspContratos</a></li>
+                        <li><a class="dropdown" href="/iservices/functions/validacao.php?act=logout"><i class="glyphicon glyphicon-off"></i>&nbspSair</a></li>
                     </ul>
                 </li>
             </ul>
@@ -106,15 +107,22 @@ $recebeu = recebeNomeCliente($conexao);
                     </div>
                 </div>
             </div>
-            <div class="tab-pane" id="servicoSolicitado">
-                <div class="row">
-                    <div class="col-md-3">
-                        <h2>Serviços Solicitados</h2>
+            <div role="tabpanel" class="tab-pane" id="servicoSolicitado">
+                <div class="container" style="margin-top:2px;">
+                    <div class="row">
+                        <div class="panel panel-primary panel-table animated slideInDown">
+                            <div class="panel-heading " style="padding:37px;">
+                                <div class="row">
+                                    <div class="col col-xs-12 text-center">
+                                        <h1 class="panel-title">Serviços Solicitados</h1>                               
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
                 <div id="list" class="row">
                     <div class="table-responsive col-md-12">
-                        <table class="table table-striped" cellspacing="0" cellpadding="0">
+                        <table class="table table-striped table-bordered table-list" cellspacing="0" cellpadding="0" id="tab-servicosSolicitados">
                             <thead>
                                 <tr>
                                     <th>Contrato</th>
@@ -181,29 +189,24 @@ $recebeu = recebeNomeCliente($conexao);
                         </table>
                     </div>
                 </div>
-                <div id="bottom" class="row">
-                    <div class="col-md-12">
-                        <ul class="pagination">
-                            <li class="disabled"><a>&lt; Anterior</a></li>
-                            <li class="disabled"><a>1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li class="next"><a href="#" rel="next">Próximo &gt;</a></li>
-                        </ul>
-                        <!-- /.pagination -->
-                    </div>
-                </div>
-                <!-- /#bottom -->
             </div>
-            <div class="tab-pane" id="historico">
-                <div class="row">
-                    <div class="col-md-4">
-                        <h2>Histórico de Contratos</h2>
+        </div>
+            <div role="tabpanel" class="tab-pane" id="historico">
+                <div class="container" style="margin-top:2px;">
+                    <div class="row">
+                        <div class="panel panel-primary panel-table animated slideInDown">
+                            <div class="panel-heading " style="padding:37px;">
+                                <div class="row">
+                                    <div class="col col-xs-12 text-center">
+                                        <h1 class="panel-title">Histórico</h1>                               
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
                 <div id="list" class="row">
                     <div class="table-responsive col-md-12">
-                        <table class="table table-striped" cellspacing="0" cellpadding="0">
+                        <table class="table table-striped table-bordered table-list" cellspacing="0" cellpadding="0" id="tab-historico">
                             <thead>
                                 <tr>
                                     <th>Contrato</th>
@@ -238,21 +241,9 @@ $recebeu = recebeNomeCliente($conexao);
                         </table>
                     </div>
                 </div>
-                <div id="bottom" class="row">
-                    <div class="col-md-12">
-                        <ul class="pagination">
-                            <li class="disabled"><a>&lt; Anterior</a></li>
-                            <li class="disabled"><a>1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li class="next"><a href="#" rel="next">Próximo &gt;</a></li>
-                        </ul>
-                        <!-- /.pagination -->
-                    </div>
-                </div>
-                <!-- /#bottom -->
             </div>
         </div>
+    </div>
         <!-- Modal para cadastro de serviço -->
         <div id="modalCadastro" class="modal fade" role="dialog">
             <div class="modal-dialog">
@@ -359,13 +350,14 @@ $recebeu = recebeNomeCliente($conexao);
         </div>
         <script src="http://code.jquery.com/jquery-latest.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <script src="/iservices/js/bootstrap.min.js"></script>
         <script src="//code.jquery.com/jquery-1.12.4.js"></script>
         <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
+        <script src="/iservices/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
         <script type="text/javascript">
+
             $('a.delete').on('click', function () {
                 var nome = $(this).data('name'); // vamos buscar o valor do atributo data-name que temos no botão que foi clicado
                 var id = $(this).data('id'); // vamos buscar o valor do atributo data-id
@@ -399,8 +391,25 @@ $recebeu = recebeNomeCliente($conexao);
                 modal.find('#descricao').val(descricao);
                 modal.find('#tipoServico').val(tipoServico);
             });
+
             $(document).ready(function () {
                 $('#tab-servicos').DataTable({
+                    "language": {
+                        "url": "http://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Portuguese-Brasil.json",
+                    }
+                });
+            });
+
+            $(document).ready(function () {
+                $('#tab-servicosSolicitados').DataTable({
+                    "language": {
+                        "url": "http://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Portuguese-Brasil.json",
+                    }
+                });
+            });
+
+            $(document).ready(function () {
+                $('#tab-historico').DataTable({
                     "language": {
                         "url": "http://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Portuguese-Brasil.json",
                     }
