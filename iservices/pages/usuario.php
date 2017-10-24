@@ -11,21 +11,9 @@ $recebeu = recebeNomeUsuario($conexao);
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <link rel="stylesheet" href="/iservices/bootstrap/css/bootstrap.min.css" />
         <link rel="shortcut icon" href="/iservices/img/icon_logo.ico">
-        <link rel="stylesheet" type="text/css" href="/iservices/css/design.css">
         <link rel="stylesheet" type="text/css" href="/iservices/css/estilo.css">
         <link href="https://fortawesome.github.io/Font-Awesome/assets/font-awesome/css/font-awesome.css" rel="stylesheet">  
         <link href="/iservices/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-        <script language="javaScript" type="text/javascript" src="/iservices/js/script.js"></script>
-        <style type="text/css">
-            table thead tr th {
-                font-family: tahoma;
-                font-size: 12px;
-            }
-            table tbody tr td {
-                font-family: tahoma;
-                font-size: 15px;
-            }
-        </style>
     </head>
     <body>
         <div class="navbar-header">
@@ -145,39 +133,6 @@ $recebeu = recebeNomeUsuario($conexao);
                                     <td><?=$recebeContrato['telefone'];?></td>                           
                                     <td><?=$recebeContrato['status'];?></td>
                                     <td class="actions">
-                                        <?php
-                                        if($recebeContrato['status'] == "Concluido" ){
-                                        $disabledC = "Disabled";
-                                        $disabledP = "Disabled";
-                                        $disabledA = "";
-                                        $btnPagamento = "Concluido";
-                                        $fncButao = "concluido";
-                                        }elseif($recebeContrato['status'] == "Pago"){
-                                        $disabledC = "";
-                                        $disabledP = "Disabled";
-                                        $disabledA = "Disabled";
-                                        $btnPagamento = "Pagamento";
-                                        $fncButao = "pagamento";
-                                        }elseif($recebeContrato['status'] == "Avaliado"){
-                                        $disabledC = "Disabled";
-                                        $disabledP = "";
-                                        $disabledA = "Disabled";
-                                        $btnPagamento = "Concluido";
-                                        $fncButao = "concluido";
-                                        }elseif($recebeContrato['status'] == "Solicitado"){
-                                        $disabledC = "";
-                                        $disabledP = "Disabled";
-                                        $disabledA = "Disabled";
-                                        $btnPagamento = "Pagamento";
-                                        $fncButao = "pagamento";
-                                        }else{
-                                        $disabledC = "";
-                                        $disabledP = "";
-                                        $disabledA = "Disabled";
-                                        $btnPagamento = "Pagamento";
-                                        $fncButao = "pagamento";
-                                        }
-                                        ?>  
                                         <a href="cancelar.php?id=<?=$recebeContrato['idContrato'];?>" class="btn btn-danger"  <?=$disabledC;?>>Cancelar</a>
                                         <a href="<?=$fncButao;?>.php?id=<?=$recebeContrato['idContrato'];?>" class="btn btn-primary" <?=$disabledP;?>><?=$btnPagamento;?></a>
                                         <a href="avaliar.php?id=<?=$recebeContrato['idContrato'];?>" class="btn btn-success" <?=$disabledA;?>>Avaliar</a>
@@ -250,30 +205,8 @@ $recebeu = recebeNomeUsuario($conexao);
     <script src="//code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
+    <script type="text/javascript" src="/iservices/js/scripts.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#tab-servicos').DataTable({
-                "language": {
-                    "url": "http://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Portuguese-Brasil.json",
-                }
-            });
-        });
-        $(document).ready(function () {
-            $('#tab-historicos').DataTable({
-                "language": {
-                    "url": "http://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Portuguese-Brasil.json",
-                }
-            });
-        });
-        $(document).ready(function () {
-            $('#tab-contratos').DataTable({
-                "language": {
-                    "url": "http://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Portuguese-Brasil.json",
-                }
-            });
-        });
-    </script>
 </body>
 </html>

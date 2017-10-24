@@ -7,10 +7,11 @@
         <title>Delivery de serviços | Entrega de serviços online | Peça iServices</title>
 
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600&amp;subset=latin-ext" rel="stylesheet">
-
-        <link href="/iservices/bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <link href="/iservices/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="shortcut icon" href="/iservices/img/icon_logo.ico">
         <link href="/iservices/css/style.css" rel="stylesheet">
+        <link href="https://fortawesome.github.io/Font-Awesome/assets/font-awesome/css/font-awesome.css" rel="stylesheet"> 
+        <link href="/iservices/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
         <!--[if lt IE 9]>
             <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -471,9 +472,8 @@
                                 </br>
                                 <a href="#modal" data-toggle="modal" value="">Cadastra-se</a>
                             </div>
-
+                            <div id="carregando"><img src="/iservices/img/carregando.gif"><span>Carregando...</span></div>
                         </form>
-                        <?php echo $campoVazio;?>
                     </div>
                 </div>
             </div>
@@ -530,42 +530,28 @@
                         <img src="/iservices/img/logo.png" alt="Logo da empresa" class="logoTelaLogin"></img>
                     </div>
                     <div class="modal-body">
-                        <form action="/iservices/functions/validacao.php" role="form" method="POST">
+                        <form action="/iservices/functions/validacao.php" role="form" method="POST" id="form-login-cliente">
                             <label>CPF/CNPJ:&nbsp</label>
-                            <input type="text" name="cnpj" class="form-control"></input>
+                            <input type="text" name="cnpj" class="form-control" id="cnpj"></input>
                             <label>Senha:&nbsp</label>
-                            <input type="password" name="senha" class="form-control"></input>
+                            <input type="password" name="senha" class="form-control" id="senha"></input>
                             <div class="modal-footer">
                                 <a href="#">Esqueceu a sua senha?</a>
-                                <button type="submit" class="btn btn-info" name="acessar" value="Acessar">Acessar</button>
+                                <button type="submit" class="btn btn-info" name="acessar" value="Acessar" id="btn-login">Acessar</button>
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-
                             </div>
+                            <div id="carregando"><img src="/iservices/img/carregando.gif"><span>Carregando...</span></div>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="http://code.jquery.com/jquery-latest.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="/iservices/js/bootstrap.min.js"></script>
-        <script type="text/javascript">
-            $('.carousel[data-type="multi"] .item').each(function () {
-                var next = $(this).next();
-                if (!next.length) {
-                    next = $(this).siblings(':first');
-                }
-                next.children(':first-child').clone().appendTo($(this));
-
-                for (var i = 0; i < 4; i++) {
-                    next = next.next();
-                    if (!next.length) {
-                        next = $(this).siblings(':first');
-                    }
-
-                    next.children(':first-child').clone().appendTo($(this));
-                }
-            });
-        </script>
+        <script src="//code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
+        <script type="text/javascript" src="/iservices/js/scripts.js"></script>               
     </body>
 </html>

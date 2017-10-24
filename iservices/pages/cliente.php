@@ -11,20 +11,9 @@ $recebeu = recebeNomeCliente($conexao);
         <title>Delivery de serviços | Entrega de serviços online | Peça iServices</title>
         <link rel="stylesheet" href="/iservices/bootstrap/css/bootstrap.min.css"/>
         <link rel="shortcut icon" href="/iservices/img/icon_logo.ico">
-        <link rel="stylesheet" type="text/css" href="/iservices/css/design.css">
-        <link rel="stylesheet" type="text/css" href="/iservices/css/switch.css">
+        <link rel="stylesheet" type="text/css" href="/iservices/css/switch.css">        
+        <link rel="stylesheet" type="text/css" href="/iservices/css/estilo.css">
         <link href="https://fortawesome.github.io/Font-Awesome/assets/font-awesome/css/font-awesome.css" rel="stylesheet">
-        <script language="javascript" type="text/javascript" src="/iservices/js/script.js"></script>
-        <style type="text/css">
-            table thead tr th {
-                font-family: tahoma;
-                font-size: 12px;
-            }
-            table tbody tr td {
-                font-family: tahoma;
-                font-size: 15px;
-            }
-        </style>
     </head>
     <body>
         <div class="navbar-header">
@@ -95,7 +84,7 @@ $recebeu = recebeNomeCliente($conexao);
                                         <td><a class="detail-icon" href="#"><i class="glyphicon glyphicon-plus-sign"></i></a></td>
                                         <td>
                                             <label class="switch">
-                                                <input type="checkbox">
+                                                <input type="checkbox" data-toggle="modal" data-target="#ativacao-modal" <?=$recebe['ativo'];?>>
                                                 <span class="slider round"></span>
                                             </label>
                                         </td>
@@ -152,33 +141,6 @@ $recebeu = recebeNomeCliente($conexao);
                                     <td><?=$recebe['telefone'];?></td>
                                     <td><?=$recebe['status'];?></td>
                                     <td class="actions">
-                                        <?php
-                                        if($recebe['status']=="Aceito"){
-                                        $disabledA = "disabled";
-                                        $disabledB = "";  
-                                        $btnAC = "Aceitar";
-                                        $btnRC = "Cancelar";
-                                        $hrefA = "aceitar";
-                                        $hrefR  = "cancelarCliente"; 
-
-                                        }elseif($recebe['status']=="Solicitado"){
-                                        $disabledA = "";
-                                        $disabledB = "";  
-                                        $btnAC = "Aceitar";
-                                        $btnRC = "Rejeitar";
-                                        $hrefA = "aceitar";
-                                        $hrefR  = "rejeitar";
-
-                                        }else{
-                                        $disabledA = "";
-                                        $disabledB = "";
-                                        $btnAC = "Concluir";
-                                        $btnRC = "Cancelar";
-                                        $hrefA = "concluidoCliente";
-                                        $hrefR  = "cancelarCliente";
-
-                                        }
-                                        ?>
                                         <a href="<?=$hrefA;?>.php?id=<?=$recebe['idContrato'];?>" class="btn btn-success" id="btnAceitar" <?=$disabledA;?>><?=$btnAC;?></a>
                                         <a href="<?=$hrefR;?>.php?id=<?=$recebe['idContrato'];?>" class="btn btn-danger" id="btnRejeitar" <?=$disabledB;?>><?=$btnRC;?></a>
                                     </td>
@@ -206,7 +168,7 @@ $recebeu = recebeNomeCliente($conexao);
                     </div>
                 <div id="list" class="row">
                     <div class="table-responsive col-md-12">
-                        <table class="table table-striped table-bordered table-list" cellspacing="0" cellpadding="0" id="tab-historico">
+                        <table class="table table-striped table-bordered table-list" cellspacing="0" cellpadding="0" id="tab-historicos">
                             <thead>
                                 <tr>
                                     <th>Contrato</th>
@@ -291,7 +253,25 @@ $recebeu = recebeNomeCliente($conexao);
                     </div>
                 </div>
             </div>
-        </div> <!-- /.modal -->
+        </div>
+        <!--Modal de ativação do serviço-->
+        <div class="modal fade" id="ativacao-modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="modalLabel">Ativar Serviço</h4>
+                    </div>
+                    <div class="modal-body">
+                        Deseja realmente ativar este serviço? <span class="nome"></span>
+                    </div>
+                    <div class="modal-footer">
+                        <a name="ativar" value="excluir" type="button" class="btn btn-primary ativar-servico">Sim</a>
+                        <a href="#" type="button" class="btn btn-default" data-dismiss="modal">N&atilde;o</a>
+                    </div>
+                </div>
+            </div>
+        </div>  
         <!-- Modal para Editar cadastro de serviço -->
         <div id="modal-EditarCadastro" class="modal fade" role="dialog">
             <div class="modal-dialog">
@@ -353,69 +333,9 @@ $recebeu = recebeNomeCliente($conexao);
         <script src="//code.jquery.com/jquery-1.12.4.js"></script>
         <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
-        <script src="/iservices/js/bootstrap.min.js"></script>
+        <script src="/iservices/js/bootstrap.min.js"></script>        
+        <script type="text/javascript" src="/iservices/js/scripts.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
-        <script type="text/javascript">
-
-            $('a.delete').on('click', function () {
-                var nome = $(this).data('name'); // vamos buscar o valor do atributo data-name que temos no botão que foi clicado
-                var id = $(this).data('id'); // vamos buscar o valor do atributo data-id
-                $('span.nome').text(nome + ' (id = ' + id + ')'); // inserir na o nome na pergunta de confirmação dentro da modal
-                $('a.delete-yes').attr('href', '/iservices/functions/acoes.php?id=' + id + '&&btn-ok=excluir'); // mudar dinamicamente o link, href do botão confirmar da modal
-                $('#delete-modal').modal('show'); // modal aparece
-            });
-
-            $('#modal-EditarCadastro').on('show.bs.modal', function (event) {
-                var button = $(event.relatedTarget);
-                var indetificador = button.data('whatever');
-                var tipoServico = button.data('whatevertiposervico');
-                var preco = button.data('whateverpreco');
-                var descricao = button.data('whateverdescricao');
-                var modal = $(this)
-                modal.find('#identificador').val(indetificador);
-                modal.find('#preco').val(preco);
-                modal.find('#descricao').val(descricao);
-                modal.find('#tipoServico').val(tipoServico);
-            });
-
-            $('#modal-Visualizacao').on('show.bs.modal', function (event) {
-                var button = $(event.relatedTarget);
-                var indetificador = button.data('whatever');
-                var tipoServico = button.data('whatevertiposervico');
-                var preco = button.data('whateverpreco');
-                var descricao = button.data('whateverdescricao');
-                var modal = $(this)
-                modal.find('#identificador').val(indetificador);
-                modal.find('#preco').val(preco);
-                modal.find('#descricao').val(descricao);
-                modal.find('#tipoServico').val(tipoServico);
-            });
-
-            $(document).ready(function () {
-                $('#tab-servicos').DataTable({
-                    "language": {
-                        "url": "http://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Portuguese-Brasil.json",
-                    }
-                });
-            });
-
-            $(document).ready(function () {
-                $('#tab-servicosSolicitados').DataTable({
-                    "language": {
-                        "url": "http://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Portuguese-Brasil.json",
-                    }
-                });
-            });
-
-            $(document).ready(function () {
-                $('#tab-historico').DataTable({
-                    "language": {
-                        "url": "http://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Portuguese-Brasil.json",
-                    }
-                });
-            });
-
-        </script>
     </body>
 </html>

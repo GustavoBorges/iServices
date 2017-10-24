@@ -26,10 +26,7 @@ if (isset($_POST['acessar']) && $_POST['acessar'] == "AcessarUsuario") {
 
     if ($email == "" || $senha == "") {
 
-        $campoVazio = '<div class="alert alert-success">Thank You! I will be in touch</div>';
-
-
-        //echo "<script language='javascript' type='text/javascript'>alert('Preencha todos os campos vazios!');window.location.href='/iservices/pages/index.php'</script>";
+        echo "<script language='javascript' type='text/javascript'>alert('Preencha todos os campos vazios!');window.location.href='/iservices/pages/index.php'</script>";
     } else {
 
         $sql = mysqli_query($conexao, "SELECT * FROM usuario WHERE email = '{$email}' AND senha = '{$senha}'");
@@ -84,11 +81,11 @@ if (isset($_POST['acessar']) && $_POST['acessar'] == "AcessarUsuario") {
     echo "<script language='javascript' type='text/javascript'>alert('CPF/CNPJ ou Senha incorretos!');window.location.href='/iservices/pages/index.php'</script>";
 }
 
-mysql_close($conexao);
+mysqli_close($conexao);
 
 
 if ($_GET["act"] == "logout") {
-    session_destroy();
+    session_destroy(); 
     header("location: /iservices/pages/index.php");
     exit;
 }

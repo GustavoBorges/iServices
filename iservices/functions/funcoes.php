@@ -24,7 +24,7 @@
 
 	$idCliente = $_SESSION['idUsuario'];
 
-	$sql = mysqli_query($conexao, "SELECT * FROM servico WHERE idcliente = '{$idCliente}'");
+	$sql = mysqli_query($conexao, "SELECT idServico, tiposervico, valor, descricao, REPLACE(ativo, '1', 'checked') AS ativo FROM servico WHERE idcliente = '{$idCliente}'");
 	 
 	while ($recebe = mysqli_fetch_array($sql)) {
 		array_push($servicos, $recebe);			
@@ -35,6 +35,8 @@
 	}
 	
 ?>
+
+
 
 <?php
 	
