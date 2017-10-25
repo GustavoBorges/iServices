@@ -38,11 +38,6 @@ $('a.delete').on('click', function () {
                 $('#delete-modal').modal('show'); // modal aparece
             });
 
-$('input[type="checkbox"]').on('change', function(e){
-   if(e.target.checked){
-     $('#ativacao-modal').modal('show');
-   }
-});
 
 $('#modal-EditarCadastro').on('show.bs.modal', function (event) {
                 var button = $(event.relatedTarget);
@@ -86,3 +81,58 @@ $('.carousel[data-type="multi"] .item').each(function () {
                     next.children(':first-child').clone().appendTo($(this));
                 }
             });
+
+
+// Verificando se o check está sendo ativado abrindo um modal. Ao clicar em não o mesmo não é ativado.
+$('.checkando').change( function(){
+        
+    if ($(this).is(':checked')){
+        var nome = $(this).data('name');
+        var id = $(this).data('id'); // vamos buscar o valor do atributo data-id
+        $('#ativando-servico').text(nome + ' (id = ' + id + ')'); // inserir na o nome na pergunta de confirmação dentro da modal
+        $('#ativacao-modal').modal('show');
+
+            $('#nao-ativa').click( function (){                     
+                $('.checkando').prop('checked', false);
+                });
+
+            $('#ativar-servico').click( function (){
+                $('#ativar-servico').attr('href', '/iservices/functions/ativacao.php?id=' + id + '&&ativar=ativar'); // mudar dinamicamente o link, href do botão confirmar da modal
+                $('.checkando').prop('checked', true);
+            });
+        }
+
+    else {
+        var nome = $(this).data('name');
+        var id = $(this).data('id'); // vamos buscar o valor do atributo data-id
+        $('#desativando-servico').text(nome + ' (id = ' + id + ')'); // inserir na o nome na pergunta de confirmação dentro da modal
+        $('#desativacao-modal').modal('show');
+
+            $('#nao-desativa').click( function (){                     
+                $('.checkando').prop('checked', true);
+                });
+
+            $('#desativar-servico').click( function (){
+                    $('#desativar-servico').attr('href', '/iservices/functions/ativacao.php?id=' + id + '&&desativar=desativar'); // mudar dinamicamente o link, href do botão confirmar da modal
+                    $('.checkando').prop('checked', false);
+                });
+
+    }
+});
+
+//Botão cadastra-se da index.php - Login Usuário
+
+        $('#cadastrar-usuario').click( function (){
+            $('#modalLogin').modal('toggle');
+            $('#modal').modal('show');
+        });
+
+$('#modalLoginServico').on('show.bs.modal', function (event) {
+    $('#carregando').hide();
+});
+
+    $('#btn-avaliar').click( function (){
+        $('#avaliacao-modal').modal('show');
+    });
+
+   

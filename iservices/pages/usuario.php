@@ -78,6 +78,7 @@ $recebeu = recebeNomeUsuario($conexao);
                                     <td><?=$recebe['descricao'];?></td>
                                     <td class="actions">
                                         <a data-name="<?=$recebe['tiposervico'];?>"data-id="<?=$recebe['idServico'];?>" class="contrata btn btn-danger" data-toggle="modal"><i class="glyphicon glyphicon-file"></i>&nbspContratar</a>
+                                        <a data-name="<?=$recebe['tiposervico'];?>"data-id="<?=$recebe['idServico'];?>" class="contrata btn btn-warning" data-toggle="modal" id="btn-avaliar"><i class="glyphicon glyphicon-file"></i>&nbspAvaliação</a>
                                     </td>                                    
                                     <td><a class="detail-icon" href="#"><i class="glyphicon glyphicon-plus-sign"></i></a></td>
                                 </tr>
@@ -198,13 +199,32 @@ $recebeu = recebeNomeUsuario($conexao);
                 </div>    
             </div>
         </div>
-    </div>       
+    </div>
+    <div class="modal fade" id="avaliacao-modal">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Avalição do Prestador de Serviço</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>ESTRELAS</p>
+          </div>
+          <div class="modal-footer">            
+            <button type="button" class="btn btn-primary">Avaliar</button>            
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+          </div>
+        </div>
+      </div>
+    </div>   
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="/iservices/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>        
+    <script src="/iservices/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/iservices/js/scripts.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">

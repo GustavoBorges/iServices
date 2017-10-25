@@ -470,7 +470,7 @@
                                 <button type="submit" class="btn btn-info" name="acessar" value="AcessarUsuario">Acessar</button>
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
                                 </br>
-                                <a href="#modal" data-toggle="modal" value="">Cadastra-se</a>
+                                <a href="" data-toggle="modal" value="" id="cadastrar-usuario">Cadastra-se</a>
                             </div>
                             <div id="carregando"><img src="/iservices/img/carregando.gif"><span>Carregando...</span></div>
                         </form>
@@ -548,10 +548,10 @@
         </div>
         <script src="http://code.jquery.com/jquery-latest.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <script src="/iservices/js/bootstrap.min.js"></script>
         <script src="//code.jquery.com/jquery-1.12.4.js"></script>
         <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-        <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>        
+        <script src="/iservices/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="/iservices/js/scripts.js"></script>               
     </body>
 </html>

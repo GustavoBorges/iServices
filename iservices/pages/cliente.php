@@ -70,7 +70,6 @@ $recebeu = recebeNomeCliente($conexao);
                                     foreach ($servicos as $recebe) {
 
                                     ?>
-
                                     <tr>
                                         <td><?=$recebe['idServico'];?></td>
                                         <td><?=$recebe['tiposervico'];?></td>
@@ -79,18 +78,18 @@ $recebeu = recebeNomeCliente($conexao);
                                         <td class="actions">
                                             <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-Visualizacao" data-whatever="<?=$recebe['idServico'];?>" data-whatevertiposervico="<?=$recebe['tiposervico'];?>" data-whateverpreco="<?=$recebe['valor'];?>" data-whateverdescricao="<?=$recebe['descricao'];?>" class="editar btn btn-warning"><i class="glyphicon glyphicon-file" ></i>&nbspVisualizar</button>
                                             <button type="button" data-toggle="modal" data-target="#modal-EditarCadastro" data-whatever="<?=$recebe['idServico'];?>" data-whatevertiposervico="<?=$recebe['tiposervico'];?>" data-whateverpreco="<?=$recebe['valor'];?>" data-whateverdescricao="<?=$recebe['descricao'];?>" class="editar btn btn-warning"><i class="glyphicon glyphicon-edit" ></i>&nbspEditar</button>
-                                            <a data-name="<?=$recebe['tiposervico'];?>"data-id="<?=$recebe['idServico'];?>" class="delete btn btn-danger" data-toggle="modal"><i class="glyphicon glyphicon-remove" ></i>&nbspExcluir</a>
+                                            <a data-name="<?=$recebe['tiposervico'];?>" data-id="<?=$recebe['idServico'];?>" class="delete btn btn-danger" data-toggle="modal"><i class="glyphicon glyphicon-remove" ></i>&nbspExcluir</a>
                                         </td>                                    
                                         <td><a class="detail-icon" href="#"><i class="glyphicon glyphicon-plus-sign"></i></a></td>
                                         <td>
                                             <label class="switch">
-                                                <input type="checkbox" data-toggle="modal" data-target="#ativacao-modal" <?=$recebe['ativo'];?>>
+                                                <input type="checkbox" data-name="<?=$recebe['tiposervico'];?>" class="checkando" data-id="<?=$recebe['idServico'];?>" id="checkando" <?=$recebe['ativo'];?> >
                                                 <span class="slider round"></span>
-                                            </label>
-                                        </td>
+                                            </label>                                            
+                                        </td>                                        
                                     </tr>
                                     <?php } ?>
-                                </tbody>
+                                </tbody>                                
                             </table>
                         </div>
                     </div>
@@ -263,15 +262,35 @@ $recebeu = recebeNomeCliente($conexao);
                         <h4 class="modal-title" id="modalLabel">Ativar Serviço</h4>
                     </div>
                     <div class="modal-body">
-                        Deseja realmente ativar este serviço? <span class="nome"></span>
+                        Deseja realmente ativar o serviço? <span id="ativando-servico"></span>
                     </div>
                     <div class="modal-footer">
-                        <a name="ativar" value="excluir" type="button" class="btn btn-primary ativar-servico">Sim</a>
-                        <a href="#" type="button" class="btn btn-default" data-dismiss="modal">N&atilde;o</a>
+                        <a name="ativar" value="excluir" type="button" class="btn btn-primary" id="ativar-servico">Sim</a>
+                        <a href="#" type="button" class="btn btn-default" data-dismiss="modal" id="nao-ativa">N&atilde;o</a>
                     </div>
                 </div>
             </div>
         </div>  
+
+        <!--Modal de desativação do serviço-->
+        <div class="modal fade" id="desativacao-modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="modalLabel">Ativar Serviço</h4>
+                    </div>
+                    <div class="modal-body">
+                        Deseja realmente desativar o serviço? <span id="desativando-servico"></span>
+                    </div>
+                    <div class="modal-footer">
+                        <a name="desativar" value="excluir" type="button" class="btn btn-primary" id="desativar-servico">Sim</a>
+                        <a href="#" type="button" class="btn btn-default" data-dismiss="modal" id="nao-desativa">N&atilde;o</a>
+                    </div>
+                </div>
+            </div>
+        </div> 
+
         <!-- Modal para Editar cadastro de serviço -->
         <div id="modal-EditarCadastro" class="modal fade" role="dialog">
             <div class="modal-dialog">
@@ -283,7 +302,7 @@ $recebeu = recebeNomeCliente($conexao);
                     <div class="modal-body">
                         <form action="/iservices/functions/acoes.php" role="form" method="GET">
                             <label for="identificador">Identificador:</label>
-                            <input type="text" name="Editaridentificador" class="form-control" id="identificador" readonly="true"></input></br>
+                            <input type="text" name="Editaridentificador" class="form-control" id="identificador" readonly="true"></input>
                             <label for="tipoServico">Tipo de Serviço:</label>
                             <select type="text" name="EditartipoServico" class="form-control" id="tipoServico">
                                 <option>Selecione Serviço</option>
