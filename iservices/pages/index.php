@@ -10,6 +10,7 @@
         <link href="/iservices/css/font-awesome.min.css" rel="stylesheet">
         <link rel="shortcut icon" href="/iservices/img/icon_logo.ico">
         <link href="/iservices/css/style.css" rel="stylesheet">
+        <link href="/iservices/css/estilo.css" rel="stylesheet">
         <link href="https://fortawesome.github.io/Font-Awesome/assets/font-awesome/css/font-awesome.css" rel="stylesheet">
         <link href="/iservices/bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <!--[if lt IE 9]>
@@ -444,8 +445,12 @@
                             <label>Telefone:</label>
                             <input maxlength="14" name="telefone" type="text" class="form-control"></input>
                             <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary" name="cadastrar" value="Cadastrar" id="btn-cadastrar-usuario">Cadastrar</button>
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                                <button type="submit" class="btn btn-success" name="cadastrar" value="Cadastrar" id="btn-cadastrar-usuario">
+                                    <i class="glyphicon glyphicon-ok"></i>&nbspCadastrar
+                                </button>
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">
+                                    <i class="glyphicon glyphicon-remove"></i>&nbspFechar
+                                </button>
                             </div>
                             <div id="carregando"></div>
                             <div class="alert alert-success" id="#sucesso">
@@ -483,7 +488,7 @@
                                 <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
                                 </br>
                                 <a href="" data-toggle="modal" value="" id="cadastrar-usuario">Cadastra-se</a>
-                                <div id="carregando"><img src="/iservices/img/carregando.gif"><span>Carregando...</span></div>
+                                <div id="carregando" align="center"><img src="/iservices/img/carregando.gif"><span>Carregando...</span></div>
                             </div>
                         </form>
                     </div>
@@ -500,7 +505,7 @@
                     </div>
                     <div class="modal-body">
                         <form action="/iservices/functions/cadastro.php" method="POST">
-                            <label for="razaoSocial">Nome/Razação Social:</label>
+                            <label id="oi" for="razaoSocial">Nome/Razação Social:</label>
                             <input type="text" name="razaoSocial" id="razaoSocial" class="form-control"></input>
                             <label for="cpfcnpj">CPF/CNPJ:</label>
                             <input type="text" name="cpfcnpj" id="cpfcnpj" class="form-control"></input>
@@ -525,8 +530,12 @@
                             <label for="telefone">Telefone:</label>
                             <input type="tel" name="telefone" id="telefone" class="form-control"></input>
                             <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary" name="enviar" value="Enviar">Enviar</button>
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                                <button type="submit" class="btn btn-success" name="enviar" value="Enviar">
+                                    <i class="glyphicon glyphicon-ok"></i>&nbspEnviar
+                                </button>
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">
+                                    <i class="glyphicon glyphicon-remove"></i>&nbspFechar
+                                </button>
                             </div>
                         </form>
                     </div>
@@ -556,7 +565,8 @@
                                 <button type="submit" class="btn btn-success" name="acessar" value="Acessar" id="btn-login">Acessar</button>
                                 <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
                                 </br>
-                                <div id="carregando"><img src="/iservices/img/carregando.gif"><span>Carregando...</span></div>
+                                </br>
+                                <div id="carregando" align="center"><img src="/iservices/img/carregando.gif"><span>Carregando...</span></div>
                             </div>
                         </form>
                     </div>

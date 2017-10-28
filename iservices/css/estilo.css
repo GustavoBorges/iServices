@@ -225,25 +225,23 @@ footer { background-color:#0c1a1e; min-height:350px; font-family: 'Open Sans', s
 
 label {
   font-family: tahoma;
-    font-size: 12px;
+  font-size: 12px;
 }
 
 @media only screen and (max-width: 600px) {
-             #menu-modal-contratacao {
-              width: 100%;
-
-
+          #menu-modal-contratacao {
+          width: 100%;
           }   
     }
 
 
 @media only screen and (max-width: 2200px) {
-             #menu-modal-contratacao {
-              width: 49%;
-
-
-          }   
+          #menu-modal-contratacao {
+          width: 49%;
+        }   
     }
+
+
 
 
 
