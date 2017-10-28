@@ -35,35 +35,18 @@
 		$cep = trim($_POST['cep']);
 		$telefone = trim($_POST['telefone']);
 
-		$enderecocompleto = $logradouro.", ".$numero. " - ".$bairro. " - " .$cidade. " - " .$cep; 
-
-		if($nome == "" || $email == "" || $senha == "" || $confirmaSenha == "" || $logradouro == "" || $numero == "" || $cep == "" || $bairro == "" || $cidade == "" || $estado == "" || $telefone == ""){
-
-			echo "<script language='javascript' type='text/javascript'>alert('Preencha todos os campos!');window.location.href='/iservices/pages/index.php'</script>";
-
-		}
-
-		else {
-
 		$sql = mysqli_query($conexao, "SELECT * FROM usuario WHERE email = '{$email}'");
 
 		if(mysqli_num_rows($sql) > 0){
-				echo "<script language='javascript' type='text/javascript'>alert('Email já consta cadastrado em nossa base de dados!');window.location.href='/iservices/pages/index.php'</script>";
+				echo "existe";
 		} else {
-
-			if ($senha != $confirmaSenha){
-					echo "<script language='javascript' type='text/javascript'>alert('Campo Senha diferente do campo Confirmar Senha!');window.location.href='/iservices/pages/index.php'</script>";
-		   }else {
 		   	$sql = mysqli_query($conexao, "INSERT INTO  usuario (nome, email, senha, confirmasenha, logradouro, numero, complemento, bairro, cidade, estado, cep, telefone) 
 			VALUES ('$nome','$email','$senha','$confirmaSenha','$logradouro','$numero', '$complemento' ,'$bairro','$cidade','$estado', '$cep', '$telefone')");
 	 		
-	 		echo "<script language='javascript' type='text/javascript'>alert('Usuário cadastrado com sucesso!');window.location.href='/iservices/pages/index.php'</script>";
+	 		echo "sucesso";
 				 
 				 }
-			   }
-			
-			}
-}
+		   }
 
 
 		elseif (isset($_POST['enviar']) && $_POST['enviar'] == "Enviar"){

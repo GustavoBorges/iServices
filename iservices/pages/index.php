@@ -1,23 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
+
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Delivery de serviços | Entrega de serviços online | Peça iServices</title>
-
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600&amp;subset=latin-ext" rel="stylesheet">
         <link href="/iservices/css/font-awesome.min.css" rel="stylesheet">
         <link rel="shortcut icon" href="/iservices/img/icon_logo.ico">
         <link href="/iservices/css/style.css" rel="stylesheet">
-        <link href="https://fortawesome.github.io/Font-Awesome/assets/font-awesome/css/font-awesome.css" rel="stylesheet"> 
+        <link href="https://fortawesome.github.io/Font-Awesome/assets/font-awesome/css/font-awesome.css" rel="stylesheet">
         <link href="/iservices/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
         <!--[if lt IE 9]>
-            <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-            <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-        <![endif]-->
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+      <![endif]-->
     </head>
+
     <body>
         <header class="site-header">
             <div class="top">
@@ -33,7 +33,7 @@
                                 <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
                                 <li><a href="#"><i class="fa fa-envelope-o"></i></a></li>
                                 <li><a href="tel:+3132324252"><i class="fa fa-phone"></i> (31) 3232-4252</a></li>
-                            </ul>                        
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -41,16 +41,16 @@
             <nav class="navbar navbar-default">
                 <div class="container">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar-collapse">
-                        <span class="sr-only">Toggle Navigation</span>
-                        <i class="fa fa-bars"></i>
-                    </button>
+               <span class="sr-only">Toggle Navigation</span>
+               <i class="fa fa-bars"></i>
+               </button>
                     <a href="index.html" class="navbar-brand">
-                        <img src="/iservices/img/logo.png" alt="Post">
-                    </a>
+               <img src="/iservices/img/logo.png" alt="Post">
+               </a>
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse" id="bs-navbar-collapse">
                         <ul class="nav navbar-nav main-navbar-nav">
-                            <li class="active"><a href="index.html" title="">Home</a></li>                       
+                            <li class="active"><a href="index.html" title="">Home</a></li>
                             <li><a href="page.html" title="">Quem Somos</a></li>
                             <li><a href="category.html" title="">Contatos</a></li>
                             <li class="dropdown">
@@ -61,12 +61,13 @@
                                 </ul>
                             </li>
                             <li><a href="#modal" title="" data-toggle="modal">Cadastro Usuário</a></li>
-                            <li><a href="#modalLogin" title="" data-toggle="modal">Login</a></li>                         
-                        </ul>                           
-                    </div><!-- /.navbar-collapse -->                
+                            <li><a href="#modalLogin" title="" data-toggle="modal">Login</a></li>
+                        </ul>
+                    </div>
+                    <!-- /.navbar-collapse -->
                     <!-- END MAIN NAVIGATION -->
                 </div>
-            </nav>        
+            </nav>
         </header>
         <main class="site-main">
             <section class="hero_area">
@@ -178,7 +179,7 @@
                                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin id pulvinar magna. Aenean accumsan iaculis lorem, nec sodales lectus auctor tempor.</p>
                                 </div>
                             </div>
-                        </div>                     
+                        </div>
                     </div>
                 </div>
             </section>
@@ -186,7 +187,9 @@
                 <div class="home_content">
                     <div class="container">
                         <div class="row">
-                            <div class="col-sm-12"><h2 class="sub_title">LATEST NEWS</h2></div>
+                            <div class="col-sm-12">
+                                <h2 class="sub_title">LATEST NEWS</h2>
+                            </div>
                             <div class="home_list">
                                 <ul>
                                     <li class="col-md-3 col-sm-6 col-xs-12">
@@ -197,7 +200,7 @@
                                                 <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
                                                 <a href="#" class="btn btn-link" role="button">More</a>
                                             </div>
-                                        </div>                                        
+                                        </div>
                                     </li>
                                     <li class="col-md-3 col-sm-6 col-xs-12">
                                         <div class="thumbnail">
@@ -207,7 +210,7 @@
                                                 <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
                                                 <a href="#" class="btn btn-link" role="button">More</a>
                                             </div>
-                                        </div>                                        
+                                        </div>
                                     </li>
                                     <li class="col-md-3 col-sm-6 col-xs-12">
                                         <div class="thumbnail">
@@ -217,7 +220,7 @@
                                                 <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
                                                 <a href="#" class="btn btn-link" role="button">More</a>
                                             </div>
-                                        </div>                                        
+                                        </div>
                                     </li>
                                     <li class="col-md-3 col-sm-6 col-xs-12">
                                         <div class="thumbnail">
@@ -227,11 +230,10 @@
                                                 <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
                                                 <a href="#" class="btn btn-link" role="button">More</a>
                                             </div>
-                                        </div>                                        
-                                    </li>                                    
+                                        </div>
+                                    </li>
                                 </ul>
                             </div>
-
                             <div class="col-sm-9 home_bottom">
                                 <h2 class="sub_title">REFERENCES</h2>
                                 <div class="clearfix"></div>
@@ -317,12 +319,12 @@
                                                 <div class="col-md-2 col-sm-6 col-xs-12">
                                                     <a href="#"><img src="/iservices/img/l8.jpg" class="img-responsive" alt="Reference"></a>
                                                 </div>
-                                            </div>                                        
+                                            </div>
                                         </div>
                                         <a class="left carousel-control" href="#myCarousel" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
                                         <a class="right carousel-control" href="#myCarousel" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
                                     </div>
-                                </div>                            
+                                </div>
                             </div>
                             <div class="col-sm-3">
                                 <h2 class="sub_title w10">CALL YOU</h2>
@@ -344,7 +346,7 @@
                                             <button type="submit" class="login-button"><i class="fa fa-chevron-right"></i></button>
                                         </div>
                                     </form>
-                                </div>                            
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -360,7 +362,7 @@
                         <ul class="list-inline">
                             <li><a href="#"><i class="fa fa-facebook"></i></a></li>
                             <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                            <li><a href="#"><i class="fa fa-linkedin"></i></a></li>                        
+                            <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
                         </ul>
                     </div>
                     <div class="col-md-3 col-sm-6 col-xs-12 fbox">
@@ -405,9 +407,8 @@
                         </div>
                     </div>
                 </div>
-            </div>        
+            </div>
         </footer>
-
         <!--Modal Cadastro usuário-->
         <div id="modal" class="modal fade" role="dialog">
             <div class="modal-dialog">
@@ -417,7 +418,7 @@
                         <img src="/iservices/img/logo.png" alt="Logo da empresa"></img>
                     </div>
                     <div class="modal-body">
-                        <form action="/iservices/functions/cadastro.php" method="POST">
+                        <form id="form-cadastro-usuario" method="POST">
                             <label>Nome:</label>
                             <input type="text" name="nome" class="form-control"></input>
                             <label>Email:</label>
@@ -443,8 +444,15 @@
                             <label>Telefone:</label>
                             <input maxlength="14" name="telefone" type="text" class="form-control"></input>
                             <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary" name="cadastrar" value="Cadastrar">Cadastrar</button>
+                                <button type="submit" class="btn btn-primary" name="cadastrar" value="Cadastrar" id="btn-cadastrar-usuario">Cadastrar</button>
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                            </div>
+                            <div id="carregando"></div>
+                            <div class="alert alert-success" id="#sucesso">
+                                <strong>Success!</strong> Indicates a successful or positive action.
+                            </div>
+                            <div class="alert alert-warning" id="existente-no-banco">
+                                <strong>Warning!</strong> Indicates a warning that might need attention.
                             </div>
                         </form>
                     </div>
@@ -460,19 +468,23 @@
                         <img src="/iservices/img/logo.png" alt="Logo da empresa" class="logoTelaLogin"></img>
                     </div>
                     <div class="modal-body">
-                        <form action="/iservices/functions/validacao.php" role="form" method="POST">
-                            <label for="email">Email:&nbsp</label>
-                            <input type="email" name="email" class="form-control" id="email" ></input>
-                            <label for="senha">Senha:&nbsp</label>
-                            <input type="password" name="senha" class="form-control" id="senha"></input>
+                        <form action="/iservices/functions/validacao.php" role="form" method="POST" class="form-horizontal">
+                            <div style="margin-bottom: 25px" class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                <input type="email" name="email" class="form-control" id="email" placeholder="exemplo@exemplo">
+                            </div>
+                            <div style="margin-bottom: 25px" class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                <input type="password" name="senha" class="form-control" id="senha" name="password" placeholder="senha">
+                            </div>
                             <div class="modal-footer">
                                 <a href="#">Esqueceu a sua senha?</a>
-                                <button type="submit" class="btn btn-info" name="acessar" value="AcessarUsuario">Acessar</button>
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                                <button type="submit" class="btn btn-success" name="acessar" value="AcessarUsuario">Acessar</button>
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
                                 </br>
                                 <a href="" data-toggle="modal" value="" id="cadastrar-usuario">Cadastra-se</a>
+                                <div id="carregando"><img src="/iservices/img/carregando.gif"><span>Carregando...</span></div>
                             </div>
-                            <div id="carregando"><img src="/iservices/img/carregando.gif"><span>Carregando...</span></div>
                         </form>
                     </div>
                 </div>
@@ -530,17 +542,22 @@
                         <img src="/iservices/img/logo.png" alt="Logo da empresa" class="logoTelaLogin"></img>
                     </div>
                     <div class="modal-body">
-                        <form action="/iservices/functions/validacao.php" role="form" method="POST" id="form-login-cliente">
-                            <label>CPF/CNPJ:&nbsp</label>
-                            <input type="text" name="cnpj" class="form-control" id="cnpj"></input>
-                            <label>Senha:&nbsp</label>
-                            <input type="password" name="senha" class="form-control" id="senha"></input>
+                        <form action="/iservices/functions/validacao.php" role="form" method="POST" class="form-horizontal" id="form-login-cliente">
+                            <div style="margin-bottom: 25px" class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                <input type="text" name="cnpj" class="form-control" id="cnpj" placeholder="cpf ou cnpj">
+                            </div>
+                            <div style="margin-bottom: 25px" class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                <input type="password" name="senha" class="form-control" id="senha" name="password" placeholder="senha">
+                            </div>
                             <div class="modal-footer">
                                 <a href="#">Esqueceu a sua senha?</a>
-                                <button type="submit" class="btn btn-info" name="acessar" value="Acessar" id="btn-login">Acessar</button>
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                                <button type="submit" class="btn btn-success" name="acessar" value="Acessar" id="btn-login">Acessar</button>
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+                                </br>
+                                <div id="carregando"><img src="/iservices/img/carregando.gif"><span>Carregando...</span></div>
                             </div>
-                            <div id="carregando"><img src="/iservices/img/carregando.gif"><span>Carregando...</span></div>
                         </form>
                     </div>
                 </div>
@@ -550,8 +567,9 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="//code.jquery.com/jquery-1.12.4.js"></script>
         <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-        <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>        
+        <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
         <script src="/iservices/js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="/iservices/js/scripts.js"></script>               
+        <script type="text/javascript" src="/iservices/js/scripts.js"></script>
     </body>
+
 </html>

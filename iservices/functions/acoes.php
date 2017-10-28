@@ -17,7 +17,7 @@
 	
 ?>
 
-<?php
+    <?php
 
 	if(isset($_GET['btn-ok']) && $_GET['btn-ok'] == "excluir")
 {
@@ -26,8 +26,8 @@
 	$deletar = mysqli_query($conexao, "DELETE FROM servico WHERE idServico = '{$id}'");
 
 	if($deletar == true){
-		echo "<script language='javascript' type='text/javascript'>alert('Registro excluido com sucesso!');window.location.href='/iservices/pages/cliente.php'</script>";
-			} else {
+		header("location: /iservices/pages/cliente.php");
+	} else {
 		echo "Erro ao excluir registro: " . mysqli_error($conexao);
 	}
 }
