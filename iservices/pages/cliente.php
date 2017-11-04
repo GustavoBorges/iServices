@@ -47,7 +47,7 @@
                                     <div class="col col-xs-12 text-center">
                                         <h1 class="panel-title">Serviços</h1>
                                         <a href="" class="btn btn-info pull-right h1" data-toggle="modal" data-target="#modalCadastro">
-                                             <i class="glyphicon glyphicon-plus-sign"></i>&nbspNovo Serviço
+                                             <i class="glyphicon glyphicon-plus"></i>&nbspNovo Serviço
                                        </a>
                                     </div>
                                 </div>
@@ -64,8 +64,8 @@
                                         <th>Preço</th>
                                         <th>Descrição</th>
                                         <th class="actions">Ações</th>
-                                        <th>Detalhes</th>
                                         <th>Ativo</th>
+                                        <th>Detalhes</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -88,17 +88,17 @@
                                                 <?=$recebe['descricao'];?>
                                             </td>
                                             <td class="actions">
-                                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-Visualizacao" data-whatever="<?=$recebe['idServico'];?>" data-whatevertiposervico="<?=$recebe['tiposervico'];?>" data-whateverpreco="<?=$recebe['valor'];?>" data-whateverdescricao="<?=$recebe['descricao'];?>" class="editar btn btn-warning"><i class="glyphicon glyphicon-file" ></i>&nbspVisualizar</button>
-                                                <button type="button" data-toggle="modal" data-target="#modal-EditarCadastro" data-whatever="<?=$recebe['idServico'];?>" data-whatevertiposervico="<?=$recebe['tiposervico'];?>" data-whateverpreco="<?=$recebe['valor'];?>" data-whateverdescricao="<?=$recebe['descricao'];?>" class="editar btn btn-warning"><i class="glyphicon glyphicon-edit" ></i>&nbspEditar</button>
-                                                <a data-name="<?=$recebe['tiposervico'];?>" data-id="<?=$recebe['idServico'];?>" class="delete btn btn-danger" data-toggle="modal"><i class="glyphicon glyphicon-remove" ></i>&nbspExcluir</a>
-                                            </td>
-                                            <td><a class="detail-icon" href="#"><i class="glyphicon glyphicon-plus-sign"></i></a></td>
+                                                <a href="" class="btn btn-default" data-toggle="modal" data-target="#modal-Visualizacao" data-whatever="<?=$recebe['idServico'];?>" data-whatevertiposervico="<?=$recebe['tiposervico'];?>" data-whateverpreco="<?=$recebe['valor'];?>" data-whateverdescricao="<?=$recebe['descricao'];?>" class="editar"><i class="glyphicon glyphicon-file" ></i></a>
+                                                <a href="" class="btn btn-primary" data-toggle="modal" data-target="#modal-EditarCadastro" data-whatever="<?=$recebe['idServico'];?>" data-whatevertiposervico="<?=$recebe['tiposervico'];?>" data-whateverpreco="<?=$recebe['valor'];?>" data-whateverdescricao="<?=$recebe['descricao'];?>" class="editar"><i class="glyphicon glyphicon-edit" ></i></a>
+                                                <a href="" data-name="<?=$recebe['tiposervico'];?>" data-id="<?=$recebe['idServico'];?>" class="delete btn btn-danger" data-toggle="modal"><i class="glyphicon glyphicon-trash" ></i></a>
+                                            </td>                                            
                                             <td>
                                                 <label class="switch">
                                                    <input type="checkbox" data-name="<?=$recebe['tiposervico'];?>" class="checkando" data-id="<?=$recebe['idServico'];?>" id="checkando" <?=$recebe['ativo'];?> >
                                                    <span class="slider round"></span>
                                                 </label>
                                             </td>
+                                            <td><a class="detail-icon" href="#"><i class="glyphicon glyphicon-plus"></i></a></td>
                                         </tr>
                                         <?php } ?>
                                 </tbody>
@@ -165,10 +165,11 @@
                                                 <?=$recebe['status'];?>
                                             </td>
                                             <td class="actions">
-                                                <a href="<?=$hrefA;?>.php?id=<?=$recebe['idContrato'];?>" class="btn btn-success" id="btnAceitar" <?=$disabledA;?>><?=$btnAC;?></a>
-                                                <a href="<?=$hrefR;?>.php?id=<?=$recebe['idContrato'];?>" class="btn btn-danger" id="btnRejeitar" <?=$disabledB;?>><?=$btnRC;?></a>
+                                                <a href="" class="btn-visualizar-modal-servico" data-toggle="modal"><i class="glyphicon glyphicon-eye-open"></i></a>
+                                                <a href="" id="btnAceitar"><i class="glyphicon glyphicon-ok icon-success"></i></a>
+                                                <a href="" id="btnRejeitar"><i class="glyphicon glyphicon-remove icon-remove" id="btn-rejeitar"></i></a>
                                             </td>
-                                            <td><a class="detail-icon" href="#"><i class="glyphicon glyphicon-plus-sign"></i></a></td>
+                                            <td><a class="detail-icon" href="#"><i class="glyphicon glyphicon-plus"></i></a></td>
                                         </tr>
                                         <?php } ?>
                                 </tbody>
@@ -233,7 +234,7 @@
                                             <td>
                                                 <?=$recebe['status'];?>
                                             </td>
-                                            <td><a class="detail-icon" href="#"><i class="glyphicon glyphicon-plus-sign"></i></a></td>
+                                            <td><a class="detail-icon" href="#"><i class="glyphicon glyphicon-plus"></i></a></td>
                                         </tr>
                                         <?php } ?>
                                 </tbody>
@@ -411,6 +412,103 @@
                 </div>
             </div>
         </div>
+      <!--Modal de contratação de serviço-->
+            <div class="modal fade" id="detalhes-servico-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <div class="container">
+                                <ul class="nav nav-tabs" id="menu-modal-contratacao" role="tablist">
+                                    <li role="presentation" class="active"><a href="#tab-informacoes" arial-controls="" data-toggle="tab" role="tab">Informações</a></li>
+                                    <li role="presentation"><a href="#tab-detalhes" arial-controls="" data-toggle="tab" role="tab">Detalhes</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane active" id="tab-informacoes">
+                                <div class="modal-body">
+                                    <form>
+                                        <div class="form">
+                                            <label for="nome-servico" class="col-form-label">Nome do Serviço</label>
+                                            <input class="form-control" id="recebe-nome-servico" readonly="true"></input>
+                                            <label for="valor-servico" class="col-form-label">Preço do Serviço</label>
+                                            <input class="form-control" id="recebe-valor-servico" name="recebe-preco-servico" readonly="true"></input>
+                                            <div id="div-recebe-id-servico">
+                                            <label for="id-servico" class="col-form-label">Id</label>
+                                            <input name="recebe-id-servico" class="form-control" id="recebe-id-servico" name="recebe-id-servico"></input>
+                                            </div>
+                                        </div>
+                                        </br>
+                                        <div class="form-check-label">
+                                                <label class="form-check-label">
+                                                    <input type="checkbox" class="form-check-input" id="check-endcadastrado">
+                                                    Endereço cadastrado
+                                                </label>
+                                                </br>
+                                                <label class="form-check-label">
+                                                    <input type="checkbox" class="form-check-input" id="check-enddiferentecadastro">
+                                                    Endereço diferente do cadastrado
+                                                </label>
+                                            <div id="form-enddiferente">
+                                                <label for="rua">Av/Rua:</label>
+                                                <input type="text" name="rua" id="rua" class="form-control"></input>
+                                                <label for="numero">Número:</label>
+                                                <input type="text" name="numero" id="numero" class="form-control"></input>
+                                                <label for="complemento">Complemento:</label>
+                                                <input type="text" name="complemento" class="form-control"></input>
+                                                <label for="bairro">Bairro:</label>
+                                                <input type="text" name="bairro" id="bairro" class="form-control"></input>
+                                                <label for="cidade">Cidade:</label>
+                                                <input type="text" name="cidade" id="cidade" class="form-control"></input>
+                                            </div>
+                                        </div>
+                                        </br>
+                                        <div class="form">
+                                            <label for="message-text" class="col-form-label">Termo</label>
+                                            <textarea class="form-control" id="message-text" name="messagem-text-termo">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi massa eros, fermentum in tincidunt eu, in lobortis sit amet, blandit sed ipsum. Aenean pharetra blandit lorem, quis mattis libero tincidunt in. Nulla vestibulum lobortis vulputate. Praesent sit amet nunc commodo, ultricies nulla eu, vestibulum justo. Maecenas orci dui, mattis sit amet euismod a, placerat ac ante. Integer ornare tortor elit, eu mollis nisl varius ultrices. Maecenas consectetur, ipsum in tincidunt fermentum, est nulla vehicula erat, sed laoreet urna quam a erat. Phasellus feugiat mi vel ante venenatis viverra. Pellentesque ornare tortor non eros aliquam porta. Curabitur pulvinar accumsan dui nec viverra.
+                                            </textarea>
+                                        </div>
+                                        <label class="form-check-label"><input type="checkbox" id="check-termo">
+                                         Li e concordo com os termos em condições
+                                        </label>
+                                    </form>
+                                </div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="tab-detalhes">
+                                <div class="modal-body">
+                                    <form>
+                                        <div class="form">
+                                            <label for="message-text" class="col-form-label">Detalhamento da ocorrência</label>
+                                            <textarea class="form-control" id="message-text" placeholder="Digite aqui o detalhamento da sua ocorrência..." name="detalhes-modal-contratar"></textarea>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-success" id="btn-contratar-modal" name="btn-contratar-modal" value="Contratar">
+                                <i class="glyphicon glyphicon-ok"></i>&nbspContratar
+                            </button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">
+                                <i class="glyphicon glyphicon-remove"></i>&nbspCancelar
+                            </button>
+                            </br>
+                            <div id="carregando-modal-contratar" align="center"><img src="/iservices/img/carregando.gif"></br><span>Contratando Serviço</span></div>
+                        </div>
+                        <div class="alert alert-warning" id="alert-warning">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            <strong>Atenção!</strong> Não foi selecionada nenhuma modalidade de endereço.
+                        </div>
+                        <div class="alert alert-success" id="alert-success-contratar">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            <strong>Sucesso!</strong> O seu serviço foi contratado com sucesso.
+                        </div>                        
+                    </div>
+                </div>
+            </div>  
         <script src="http://code.jquery.com/jquery-latest.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="//code.jquery.com/jquery-1.12.4.js"></script>

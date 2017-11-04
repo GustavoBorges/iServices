@@ -19,75 +19,53 @@ session_start();
 
 <?php
 
-if (isset($_POST['acessar']) && $_POST['acessar'] == "AcessarUsuario") {
+if (isset($_POST['acessar']) && $_POST['acessar'] == "Acessar" && $_POST['tipoAcesso'] == "0") {
+        $cnpj = trim($_POST['cnpj']);
+        $senha = trim($_POST['senha']);
+
+        $sql = mysqli_query($conexao, "SELECT * FROM cliente WHERE cnpj = '{$cnpj}' AND senha = '{$senha}'");
+
+       if (mysqli_num_rows($sql) > 0) {
+            $sql = mysqli_query($conexao, "SELECT idCliente FROM cliente WHERE cnpj = '{$cnpj}'");
+            $recebe = mysqli_fetch_array($sql);
+            
+            $_SESSION['idCliente'] = $recebe['idCliente'];            
+
+            echo "sucesso";
+
+        } else {
+            echo "insucesso";
+        }
+        
+}
+
+elseif (isset($_POST['acessar']) && $_POST['acessar'] == "Acessar" && $_POST['tipoAcesso'] == "1") {
     $email = trim($_POST['email']);
     $senha = trim($_POST['senha']);
-
-
-    if ($email == "" || $senha == "") {
-
-        echo "<script language='javascript' type='text/javascript'>alert('Preencha todos os campos vazios!');window.location.href='/iservices/pages/index.php'</script>";
-    } else {
 
         $sql = mysqli_query($conexao, "SELECT * FROM usuario WHERE email = '{$email}' AND senha = '{$senha}'");
 
         if (mysqli_num_rows($sql) > 0) {
-
             $sql = mysqli_query($conexao, "SELECT idUsuario FROM usuario WHERE email = '{$email}'");
-
             $recebe = mysqli_fetch_array($sql);
 
-            if (@mysqli_num_rows($sql) == 0) {
+            $_SESSION['idUsuario'] = $recebe['idUsuario'];
+            
+            echo "sucesso";
 
-                echo "0";
-            } else {
-                $_SESSION['id'] = $recebe['idUsuario'];
-
-                echo "<script language='javascript' type='text/javascript'>alert('Usuário logado com sucesso!!');window.location.href='/iservices/pages/usuario.php'</script>";
-            }
-        } else {
-
-            echo "<script language='javascript' type='text/javascript'>alert('Email ou Senha incorretos!');window.location.href='/iservices/pages/index.php'</script>";
-        }
-    }
-} elseif (isset($_POST['acessar']) && $_POST['acessar'] == "Acessar") {
-    $cnpj = trim($_POST['cnpj']);
-    $senha = trim($_POST['senha']);
-
-    if ($cnpj == "" || $senha == "") {
-
-        echo "<script language='javascript' type='text/javascript'>alert('Preencha todos os campos vazios!');window.location.href='/iservices/pages/index.php'</script>";
-    } else {
-
-        $sql = mysqli_query($conexao, "SELECT * FROM cliente WHERE cnpj = '{$cnpj}' AND senha = '{$senha}'");
-
-        if (mysqli_num_rows($sql) > 0) {
-
-            $sql = mysqli_query($conexao, "SELECT idCliente FROM cliente WHERE cnpj = '{$cnpj}'");
-
-            $recebe = mysqli_fetch_array($sql);
-
-            if (mysqli_num_rows($sql) == 0) {
-                echo "0";
-            } else {
-                $_SESSION['idUsuario'] = $recebe['idCliente'];
-            }
-
-            echo "<script language='javascript' type='text/javascript'>alert('Cliente logado com sucesso!!');window.location.href='/iservices/pages/cliente.php'</script>";
-        }
-    }
-} else {
-
-    echo "<script language='javascript' type='text/javascript'>alert('CPF/CNPJ ou Senha incorretos!');window.location.href='/iservices/pages/index.php'</script>";
+           } else {
+            echo "insucesso";
+           }
+        
 }
 
-mysqli_close($conexao);
 
 
-if ($_GET["act"] == "logout") {
+
+/*if ($_GET["act"] == "logout") {
     session_destroy(); 
     header("location: /iservices/pages/index.php");
     exit;
-}
+}*/
 ?>
 

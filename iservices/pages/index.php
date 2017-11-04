@@ -12,11 +12,7 @@
         <link href="/iservices/css/style.css" rel="stylesheet">
         <link href="/iservices/css/estilo.css" rel="stylesheet">
         <link href="https://fortawesome.github.io/Font-Awesome/assets/font-awesome/css/font-awesome.css" rel="stylesheet">
-        <link href="/iservices/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-        <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-      <![endif]-->
+        <link href="/iservices/bootstrap/css/bootstrap.min.css" rel="stylesheet">      
     </head>
 
     <body>
@@ -48,25 +44,15 @@
                     <a href="index.html" class="navbar-brand">
                <img src="/iservices/img/logo.png" alt="Post">
                </a>
-                    <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse" id="bs-navbar-collapse">
                         <ul class="nav navbar-nav main-navbar-nav">
                             <li class="active"><a href="index.html" title="">Home</a></li>
                             <li><a href="page.html" title="">Quem Somos</a></li>
                             <li><a href="category.html" title="">Contatos</a></li>
-                            <li class="dropdown">
-                                <a href="#" title="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cliente<span class="caret"></span></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#modalCadastroServico" title="" data-toggle="modal">Cadastro Cliente</a></li>
-                                    <li><a href="#modalLoginServico" title="" data-toggle="modal">Acesso Cliente</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="#modal" title="" data-toggle="modal">Cadastro Usuário</a></li>
-                            <li><a href="#modalLogin" title="" data-toggle="modal">Login</a></li>
+                            <li><a href="#modal-cadastro" title="" data-toggle="modal">Cadastro</a></li>
+                            <li><a href="#modal-login" title="" data-toggle="modal">Login</a></li>
                         </ul>
                     </div>
-                    <!-- /.navbar-collapse -->
-                    <!-- END MAIN NAVIGATION -->
                 </div>
             </nav>
         </header>
@@ -409,94 +395,61 @@
                     </div>
                 </div>
             </div>
-        </footer>
-        <!--Modal Cadastro usuário-->
-        <div id="modal" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <img src="/iservices/img/logo.png" alt="Logo da empresa"></img>
-                    </div>
-                    <div class="modal-body">
-                        <form id="form-cadastro-usuario" method="POST">
-                            <label>Nome:</label>
-                            <input type="text" name="nome" class="form-control"></input>
-                            <label>Email:</label>
-                            <input type="email" name="email" class="form-control"></input>
-                            <label>Senha:</label>
-                            <input type="password" name="senha" class="form-control" maxlength="15"></input>
-                            <label>Confirmar Senha:</label>
-                            <input type="password" name="confirmaSenha" class="form-control"></input>
-                            <label>Av/Rua:</label>
-                            <input type="text" name="rua" class="form-control"></input>
-                            <label>Número:</label>
-                            <input type="text" name="numero" class="form-control"></input>
-                            <label>Complemento:</label>
-                            <input type="text" name="complemento" class="form-control"></input>
-                            <label>Bairro:</label>
-                            <input type="text" name="bairro" class="form-control"></input>
-                            <label>Cidade:</label>
-                            <input type="text" name="cidade" class="form-control"></input>
-                            <label>Estado:</label>
-                            <input type="text" name="estado" class="form-control"></input>
-                            <label>CEP:</label>
-                            <input type="text" name="cep" class="form-control"></input>
-                            <label>Telefone:</label>
-                            <input maxlength="14" name="telefone" type="text" class="form-control"></input>
-                            <div class="modal-footer">
-                                <button type="submit" class="btn btn-success" name="cadastrar" value="Cadastrar" id="btn-cadastrar-usuario">
-                                    <i class="glyphicon glyphicon-ok"></i>&nbspCadastrar
-                                </button>
-                                <button type="button" class="btn btn-danger" data-dismiss="modal">
-                                    <i class="glyphicon glyphicon-remove"></i>&nbspFechar
-                                </button>
-                            </div>
-                            <div id="carregando"></div>
-                            <div class="alert alert-success" id="#sucesso">
-                                <strong>Success!</strong> Indicates a successful or positive action.
-                            </div>
-                            <div class="alert alert-warning" id="existente-no-banco">
-                                <strong>Warning!</strong> Indicates a warning that might need attention.
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--Modal Login Usuário-->
-        <div id="modalLogin" class="modal fade" role="dialog">
+        </footer>        
+        <!--Modal Login-->
+        <div id="modal-login" class="modal fade" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                         <img src="/iservices/img/logo.png" alt="Logo da empresa" class="logoTelaLogin"></img>
                     </div>
-                    <div class="modal-body">
-                        <form action="/iservices/functions/validacao.php" role="form" method="POST" class="form-horizontal">
-                            <div style="margin-bottom: 25px" class="input-group">
+                    <div class="tipo-acesso modal-body">
+                        <div class="checkbox checkbox-primary">
+                            <input id="checkbox2" type="checkbox">
+                            <label for="checkbox2">
+                                Prestador de serviço
+                            </label>
+                        </div>
+                        <div class="checkbox checkbox-primary">
+                            <input id="checkbox3" type="checkbox">
+                            <label for="checkbox3">
+                                Usuário
+                            </label>
+                        </div>
+                    </div>
+                    <div class="modal-body" id="acesso-prestador-servico">
+                        <form>
+                            <div style="margin-bottom: 25px" class="input-group" id="acesso-prestador">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                <input type="email" name="email" class="form-control" id="email" placeholder="exemplo@exemplo">
+                                <input type="text" name="cnpj-acesso" class="form-control" placeholder="cpf ou cnpj">
+                            </div>
+                            <div style="margin-bottom: 25px" class="input-group" id="acesso-usuario">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                <input type="text" name="email-acesso" class="form-control" placeholder="exemplo@exemplo">
                             </div>
                             <div style="margin-bottom: 25px" class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                                <input type="password" name="senha" class="form-control" id="senha" name="password" placeholder="senha">
-                            </div>
-                            <div class="modal-footer">
-                                <a href="#">Esqueceu a sua senha?</a>
-                                <button type="submit" class="btn btn-success" name="acessar" value="AcessarUsuario">Acessar</button>
-                                <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
-                                </br>
-                                <a href="" data-toggle="modal" value="" id="cadastrar-usuario">Cadastra-se</a>
-                                <div id="carregando" align="center"><img src="/iservices/img/carregando.gif"><span>Carregando...</span></div>
+                                <input type="password" name="senha-acesso" class="form-control" placeholder="senha">
                             </div>
                         </form>
+                            <div class="modal-footer">
+                                <a href="#">Esqueceu a sua senha?</a>
+                                <button type="submit" class="btn btn-success" name="acessar" value="Acessar" id="btn-login">Acessar</button>
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button></br>
+                                <a href="" data-toggle="modal" id="cadastrar-usuario">Cadastra-se</a>
+                                <div id="carregando-acesso" align="center"><img src="/iservices/img/carregando.gif"><span>Verificando...</span></div>
+                            </div>
+                            <div class="alert alert-warning" id="alert-warning-login">
+                                <a href="#" class="close" aria-label="close">&times;</a>
+                                <strong>Atenção!</strong> Não foi selecionada nenhuma modalidade de acesso.
+                            </div>                       
                     </div>
                 </div>
             </div>
         </div>
-        <!--Modal Cadastro Cliente-->
-        <div id="modalCadastroServico" class="modal fade" role="dialog">
+        <!--Modal Cadastro-->
+        <div id="modal-cadastro" class="modal fade" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -504,82 +457,104 @@
                         <img src="/iservices/img/logo.png" alt="Logo da empresa" class="logoCadastroServico"></img>
                     </div>
                     <div class="modal-body">
-                        <form action="/iservices/functions/cadastro.php" method="POST">
-                            <label id="oi" for="razaoSocial">Nome/Razação Social:</label>
-                            <input type="text" name="razaoSocial" id="razaoSocial" class="form-control"></input>
-                            <label for="cpfcnpj">CPF/CNPJ:</label>
-                            <input type="text" name="cpfcnpj" id="cpfcnpj" class="form-control"></input>
-                            <label for="senhaServico">Senha:</label>
-                            <input type="password" name="senhaServico" id="senhaServico" class="form-control"></input>
-                            <label for="confirmaSenhaServico">Confirmar Senha:</label>
-                            <input type="password" name="confirmaSenhaServico" id="confirmaSenhaServico" class="form-control"></input>
-                            <label for="rua">Av/Rua:</label>
-                            <input type="text" name="rua" id="rua" class="form-control"></input>
-                            <label for="numero">Número:</label>
-                            <input type="text" name="numero" id="numero" class="form-control"></input>
-                            <label for="complemento">Complemento:</label>
-                            <input type="text" name="complemento" class="form-control"></input>
-                            <label for="bairro">Bairro:</label>
-                            <input type="text" name="bairro" id="bairro" class="form-control"></input>
-                            <label for="cidade">Cidade:</label>
-                            <input type="text" name="cidade" id="cidade" class="form-control"></input>
-                            <label for="estado">Estado:</label>
-                            <input type="text" name="estado" id="estado" class="form-control"></input>
-                            <label for="cep">CEP:</label>
-                            <input type="text" name="cep" class="form-control"></input>
-                            <label for="telefone">Telefone:</label>
-                            <input type="tel" name="telefone" id="telefone" class="form-control"></input>
+                            <div class="container">
+                                <ul class="nav nav-tabs" id="menu-modal-cadastro" role="tablist">
+                                    <li role="presentation" class="active"><a href="#tab-dados-acesso" arial-controls="" data-toggle="tab" role="tab">Dados de acesso</a></li>
+                                    <li role="presentation"><a href="#tab-endereco" arial-controls="" data-toggle="tab" role="tab">Endereço</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane active" id="tab-dados-acesso">
+                                <div class="modal-body">
+                                    <form>
+                                        <div class="form">
+                                            <div class="checkbox checkbox-primary">
+                                                <input id="checkbox4" type="checkbox">
+                                                <label for="checkbox4">
+                                                    Prestador de serviço
+                                                </label>
+                                            </div>
+                                            <div class="checkbox checkbox-primary">
+                                                <input id="checkbox5" type="checkbox">
+                                                <label for="checkbox5">
+                                                    Usuário
+                                                </label>
+                                            </div>
+                                            <div id="dados-acesso-prestador">
+                                            <label id="razaoSocial" for="razaoSocial">Nome/Razação Social:</label>
+                                            <input type="text" name="razaoSocial" id="razaoSocial" class="form-control"></input>
+                                            <label for="cpfcnpj">CPF/CNPJ:</label>
+                                            <input type="text" name="cpfcnpj" id="cpfcnpj" class="form-control"></input>
+                                            </div>
+                                            <div id="dados-acesso-usuario">
+                                            <label id="nome" for="nome">Nome:</label>
+                                            <input type="text" name="nome" id="nome" class="form-control"></input>
+                                            <label for="email">E-mail:</label>
+                                            <input type="text" name="email" id="email" class="form-control"></input>
+                                            </div>
+                                            <label for="senha-cadastro">Senha:</label>
+                                            <input type="password" name="senha-cadastro" id="senha-cadastro" class="form-control"></input>
+                                            <label for="confirma-senha-cadastro">Confirmar Senha:</label>
+                                            <input type="password" name="confirma-senha-cadastro" id="confirma-senha-cadastro" class="form-control"></input>
+                                        </div>
+                                    </form>                               
+                                </div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="tab-endereco">
+                                <div class="modal-body">
+                                    <form>
+                                        <div class="form">
+                                            <label for="rua">Av/Rua:</label>
+                                            <input type="text" name="rua" id="rua" class="form-control"></input>
+                                            <label for="numero">Número:</label>
+                                            <input type="text" name="numero" id="numero" class="form-control"></input>
+                                            <label for="complemento">Complemento:</label>
+                                            <input type="text" name="complemento" class="form-control"></input>
+                                            <label for="bairro">Bairro:</label>
+                                            <input type="text" name="bairro" id="bairro" class="form-control"></input>
+                                            <label for="cidade">Cidade:</label>
+                                            <input type="text" name="cidade" id="cidade" class="form-control"></input>
+                                            <label for="estado">Estado:</label>
+                                            <input type="text" name="estado" id="estado" class="form-control"></input>
+                                            <label for="cep">CEP:</label>
+                                            <input type="text" name="cep" class="form-control"></input>
+                                            <label for="telefone">Telefone:</label>
+                                            <input maxlength="14" name="telefone" type="text" class="form-control"></input>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                             <div class="modal-footer">
-                                <button type="submit" class="btn btn-success" name="enviar" value="Enviar">
+                                <button type="submit" class="btn btn-success" name="enviar" value="Enviar" id="btn-enviar-cadastro">
                                     <i class="glyphicon glyphicon-ok"></i>&nbspEnviar
                                 </button>
                                 <button type="button" class="btn btn-danger" data-dismiss="modal">
                                     <i class="glyphicon glyphicon-remove"></i>&nbspFechar
                                 </button>
+                                </br>
+                                </br>
+                                <div id="carregando-modal-cadastro" align="center"><img src="/iservices/img/carregando.gif"></br><span>Cadastrando...</span></div>
                             </div>
-                        </form>
+                            <div class="alert alert-success" id="alert-success-cadastrar">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                <strong>Sucesso!</strong> Cadastro realizado com sucesso!
+                            </div>  
+                            <div class="alert alert-warning" id="alert-warning-cadastrar">
+                                <a href="#" class="close" aria-label="close" id="close">&times;</a>
+                                <strong>Atenção!</strong> Não foi selecionada nenhuma modalidade de acesso.
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <!--Modal Login Cliente-->
-        <div id="modalLoginServico" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <img src="/iservices/img/logo.png" alt="Logo da empresa" class="logoTelaLogin"></img>
-                    </div>
-                    <div class="modal-body">
-                        <form action="/iservices/functions/validacao.php" role="form" method="POST" class="form-horizontal" id="form-login-cliente">
-                            <div style="margin-bottom: 25px" class="input-group">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                <input type="text" name="cnpj" class="form-control" id="cnpj" placeholder="cpf ou cnpj">
-                            </div>
-                            <div style="margin-bottom: 25px" class="input-group">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                                <input type="password" name="senha" class="form-control" id="senha" name="password" placeholder="senha">
-                            </div>
-                            <div class="modal-footer">
-                                <a href="#">Esqueceu a sua senha?</a>
-                                <button type="submit" class="btn btn-success" name="acessar" value="Acessar" id="btn-login">Acessar</button>
-                                <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
-                                </br>
-                                </br>
-                                <div id="carregando" align="center"><img src="/iservices/img/carregando.gif"><span>Carregando...</span></div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
         <script src="http://code.jquery.com/jquery-latest.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="//code.jquery.com/jquery-1.12.4.js"></script>
         <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
-        <script src="/iservices/js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="/iservices/js/scripts.js"></script>
+        <script src="/iservices/js/bootstrap.min.js"></script>                
+        <script type="text/javascript" src="/iservices/js/scripts.js"></script> 
     </body>
-
 </html>

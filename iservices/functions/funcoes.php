@@ -22,7 +22,7 @@
 	function carregaServico($conexao) {
 	$servicos = array();
 
-	$idCliente = $_SESSION['idUsuario'];
+	$idCliente = $_SESSION['idCliente'];
 
 	$sql = mysqli_query($conexao, "SELECT idServico, tiposervico, valor, descricao, REPLACE(ativo, '1', 'checked') AS ativo FROM servico WHERE idcliente = '{$idCliente}'");
 	 
@@ -43,7 +43,7 @@
 	function carregaContrato($conexao){
 		$contratos = array();
 
-		$idUsuario = $_SESSION['id'];
+		$idUsuario = $_SESSION['idUsuario'];
 
 		$sql = mysqli_query($conexao, "SELECT c.idContrato, s.tiposervico, s.valor, s.descricao, cl.nome, cl.telefone, c.status FROM contrato AS c
 							INNER JOIN servico AS s
@@ -51,7 +51,7 @@
 							INNER JOIN usuario AS u
 							ON c.idUsuario = u.idUsuario
                             INNER JOIN cliente AS cl 
-                            ON c.idCliente = cl.idCliente WHERE c.idUsuario = '{$idUsuario}' AND c.status <> 'Rejeitado' AND c.status <> 'Cancelado' AND c.status <> 'Finalizado'");
+                            ON c.idCliente = cl.idCliente WHERE c.idUsuario = '{$idUsuario}'");
 
 		while($recebe = mysqli_fetch_array($sql)){
 			array_push($contratos, $recebe);
@@ -70,14 +70,14 @@
 
 		$carregaContrato = array();
 
-		$idCliente = $_SESSION['idUsuario'];
+		$idCliente = $_SESSION['idCliente'];
 
 		$recebeServicoSolicitado = mysqli_query($conexao, "SELECT c.idContrato, s.tiposervico, s.valor, s.descricao, u.nome, u.email, u.telefone, c.status FROM contrato AS c
 												INNER JOIN servico AS s
 												ON c.idServico = s.idServico
 												INNER JOIN usuario AS u
 												ON c.idUsuario = u.idUsuario
-												WHERE c.idCliente = '{$idCliente}' AND c.status <> 'Rejeitado' AND c.status <> 'Cancelado' AND c.status <> 'Finalizado' AND c.status <> 'Concluido'");
+												WHERE c.idCliente = '{$idCliente}'");
 
 		while ($recebe = mysqli_fetch_array($recebeServicoSolicitado)) {
 				array_push($carregaContrato, $recebe);
@@ -95,7 +95,7 @@
 
 		$carregaContratoFinalizado = array();
 
-		$idCliente = $_SESSION['idUsuario'];
+		$idCliente = $_SESSION['idCliente'];
 
 		$recebeContratoFinalizado = mysqli_query($conexao, "SELECT c.idContrato, s.tiposervico, s.valor, s.descricao, u.nome, u.email, u.telefone, REPLACE(c.status, 0, 'Finalizado') AS status FROM contrato AS c
 												INNER JOIN servico AS s
@@ -140,7 +140,7 @@
 	function carregaHistoricoUsuario($conexao){
 		$contratos = array();
 
-		$idUsuario = $_SESSION['id'];
+		$idUsuario = $_SESSION['idUsuario'];
 
 		$sql = mysqli_query($conexao, "SELECT c.idContrato, s.tiposervico, s.valor, s.descricao, cl.nome, cl.telefone, c.status FROM contrato AS c
 							INNER JOIN servico AS s
@@ -165,7 +165,7 @@
 
 	function recebeNomeUsuario($conexao){
 
-				$idUsuario = $_SESSION['id'];
+				$idUsuario = $_SESSION['idUsuario'];
 				$sql = mysqli_query($conexao, "SELECT nome FROM usuario WHERE idUsuario = '{$idUsuario}' ");
 				$recebendoNome = mysqli_fetch_row($sql);
 				$recebeu = $recebendoNome[0];
@@ -180,7 +180,7 @@
 
 	function recebeNomeCliente($conexao){
 
-				$idCliente = $_SESSION['idUsuario'];
+				$idCliente = $_SESSION['idCliente'];
 				$sql = mysqli_query($conexao, "SELECT nome FROM cliente WHERE idCliente = '{$idCliente}' ");
 				$recebendoNome = mysqli_fetch_row($sql);
 				$recebeu = $recebendoNome[0];

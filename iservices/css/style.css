@@ -189,4 +189,4 @@ ul.big li:nth-child(2n) {margin-left: 2%;}
 @media (min-width:463px) and (max-width:768px) {
     .fbox {float: left;}
     .fbox:nth-child(3) {float: right !important;}
-}
+    

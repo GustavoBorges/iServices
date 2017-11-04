@@ -20,13 +20,44 @@
 <?php
 
 
-	if (isset($_POST['cadastrar']) && $_POST['cadastrar'] == "Cadastrar"){
+
+if (isset($_POST['enviar']) && $_POST['enviar'] == "Enviar" && $_POST['tipo'] == "0"){
+
+		$razaoSocial = trim($_POST['razaoSocial']);
+		$cpfcnpj = trim($_POST['cpfcnpj']);
+		$senha = trim($_POST['senha']);
+		$confirmaSenha = trim($_POST['confirmaSenha']);
+		$rua = trim($_POST['rua']);
+		$numero = trim($_POST['numero']);
+		$complemento = trim($_POST['complemento']);
+		$bairro = trim($_POST['bairro']);
+		$cidade = trim($_POST['cidade']);
+		$estado = trim($_POST['estado']);
+		$cep = trim($_POST['cep']);
+		$telefone = trim($_POST['telefone']);
+
+		$sql = mysqli_query($conexao, "SELECT * FROM cliente WHERE cnpj = '{$cpfcnpj}'");
+
+		if(mysqli_num_rows($sql) > 0 ){
+
+			echo "existe";
+		}else {
+
+		$sql = mysqli_query($conexao, "INSERT INTO cliente (nome, cnpj, senha, confirmasenha, logradouro, numero, complemento, bairro, cidade, estado, cep, telefone)
+			VALUES ('$razaoSocial', '$cpfcnpj', '$senha', '$confirmaSenha', '$rua', '$numero', '$complemento', '$bairro', '$cidade', '$estado', '$cep' ,'$telefone')");
+
+
+	echo "cadastrado";
+			}
+}
+
+elseif (isset($_POST['enviar']) && $_POST['enviar'] == "Enviar" && $_POST['tipo'] == "1"){
 
 		$nome = trim($_POST['nome']);
 		$email = trim($_POST['email']);
 		$senha = trim($_POST['senha']);
 		$confirmaSenha = trim($_POST['confirmaSenha']);
-		$logradouro = trim($_POST['rua']);
+		$rua = trim($_POST['rua']);
 		$numero = trim($_POST['numero']);
 		$complemento = trim($_POST['complemento']);
 		$bairro = trim($_POST['bairro']);
@@ -37,60 +68,19 @@
 
 		$sql = mysqli_query($conexao, "SELECT * FROM usuario WHERE email = '{$email}'");
 
-		if(mysqli_num_rows($sql) > 0){
-				echo "existe";
-		} else {
-		   	$sql = mysqli_query($conexao, "INSERT INTO  usuario (nome, email, senha, confirmasenha, logradouro, numero, complemento, bairro, cidade, estado, cep, telefone) 
-			VALUES ('$nome','$email','$senha','$confirmaSenha','$logradouro','$numero', '$complemento' ,'$bairro','$cidade','$estado', '$cep', '$telefone')");
-	 		
-	 		echo "sucesso";
-				 
-				 }
-		   }
-
-
-		elseif (isset($_POST['enviar']) && $_POST['enviar'] == "Enviar"){
-
-		$razaoSocial = trim($_POST['razaoSocial']);
-		$cnpj = trim($_POST['cpfcnpj']);
-		$senha = trim($_POST['senhaServico']);
-		$confirmaSenha = trim($_POST['confirmaSenhaServico']);
-		$rua = trim($_POST['rua']);
-		$numero = trim($_POST['numero']);
-		$complemento = trim($_POST['complemento']);
-		$bairro = trim($_POST['bairro']);
-		$cidade = trim($_POST['cidade']);
-		$estado = trim($_POST['estado']);
-		$cep = trim($_POST['cep']);
-		$telefone = trim($_POST['telefone']);
-
-
-		if($razaoSocial == "" || $cnpj == "" || $senha == "" || $confirmaSenha == "" || $rua == "" || $numero == "" || $complemento == "" || $bairro == "" || $cidade == "" || $estado == "" || $cep == "" || $telefone == ""){
-
-			echo "<script language='javascript' type='text/javascript'>alert('Preencha todos os campos!');window.location.href='/iservices/pages/index.php'</script>";
-
-		}else
-
-		$sql = mysqli_query($conexao, "SELECT * FROM cliente WHERE cnpj = '{$cnpj}'");
-
 		if(mysqli_num_rows($sql) > 0 ){
 
-			echo "<script language='javascript' type='text/javascript'>alert('CPF/CNPJ já se encontra em nossa base de dados!');window.location.href='/iservices/pages/index.php'</script>";
+			echo "existe";
 		}else {
-			if($senha != $confirmaSenha){
 
-				echo "<script language='javascript' type='text/javascript'>alert('Campo Senha diferente do campo Confirmar Senha!');window.location.href='/iservices/pages/index.php'</script>";
-			}else{
+		$sql = mysqli_query($conexao, "INSERT INTO  usuario (nome, email, senha, confirmasenha, logradouro, numero, complemento, bairro, cidade, estado, cep, telefone) 
+			VALUES ('$nome','$email','$senha','$confirmaSenha','$rua','$numero', '$complemento' ,'$bairro','$cidade','$estado', '$cep', '$telefone')");
 
-		$sql = mysqli_query($conexao, "INSERT INTO cliente (nome, cnpj, senha, confirmasenha, logradouro, numero, complemento, bairro, cidade, estado, cep, telefone)
-			VALUES ('$razaoSocial', '$cnpj', '$senha', '$confirmaSenha', '$rua', '$numero', '$complemento', '$bairro', '$cidade', '$estado', '$cep' ,'$telefone')");
-
-	echo "<script language='javascript' type='text/javascript'>alert('Cliente cadastrado com sucesso!');window.location.href='/iservices/pages/index.php'</script>";
-				 }
-			  }
+	echo "cadastrado";
+			}
 }			
 
-	elseif (isset($_GET['envia']) && $_GET['envia'] == "Submit"){
+/*	elseif (isset($_GET['envia']) && $_GET['envia'] == "Submit"){
 
 
 	$tipo = trim($_GET['tipoServico']);
@@ -120,7 +110,7 @@ function moeda($get_valor){
 	$reescrevendo = array('' , '.');
 	$valor = str_replace($reescreve, $reescrevendo, $get_valor);
 	return $valor;
-}
+}*/
 
 	mysqli_close($conexao);
 

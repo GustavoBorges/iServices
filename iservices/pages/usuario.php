@@ -53,17 +53,17 @@
                                 </div>
                             </div>
                         </div>
+                       <!-- <div align="center" id="carregamento-pagina-usuario"><img src="/iservices/img/carregamento_pagina.gif"></div>-->
                         <div id="list" class="row">
-                            <div class="table-responsive col-md-12">
-                                <table class="table table-striped table-bordered table-list" cellspacing="0" cellpadding="0" id="tab-servicos">
+                            <div class="table-responsive col-md-12" id="tab-servicos-usuario">
+                                <table class="table table-striped table-bordered table-list" cellspacing="0" cellpadding="0" id="tab-servicos" >
                                     <thead>
                                         <tr>
                                             <th>Número do Serviço</th>
                                             <th>Tipo de Serviço</th>
                                             <th>Preço</th>
-                                            <th>Descrição</th>
                                             <th class="actions">Ações</th>
-                                            <th>Detalhes</th>
+                                            <th>Detalhes</th>                                            
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -82,18 +82,12 @@
                                                 <td>R$
                                                     <?=$recebe['valor'];?>
                                                 </td>
-                                                <td>
-                                                    <?=$recebe['descricao'];?>
-                                                </td>
                                                 <td class="actions">
-                                                    <button type="button" class="contrata btn btn-danger" data-toggle="modal" data-target="#contratacao-modal">
-                                                        <i class="glyphicon glyphicon-file"></i>&nbspContratar
-                                                    </button>
-                                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#avaliacao-modal" data-whatever="<?=$recebe['nome']?>">
-                                                        <i class="glyphicon glyphicon-heart"></i>&nbspAvaliação
-                                                    </button>
+                                                    <a href="#" data-name="<?=$recebe['tiposervico'];?>" data-valor="<?=$recebe['valor'];?>" data-id="<?=$recebe['idServico'];?>" class="contrata-servico" data-toggle="modal" data-target="#contratacao-modal">
+                                                        <i class="fa fa-handshake-o" id="icon-contratacao"></i>
+                                                    </a>                                                   
                                                 </td>
-                                                <td><a class="detail-icon" href="#"><i class="glyphicon glyphicon-plus-sign"></i></a></td>
+                                                <td><a class="detail-icon" href="#" data-name="<?=$recebe['nome'];?>" data-tel="<?=$recebe['telefone'];?>" data-descricao="<?=$recebe['descricao'];?>"><i class="glyphicon glyphicon-plus"></i></a></td>
                                             </tr>
                                             <?php } ?>
                                     </tbody>
@@ -160,11 +154,13 @@
                                                     <?=$recebeContrato['status'];?>
                                                 </td>
                                                 <td class="actions">
-                                                    <a href="cancelar.php?id=<?=$recebeContrato['idContrato'];?>" class="btn btn-danger" <?=$disabledC;?>>Cancelar</a>
-                                                    <a href="<?=$fncButao;?>.php?id=<?=$recebeContrato['idContrato'];?>" class="btn btn-primary" <?=$disabledP;?>><?=$btnPagamento;?></a>
-                                                    <a href="avaliar.php?id=<?=$recebeContrato['idContrato'];?>" class="btn btn-success" <?=$disabledA;?>>Avaliar</a>
+                                                    <a href="#cancelar-servico-modal" data-toggle="modal" id="btnRejeitar" ><i class="glyphicon glyphicon-remove icon-remove" id="btn-rejeitar"></i></a>
+                                                     <a href="" data-toggle="modal" data-target="#avaliacao-modal" data-whatever="<?=$recebeContrato['nome']?>">
+                                                        <i class="glyphicon glyphicon-star" id="icon-estrela"></i>
+                                                    </a>
+                                                    <a href="" class="btn-pagamento" data-toggle="modal" data-id="<?=$recebeContrato['idContrato'];?>" data-status="<?=$recebeContrato['status'];?>" data-name="<?=$recebeContrato['nome'];?>" data-tel="<?=$recebeContrato['telefone'];?>" data-servico="<?=$recebeContrato['tiposervico'];?>"><i class="fa fa-money" style="font-size:20px"></i></a>
                                                 </td>
-                                                <td><a class="detail-icon" href="#"><i class="glyphicon glyphicon-plus-sign"></i></a></td>
+                                                <td><a class="detail-icon" href=""><i class="glyphicon glyphicon-plus"></i></a></td>
                                             </tr>
                                             <?php } ?>
                                     </tbody>
@@ -229,7 +225,7 @@
                                                 <td>
                                                     <?=$recebeContrato['status'];?>
                                                 </td>
-                                                <td><a class="detail-icon" href="#"><i class="glyphicon glyphicon-plus-sign"></i></a></td>
+                                                <td><a class="detail-icon" href="#"><i class="glyphicon glyphicon-plus"></i></a></td>
                                             </tr>
                                             <?php } ?>
                                     </tbody>
@@ -275,7 +271,72 @@
                     </div>
                 </div>
             </div>
-
+            <!--Modal de avaliação do serviço-->
+            <div class="modal fade" id="pagamento-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Pagamento do prestado de serviço</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body" id="detalhes-modal-pagamento">
+                            Contrato: <span class="contrato"></span></br>
+                            Status: <span class="status"></span></br>
+                            Prestador de serviço: <span class="nome-prestador"></span></br>
+                            Telefone: <span class="telefone"></span></br>
+                            Serviço: <span class="servico"></span></br></br>
+                            <label>Preço à ser pago: R$</label>
+                            <input class="form-control" id="input-preco-pagamento">
+                                <div class="checkbox checkbox-primary">
+                                    <input id="checkbox6" type="checkbox">
+                                    <label for="checkbox6">
+                                        Cartão de 'crédito
+                                    </label>&nbsp
+                                    <i class="glyphicon glyphicon-credit-card" style="font-size:20px"></i>
+                                </div>
+                                <div class="checkbox checkbox-primary">
+                                    <input id="checkbox7" type="checkbox">
+                                    <label for="checkbox7">
+                                        Dinheiro
+                                    </label>&nbsp
+                                    <i class="fa fa-money" style="font-size:20px"></i>
+                                </div>                            
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-success">
+                                <i class="glyphicon glyphicon-thumbs-up"></i>&nbspConfirma Pagamento
+                            </button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">
+                                <i class="glyphicon glyphicon-thumbs-down"></i>&nbspCancelar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal para Excluir Cadastro-->
+        <div class="modal fade" id="cancelar-servico-modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="modalLabel">Cancelar Item</h4>
+                    </div>
+                    <div class="modal-body">
+                        Deseja realmente cancelar o serviço? <span class="nome"></span>
+                    </div>
+                    <div class="modal-footer">
+                        <a name="btn-ok" value="excluir" type="button" class="btn btn-success delete-yes">
+                            <i class="glyphicon glyphicon-thumbs-up"></i>&nbspSim
+                        </a>
+                        <a href="#" type="button" class="btn btn-danger" data-dismiss="modal">
+                            <i class="glyphicon glyphicon-thumbs-down"></i>&nbspN&atilde;o
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
             <!--Modal de contratação de serviço-->
             <div class="modal fade" id="contratacao-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -296,11 +357,21 @@
                                 <div class="modal-body">
                                     <form>
                                         <div class="form">
-                                            <label for="recipient-name" class="col-form-label">Nome do Serviço</label>
-                                            <input class="form-control" id="" readonly="true"></input>
+                                            <label for="nome-servico" class="col-form-label">Nome do Serviço</label>
+                                            <input class="form-control" id="recebe-nome-servico" readonly="true"></input>
+                                            <label for="valor-servico" class="col-form-label">Preço do Serviço</label>
+                                            <input class="form-control" id="recebe-valor-servico" name="recebe-preco-servico" readonly="true"></input>
+                                            <div id="div-recebe-id-servico">
+                                            <label for="id-servico" class="col-form-label">Id</label>
+                                            <input name="recebe-id-servico" class="form-control" id="recebe-id-servico" name="recebe-id-servico"></input>
+                                            </div>
                                         </div>
                                         </br>
                                         <div class="form-check-label">
+                                            <input id="check-endcadastrado" type="checkbox">
+                                            <label>
+                                                Prestador de serviço
+                                            </label>
                                                 <label class="form-check-label">
                                                     <input type="checkbox" class="form-check-input" id="check-endcadastrado">
                                                     Endereço cadastrado
@@ -321,8 +392,6 @@
                                                 <input type="text" name="bairro" id="bairro" class="form-control"></input>
                                                 <label for="cidade">Cidade:</label>
                                                 <input type="text" name="cidade" id="cidade" class="form-control"></input>
-                                                <label for="estado">Estado:</label>
-                                                <input type="text" name="estado" id="estado" class="form-control"></input>
                                             </div>
                                         </div>
                                         </br>
@@ -342,24 +411,30 @@
                                     <form>
                                         <div class="form">
                                             <label for="message-text" class="col-form-label">Detalhamento da ocorrência</label>
-                                            <textarea class="form-control" id="message-text" placeholder="Digite aqui o detalhamento da sua ocorrência..."></textarea>
+                                            <textarea class="form-control" id="message-text" placeholder="Digite aqui o detalhamento da sua ocorrência..." name="detalhes-modal-contratar"></textarea>
                                         </div>
                                     </form>
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-success" id="btn-proximo">
-                                <i class="glyphicon glyphicon-ok"></i>&nbspProximo
+                            <button type="submit" class="btn btn-success" id="btn-contratar-modal" name="btn-contratar-modal" value="Contratar">
+                                <i class="glyphicon glyphicon-ok"></i>&nbspContratar
                             </button>
                             <button type="button" class="btn btn-danger" data-dismiss="modal">
                                 <i class="glyphicon glyphicon-remove"></i>&nbspCancelar
                             </button>
+                            </br>
+                            <div id="carregando-modal-contratar" align="center"><img src="/iservices/img/carregando.gif"></br><span>Contratando Serviço</span></div>
                         </div>
                         <div class="alert alert-warning" id="alert-warning">
-                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            <a href="#" class="close" aria-label="close">&times;</a>
                             <strong>Atenção!</strong> Não foi selecionada nenhuma modalidade de endereço.
                         </div>
+                        <div class="alert alert-success" id="alert-success-contratar">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            <strong>Sucesso!</strong> O seu serviço foi contratado com sucesso.
+                        </div>                        
                     </div>
                 </div>
             </div>
