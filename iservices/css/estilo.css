@@ -284,6 +284,68 @@ label {
   font-weight: bold;
 }
 
+#horario-urgencia{
+  display: inline;
+}
+
+#horario-urgencia span{
+  font-family: tahoma;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+#horario-atendimento span{
+  font-family: tahoma;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+#horario-atendimento select.horario{
+  width: 85px;
+  display: inline;
+}
+
+#horario-atendimento select.dia{
+  width: 145px;
+  display: inline;
+}
+
+#retorno{
+  color: red;
+  margin-bottom: 10px;
+  margin-left: 5px;
+}
+
+#editar-horario-urgencia{
+  display: inline;
+}
+
+#editar-horario-urgencia span{
+  font-family: tahoma;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+#editar-horario-atendimento span{
+  font-family: tahoma;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+#editar-horario-atendimento select.horario{
+  width: 85px;
+  display: inline;
+}
+
+#editar-horario-atendimento select.dia{
+  width: 145px;
+  display: inline;
+}
+
+#dados-visualizacao-servico span{
+  font-weight: bold;
+}
+
 .checkbox {
   padding-left: 20px; }
   .checkbox label {

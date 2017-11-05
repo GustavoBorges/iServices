@@ -80,37 +80,31 @@ elseif (isset($_POST['enviar']) && $_POST['enviar'] == "Enviar" && $_POST['tipo'
 			}
 }			
 
-/*	elseif (isset($_GET['envia']) && $_GET['envia'] == "Submit"){
+	elseif (isset($_GET['cadastrar']) && $_GET['cadastrar'] == "cadastro-servico"){
 
 
 	$tipo = trim($_GET['tipoServico']);
 	$valor = moeda(trim($_GET['valor']));
 	$descricao = trim($_GET['descricao']);
-	$idCliente = $_SESSION['idUsuario'];
-
-	if($tipo == "" || $valor == "" || $descricao == ""){
-		echo "<script type='text/javascript' language='javascript'>alert('Preencha todos os campos!');window.location.href='/iservices/pages/cliente.php'</script>";
-	}else{
-		if($tipo == "Selecione Serviço"){
-			echo "<script type='text/javascript' language='javascript'>alert('Selecione um serviço!');window.location.href='/iservices/pages/cliente.php'</script>";
-			} else { 
-
-				$sql = mysqli_query($conexao, "INSERT INTO servico (tiposervico, valor, descricao, idCliente) 
-					VALUES ('$tipo', '$valor', '$descricao', '$idCliente')");
+	$horarioInicial = trim($_GET['horarioInicial']);
+	$horarioFinal = trim($_GET['horarioFinal']);
+	$diaInicial = trim($_GET['diaInicial']);
+	$diaFinal = trim($_GET['diaFinal']);
+	$checkClicado = trim($_GET['checkClicado']);
+	$idCliente = $_SESSION['idCliente'];
+			
+	$sql = mysqli_query($conexao, "INSERT INTO servico (tiposervico, valor, descricao, horarioInicial, horarioFinal, diaInicial, diaFinal, checkClicado, ativo, idCliente) 
+						VALUES ('$tipo', '$valor', '$descricao', '$horarioInicial', '$horarioFinal', '$diaInicial', '$diaFinal', '$checkClicado', '0', '$idCliente')");
 				
-				echo "<script type='text/javascript' language='javascript'>alert('Serviço cadastrado com sucesso!!');</script>";
-				header("location: /iservices/pages/cliente.php"); 
-		}
-										}
-
-} 
+	echo "cadastrado"; 
+}
 
 function moeda($get_valor){
 	$reescreve = array('.', ',');
 	$reescrevendo = array('' , '.');
 	$valor = str_replace($reescreve, $reescrevendo, $get_valor);
 	return $valor;
-}*/
+}
 
 	mysqli_close($conexao);
 

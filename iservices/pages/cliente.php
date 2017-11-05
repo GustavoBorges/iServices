@@ -59,10 +59,8 @@
                             <table class="table table-striped table-bordered table-list" cellspacing="0" cellpadding="0" id="tab-servicos">
                                 <thead>
                                     <tr>
-                                        <th>Número do Serviço</th>
                                         <th>Tipo de Serviço</th>
                                         <th>Preço</th>
-                                        <th>Descrição</th>
                                         <th class="actions">Ações</th>
                                         <th>Ativo</th>
                                         <th>Detalhes</th>
@@ -76,21 +74,15 @@
                                     ?>
                                         <tr>
                                             <td>
-                                                <?=$recebe['idServico'];?>
-                                            </td>
-                                            <td>
                                                 <?=$recebe['tiposervico'];?>
                                             </td>
                                             <td>R$
                                                 <?=$recebe['valor'];?>
                                             </td>
-                                            <td>
-                                                <?=$recebe['descricao'];?>
-                                            </td>
                                             <td class="actions">
-                                                <a href="" class="btn btn-default" data-toggle="modal" data-target="#modal-Visualizacao" data-whatever="<?=$recebe['idServico'];?>" data-whatevertiposervico="<?=$recebe['tiposervico'];?>" data-whateverpreco="<?=$recebe['valor'];?>" data-whateverdescricao="<?=$recebe['descricao'];?>" class="editar"><i class="glyphicon glyphicon-file" ></i></a>
-                                                <a href="" class="btn btn-primary" data-toggle="modal" data-target="#modal-EditarCadastro" data-whatever="<?=$recebe['idServico'];?>" data-whatevertiposervico="<?=$recebe['tiposervico'];?>" data-whateverpreco="<?=$recebe['valor'];?>" data-whateverdescricao="<?=$recebe['descricao'];?>" class="editar"><i class="glyphicon glyphicon-edit" ></i></a>
-                                                <a href="" data-name="<?=$recebe['tiposervico'];?>" data-id="<?=$recebe['idServico'];?>" class="delete btn btn-danger" data-toggle="modal"><i class="glyphicon glyphicon-trash" ></i></a>
+                                                <a href="" class="visualizar-servico btn btn-default" data-toggle="modal" data-id="<?=$recebe['idServico'];?>" data-tipo="<?=$recebe['tiposervico'];?>" data-valor="<?=$recebe['valor'];?>" data-descricao="<?=$recebe['descricao'];?>" data-horarioinicial="<?=$recebe['horarioInicial'];?>" data-horariofinal="<?=$recebe['horarioFinal'];?>" data-diainicial="<?=$recebe['diaInicial'];?>" data-diafinal="<?=$recebe['diaFinal'];?>" data-check="<?=$recebe['checkClicado'];?>"><i class="glyphicon glyphicon-file" ></i></a>
+                                                <a href="" class="editar-servico btn btn-primary" data-toggle="modal" data-id="<?=$recebe['idServico'];?>" data-tipo="<?=$recebe['tiposervico'];?>" data-valor="<?=$recebe['valor'];?>" data-descricao="<?=$recebe['descricao'];?>" data-horarioinicial="<?=$recebe['horarioInicial'];?>" data-horariofinal="<?=$recebe['horarioFinal'];?>" data-diainicial="<?=$recebe['diaInicial'];?>" data-diafinal="<?=$recebe['diaFinal'];?>" data-check="<?=$recebe['checkClicado'];?>"><i class="glyphicon glyphicon-edit" ></i></a>
+                                                <a href="" data-name="<?=$recebe['tiposervico'];?>" data-id="<?=$recebe['idServico'];?>" class="btn-excluir btn btn-danger" data-toggle="modal"><i class="glyphicon glyphicon-trash" ></i></a>
                                             </td>                                            
                                             <td>
                                                 <label class="switch">
@@ -182,10 +174,13 @@
                 <div class="container" style="margin-top:2px;">
                     <div class="row">
                         <div class="panel panel-primary panel-table animated slideInDown">
-                            <div class="panel-heading " style="padding:37px;">
+                            <div class="panel-heading " style="padding:10px;">
                                 <div class="row">
                                     <div class="col col-xs-12 text-center">
                                         <h1 class="panel-title">Histórico</h1>
+                                        <a href="" class="btn btn-info pull-right h1">
+                                             <i class="glyphicon glyphicon-print"></i>&nbspImprimir Relatório
+                                       </a>
                                     </div>
                                 </div>
                             </div>
@@ -253,9 +248,9 @@
                         <img src="/iservices/img/logo.png" alt="Logo da empresa" class="logoTelaCadastroServico"></img>
                     </div>
                     <div class="modal-body">
-                        <form action="/iservices/functions/cadastro.php" role="form" method="GET">
+                        <form role="form" method="GET">
                             <label for="tipoServico">Tipo de Serviço:</label>
-                                <select type="text" name="tipoServico" class="form-control">
+                                <select type="text" name="tipo-servico-cadastro" class="form-control">
                                   <option>Selecione Serviço</option>
                                   <option>Babá</option>
                                   <option>Mecânico Automotivo</option>
@@ -264,23 +259,173 @@
                                   <option>Bombeiro Hidráulico</option>
                                </select>
                             <label for="valor">Preço do Serviço:</label>
-                            <input type="text" name="valor" class="form-control"></input>
+                            <input type="text" name="valor-servico" class="form-control"></input>
                             <label for="descricao">Descrição:</label>
-                            <input type="text" name="descricao" class="form-control"></input>
+                            <textarea type="text" name="descricao-servico" class="form-control"></textarea>
                             </br>
-                            <button type="submit" name="envia" value="Submit" class="btn btn-success">
-                                <i class="glyphicon glyphicon-thumbs-up"></i>&nbspEnviar
-                            </button>
-                            <button type="button" name="fecha" class="btn btn-danger" data-dismiss="modal">
-                                <i class="glyphicon glyphicon-thumbs-down"></i>&nbspFechar
-                            </button>
+                            <div class="checkbox checkbox-primary">
+                                <input id="checkbox8" type="checkbox">
+                                <label for="checkbox8">
+                                    Horário de Atendimento:
+                                </label>
+                                <div id="horario-atendimento">
+                                    <span>De</span>
+                                    <select class="horario form-control" name="horario-atendimento-inicial">
+                                        <option>00:00</option>
+                                        <option>00:30</option>
+                                        <option>01:00</option>
+                                        <option>01:30</option>
+                                        <option>02:00</option>
+                                        <option>02:30</option>
+                                        <option>03:00</option>
+                                        <option>03:30</option>
+                                        <option>04:00</option>
+                                        <option>04:30</option>
+                                        <option>05:00</option>
+                                        <option>05:30</option>
+                                        <option>06:00</option>
+                                        <option>06:30</option>
+                                        <option>07:00</option>
+                                        <option>07:30</option>
+                                        <option>08:00</option>
+                                        <option>08:30</option>
+                                        <option>09:00</option>
+                                        <option>09:30</option>
+                                        <option>10:00</option>
+                                        <option>10:30</option>
+                                        <option>11:00</option>
+                                        <option>11:30</option>
+                                        <option>12:00</option>
+                                        <option>12:30</option>
+                                        <option>13:00</option>
+                                        <option>13:30</option>
+                                        <option>14:00</option>
+                                        <option>14:30</option>
+                                        <option>15:00</option>
+                                        <option>15:30</option>
+                                        <option>16:00</option>
+                                        <option>16:30</option>
+                                        <option>17:00</option>
+                                        <option>17:30</option>
+                                        <option>18:00</option>
+                                        <option>18:30</option>
+                                        <option>19:00</option>
+                                        <option>19:30</option>
+                                        <option>20:00</option>
+                                        <option>20:30</option>
+                                        <option>21:00</option>
+                                        <option>21:30</option>
+                                        <option>22:00</option>
+                                        <option>22:30</option>
+                                        <option>23:00</option>
+                                        <option>23:30</option>
+                                    </select>
+                                    <span>à</span>
+                                    <select class="horario form-control" name="horario-atendimento-final">
+                                        <option>00:00</option>
+                                        <option>00:30</option>
+                                        <option>01:00</option>
+                                        <option>01:30</option>
+                                        <option>02:00</option>
+                                        <option>02:30</option>
+                                        <option>03:00</option>
+                                        <option>03:30</option>
+                                        <option>04:00</option>
+                                        <option>04:30</option>
+                                        <option>05:00</option>
+                                        <option>05:30</option>
+                                        <option>06:00</option>
+                                        <option>06:30</option>
+                                        <option>07:00</option>
+                                        <option>07:30</option>
+                                        <option>08:00</option>
+                                        <option>08:30</option>
+                                        <option>09:00</option>
+                                        <option>09:30</option>
+                                        <option>10:00</option>
+                                        <option>10:30</option>
+                                        <option>11:00</option>
+                                        <option>11:30</option>
+                                        <option>12:00</option>
+                                        <option>12:30</option>
+                                        <option>13:00</option>
+                                        <option>13:30</option>
+                                        <option>14:00</option>
+                                        <option>14:30</option>
+                                        <option>15:00</option>
+                                        <option>15:30</option>
+                                        <option>16:00</option>
+                                        <option>16:30</option>
+                                        <option>17:00</option>
+                                        <option>17:30</option>
+                                        <option>18:00</option>
+                                        <option>18:30</option>
+                                        <option>19:00</option>
+                                        <option>19:30</option>
+                                        <option>20:00</option>
+                                        <option>20:30</option>
+                                        <option>21:00</option>
+                                        <option>21:30</option>
+                                        <option>22:00</option>
+                                        <option>22:30</option>
+                                        <option>23:00</option>
+                                        <option>23:30</option>
+                                    </select> -
+                                    <span>De</span>
+                                    <select class="dia form-control" name="dia-atendimento-inicial">
+                                        <option>Segunda-feira</option>
+                                        <option>Terça-feira</option>
+                                        <option>Quarta-feira</option>
+                                        <option>Quinta-feira</option>
+                                        <option>Sexta-feira</option>
+                                        <option>Sábado</option>
+                                        <option>Domingo</option>
+                                    </select>
+                                    <span>à</span>
+                                    <select class="dia form-control" name="dia-atendimento-final">
+                                        <option>Segunda-feira</option>
+                                        <option>Terça-feira</option>
+                                        <option>Quarta-feira</option>
+                                        <option>Quinta-feira</option>
+                                        <option>Sexta-feira</option>
+                                        <option>Sábado</option>
+                                        <option>Domingo</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="checkbox checkbox-primary">
+                                <input id="checkbox9" type="checkbox">
+                                <label for="checkbox9">
+                                    Urgência:
+                                </label>                                
+                                    <div id="horario-urgencia">
+                                           <span>Segunda à Domingo - 24horas</span> 
+                                    </div>                                
+                            </div>                            
                         </form>
+                        <div>
+                        <button type="submit" name="cadastro-servico" value="cadastro-servico" class="btn btn-success" id="btn-cadastrar-servico">
+                            <i class="glyphicon glyphicon-thumbs-up"></i>&nbspCadastrar 
+                        </button>
+                        <button type="button" name="fecha" class="btn btn-danger" data-dismiss="modal">
+                            <i class="glyphicon glyphicon-thumbs-down"></i>&nbspFechar
+                        </button>
+                        </div></br>
+                        <div id="carregando-modal-cadastrar-servico" align="center"><img src="/iservices/img/carregando.gif"></br><span>Cadastrando...</span></div>
+                        <div class="alert alert-warning" id="alert-warning-cadastro-servico">
+                            <a href="#" class="close" aria-label="close">&times;</a>
+                            <strong>Atenção!</strong> Não foi selecionada nenhuma modalidade de atendimento.
+                        </div>
+                        <div class="alert alert-success" id="alert-success-cadastrar-servico">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            <strong>Sucesso!</strong> O seu serviço foi cadastrado com sucesso.
+                        </div> 
                     </div>
                 </div>
             </div>
         </div>
         <!-- Modal para Excluir Cadastro-->
-        <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
+        <div class="modal fade" id="excluir-servico-modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -288,16 +433,17 @@
                         <h4 class="modal-title" id="modalLabel">Excluir Item</h4>
                     </div>
                     <div class="modal-body">
-                        Deseja realmente excluir este item? <span class="nome"></span>
+                        Deseja realmente excluir este item? <span class="nome"></span>&nbsp<span class="id-servico"></span>
                     </div>
                     <div class="modal-footer">
-                        <a name="btn-ok" value="excluir" type="button" class="btn btn-success delete-yes">
+                        <button name="btn-ok" value="excluir" type="button" class="btn-confirma-exclusao btn btn-success">
                             <i class="glyphicon glyphicon-thumbs-up"></i>&nbspSim
-                        </a>
+                        </button>
                         <a href="#" type="button" class="btn btn-danger" data-dismiss="modal">
                             <i class="glyphicon glyphicon-thumbs-down"></i>&nbspN&atilde;o
-                        </a>
+                        </a>                        
                     </div>
+                    <div id="retorno"></div>
                 </div>
             </div>
         </div>
@@ -346,7 +492,7 @@
             </div>
         </div>
         <!-- Modal para Editar cadastro de serviço -->
-        <div id="modal-EditarCadastro" class="modal fade" role="dialog">
+        <div id="modal-editar-cadastro" class="modal fade" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -356,9 +502,9 @@
                     <div class="modal-body">
                         <form action="/iservices/functions/acoes.php" role="form" method="GET">
                             <label for="identificador">Identificador:</label>
-                            <input type="text" name="Editaridentificador" class="form-control" id="identificador" readonly="true"></input>
+                            <input type="text" name="editar-identificador" class="form-control" id="identificador" readonly="true"></input>
                             <label for="tipoServico">Tipo de Serviço:</label>
-                                <select type="text" name="EditartipoServico" class="form-control" id="tipoServico">
+                                <select type="text" name="editar-tipoServico" class="form-control" id="tipoServico">
                                   <option>Selecione Serviço</option>
                                   <option>Babá</option>
                                   <option>Mecânico Automotivo</option>
@@ -367,23 +513,176 @@
                                   <option>Bombeiro Hidráulico</option>
                                 </select>
                             <label for="valor">Preço do Serviço:</label>
-                            <input type="text" name="Editarvalor" class="form-control" id="preco"></input>
+                            <input type="text" name="editar-valor" class="form-control" id="preco"></input>
                             <label for="descricao">Descrição:</label>
-                            <input type="text" name="Editardescricao" class="form-control" id="descricao"></input>
+                            <textarea type="text" name="editar-descricao-servico" class="form-control"></textarea>
                             </br>
-                            <button type="submit" name="alterar" value="alterar" class="btn btn-success">
+                            <div class="checkbox checkbox-primary">
+                                <input id="checkbox10" type="checkbox" name="editar-horario-atendimento">
+                                <label for="checkbox10">
+                                    Horário de Atendimento:
+                                </label>
+                                <div id="editar-horario-atendimento">
+                                    <span>De</span>
+                                    <select class="horario form-control" name="editar-horario-atendimento-inicial">
+                                        <option>00:00</option>
+                                        <option>00:30</option>
+                                        <option>01:00</option>
+                                        <option>01:30</option>
+                                        <option>02:00</option>
+                                        <option>02:30</option>
+                                        <option>03:00</option>
+                                        <option>03:30</option>
+                                        <option>04:00</option>
+                                        <option>04:30</option>
+                                        <option>05:00</option>
+                                        <option>05:30</option>
+                                        <option>06:00</option>
+                                        <option>06:30</option>
+                                        <option>07:00</option>
+                                        <option>07:30</option>
+                                        <option>08:00</option>
+                                        <option>08:30</option>
+                                        <option>09:00</option>
+                                        <option>09:30</option>
+                                        <option>10:00</option>
+                                        <option>10:30</option>
+                                        <option>11:00</option>
+                                        <option>11:30</option>
+                                        <option>12:00</option>
+                                        <option>12:30</option>
+                                        <option>13:00</option>
+                                        <option>13:30</option>
+                                        <option>14:00</option>
+                                        <option>14:30</option>
+                                        <option>15:00</option>
+                                        <option>15:30</option>
+                                        <option>16:00</option>
+                                        <option>16:30</option>
+                                        <option>17:00</option>
+                                        <option>17:30</option>
+                                        <option>18:00</option>
+                                        <option>18:30</option>
+                                        <option>19:00</option>
+                                        <option>19:30</option>
+                                        <option>20:00</option>
+                                        <option>20:30</option>
+                                        <option>21:00</option>
+                                        <option>21:30</option>
+                                        <option>22:00</option>
+                                        <option>22:30</option>
+                                        <option>23:00</option>
+                                        <option>23:30</option>
+                                    </select>
+                                    <span>à</span>
+                                    <select class="horario form-control" name="editar-horario-atendimento-final">
+                                        <option>00:00</option>
+                                        <option>00:30</option>
+                                        <option>01:00</option>
+                                        <option>01:30</option>
+                                        <option>02:00</option>
+                                        <option>02:30</option>
+                                        <option>03:00</option>
+                                        <option>03:30</option>
+                                        <option>04:00</option>
+                                        <option>04:30</option>
+                                        <option>05:00</option>
+                                        <option>05:30</option>
+                                        <option>06:00</option>
+                                        <option>06:30</option>
+                                        <option>07:00</option>
+                                        <option>07:30</option>
+                                        <option>08:00</option>
+                                        <option>08:30</option>
+                                        <option>09:00</option>
+                                        <option>09:30</option>
+                                        <option>10:00</option>
+                                        <option>10:30</option>
+                                        <option>11:00</option>
+                                        <option>11:30</option>
+                                        <option>12:00</option>
+                                        <option>12:30</option>
+                                        <option>13:00</option>
+                                        <option>13:30</option>
+                                        <option>14:00</option>
+                                        <option>14:30</option>
+                                        <option>15:00</option>
+                                        <option>15:30</option>
+                                        <option>16:00</option>
+                                        <option>16:30</option>
+                                        <option>17:00</option>
+                                        <option>17:30</option>
+                                        <option>18:00</option>
+                                        <option>18:30</option>
+                                        <option>19:00</option>
+                                        <option>19:30</option>
+                                        <option>20:00</option>
+                                        <option>20:30</option>
+                                        <option>21:00</option>
+                                        <option>21:30</option>
+                                        <option>22:00</option>
+                                        <option>22:30</option>
+                                        <option>23:00</option>
+                                        <option>23:30</option>
+                                    </select> -
+                                    <span>De</span>
+                                    <select class="dia form-control" name="editar-dia-atendimento-inicial">
+                                        <option>Segunda-feira</option>
+                                        <option>Terça-feira</option>
+                                        <option>Quarta-feira</option>
+                                        <option>Quinta-feira</option>
+                                        <option>Sexta-feira</option>
+                                        <option>Sábado</option>
+                                        <option>Domingo</option>
+                                    </select>
+                                    <span>à</span>
+                                    <select class="dia form-control" name="editar-dia-atendimento-final">
+                                        <option>Segunda-feira</option>
+                                        <option>Terça-feira</option>
+                                        <option>Quarta-feira</option>
+                                        <option>Quinta-feira</option>
+                                        <option>Sexta-feira</option>
+                                        <option>Sábado</option>
+                                        <option>Domingo</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="checkbox checkbox-primary">
+                                <input id="checkbox11" type="checkbox" name="editar-tipo-atendimento">
+                                <label for="checkbox11">
+                                    Urgência:
+                                </label>                                
+                                    <div id="editar-horario-urgencia">
+                                           <span>Segunda à Domingo - 24horas</span> 
+                                    </div>                                
+                            </div>
+                        </form>                                        
+                            <button type="submit" name="alterar" value="alterar-servico" id="btn-alterar-servico" class="btn btn-success">
                                 <i class="glyphicon glyphicon-ok"></i>&nbspAlterar
                             </button>
                             <button type="button" name="cancelar" class="btn btn-danger" data-dismiss="modal">
                                 <i class="glyphicon glyphicon-remove"></i>&nbspCancelar
                             </button>
-                        </form>
+                            <div id="carregando-modal-alterar" align="center"><img src="/iservices/img/carregando.gif"></br><span>Alterando Serviço</span></div>                        
                     </div>
+                    
+                        <div class="alert alert-warning" id="alert-warning-alterar">
+                            <a href="#" class="close" aria-label="close">&times;</a>
+                            <strong>Atenção!</strong> Não foi selecionada nenhuma modalidade de atendimento.
+                        </div>
+                        <div class="alert alert-success" id="alert-success-alterar">
+                            <a href="#" class="close" aria-label="close">&times;</a>
+                            <strong>Sucesso!</strong> O seu serviço foi alterado com sucesso.
+                        </div> 
+                        <div class="alert alert-danger" id="alert-danger-alterar">
+                          <a href="#" class="close" aria-label="close">&times;</a>
+                          <strong>Error!</strong> Não foi possível realizar a alteração do serviço.
+                        </div>
                 </div>
             </div>
         </div>
         <!-- Modal para visualizar cadastro de serviço -->
-        <div id="modal-Visualizacao" class="modal fade" role="dialog">
+        <div id="modal-visualizacao" class="modal fade" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -391,28 +690,48 @@
                         <img src="/iservices/img/logo.png" alt="Logo da empresa" class="logoTelaCadastroServico"></img>
                     </div>
                     <div class="modal-body">
-                        <form action="/iservices/functions/acoes.php" role="form" method="GET">
-                            <label for="identificador">Identificador:</label>
-                            <input type="text" class="form-control" id="identificador" readonly="true"></input>
-                            </br>
-                            <label for="tipoServico">Tipo de Serviço:</label>
-                            <input type="text" class="form-control" id="tipoServico" readonly="true"></input>
-                            </br>
-                            <label for="valor">Preço do Serviço:</label>
-                            <input type="text" class="form-control" id="preco" readonly="true"></input>
-                            </br>
-                            <label for="descricao">Descrição:</label>
-                            <input type="text" class="form-control" id="descricao" readonly="true"></input>
-                            </br>
+                        <div id="dados-visualizacao-servico">
+                            Identificador do serviço: <span name="visualizacao-id-servico"></span></br>
+                            Tipo de Serviço: <span name="visualizacao-tipo-servico"></span></br>
+                            Preço do Serviço: <span name="visualizacao-valor-servico"></span></br>
+                            Descrição: <span name="visualizacao-descricao-servico"></span></br>
+                            Atendimento: De: <span name="visualizacao-horainicial-servico"></span> às <span name="visualizacao-horafinal-servico"></span> / De: <span name="visualizacao-diainicial-servico"></span> à <span name="visualizacao-diafinal-servico"></span></br>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
                             <button type="button" class="btn btn-success" data-dismiss="modal">
                                 <i class="glyphicon glyphicon-eye-close"></i>&nbspFechar
                             </button>
-                        </form>
+                    </div>
                     </div>
                 </div>
             </div>
-        </div>
-      <!--Modal de contratação de serviço-->
+            <!-- Modal para visualizar cadastro de serviço -->
+            <div id="modal-visualizacao-dois" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <img src="/iservices/img/logo.png" alt="Logo da empresa" class="logoTelaCadastroServico"></img>
+                        </div>
+                        <div class="modal-body">
+                            <div id="dados-visualizacao-servico">
+                                Identificador do serviço: <span name="visualizacao-id-servico-dois"></span></br>
+                                Tipo de Serviço: <span name="visualizacao-tipo-servico-dois"></span></br>
+                                Preço do Serviço: <span name="visualizacao-valor-servico-dois"></span></br>
+                                Descrição: <span name="visualizacao-descricao-servico-dois"></span></br>
+                                Atendimento: <span name="visualizacao-horainicial-servico-dois"></span> De: <span name="visualizacao-diainicial-servico-dois"></span></span></br>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                                <button type="button" class="btn btn-success" data-dismiss="modal">
+                                    <i class="glyphicon glyphicon-eye-close"></i>&nbspFechar
+                                </button>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+        <!--Modal de contratação de serviço-->
             <div class="modal fade" id="detalhes-servico-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">

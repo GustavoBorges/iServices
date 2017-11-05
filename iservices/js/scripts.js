@@ -47,6 +47,18 @@ $(document).ready(function() {
     $('#acesso-prestador').hide();
     $('#acesso-usuario').hide();
     $('#alert-warning-login').hide();
+    $('#horario-atendimento').hide();
+    $('#horario-urgencia').hide();
+    $('#carregando-modal-cadastrar-servico').hide();
+    $('#alert-warning-cadastro-servico').hide();
+    $('#alert-success-cadastrar-servico').hide();
+    $('span.id-servico').hide();
+    $('#editar-horario-atendimento').hide();
+    $('#editar-horario-urgencia').hide();
+    $('#carregando-modal-alterar').hide();
+    $('#alert-warning-alterar').hide();
+    $('#alert-success-alterar').hide();
+    $('#alert-danger-alterar').hide();
 
    /* setTimeout(function() {
         $('#carregamento-pagina-usuario').hide('slow');
@@ -75,13 +87,204 @@ function getPosition(){
   }
 }
 
-$('a.delete').on('click', function() {
-    var nome = $(this).data('name'); // vamos buscar o valor do atributo data-name que temos no botão que foi clicado
-    var id = $(this).data('id'); // vamos buscar o valor do atributo data-id
-    $('span.nome').text(nome + ' (id = ' + id + ')'); // inserir na o nome na pergunta de confirmação dentro da modal
-    $('a.delete-yes').attr('href', '/iservices/functions/acoes.php?id=' + id + '&&btn-ok=excluir'); // mudar dinamicamente o link, href do botão confirmar da modal
-    $('#delete-modal').modal('show'); // modal aparece
+$('.btn-excluir').click(function(event) {
+    var button = $(this);
+    var nome = button.data('name');
+    var id = button.data('id');
+    $('span.nome').text(nome);
+    $('span.id-servico').text(id);
+    $('#excluir-servico-modal').modal('show');
+    
 });
+
+$('.btn-confirma-exclusao').click(function(event) {
+    var id = $('span.id-servico').text();
+    var button = $('button[name=btn-ok]').val();
+
+    
+    $.ajax({
+        url: '/iservices/functions/acoes.php',
+        type: 'GET',
+        dataType: 'json',
+        data: {
+            id: id,
+            exclusao: button
+
+        },
+    
+    success: function(resultado){
+
+        if(resultado == "sucesso"){
+            location.reload();
+        }else{
+            $('#retorno').prepend('<span>Registro não pode ser excluido, pois o mesmo possui ligação com serviços contratados. Gentileza desativar o serviço!</span>')
+        }
+   },
+
+    });    
+});
+
+$('.editar-servico').click(function(event) {
+   var button = $(this);
+   var id = button.data('id');
+   var tipoServico = button.data('tipo');
+   var valor = button.data('valor');
+   var descricao = button.data('descricao');
+   var horarioInicial = button.data('horarioinicial');
+   var horarioFinal = button.data('horariofinal');
+   var diaInicial = button.data('diainicial');
+   var diaFinal = button.data('diafinal');
+   var check = button.data('check');
+
+   $('input[name=editar-identificador]').val(id);
+   $('select[name=editar-tipoServico]').val(tipoServico);
+   $('input[name=editar-valor]').val(valor);
+   $('textarea[name=editar-descricao-servico]').val(descricao);
+
+   if (check == "1"){
+
+   $('input[name=editar-horario-atendimento').prop('checked', false);
+   $('#editar-horario-atendimento').hide();
+
+   $('input[name=editar-tipo-atendimento').prop('checked', true);
+   $('#editar-horario-urgencia').show();
+
+   } else{
+    
+   $('input[name=editar-tipo-atendimento').prop('checked', false);
+   $('#editar-horario-urgencia').hide();
+
+   $('input[name=editar-horario-atendimento').prop('checked', true);
+   $('#editar-horario-atendimento').show();
+   
+   $('select[name=editar-horario-atendimento-inicial]').val(horarioInicial);
+   $('select[name=editar-horario-atendimento-final]').val(horarioFinal);
+   $('select[name=editar-dia-atendimento-inicial]').val(diaInicial);
+   $('select[name=editar-dia-atendimento-final]').val(diaFinal);   
+
+   }
+
+   $('#modal-editar-cadastro').modal('show');
+
+});
+
+$('#btn-alterar-servico').click(function(event) {
+
+   var button = $('button[name=alterar]').val();
+   var id = $('input[name=editar-identificador]').val();
+   var tipoServico = $('select[name=editar-tipoServico]').val();
+   var valor = $('input[name=editar-valor]').val();
+   var descricao = $('textarea[name=editar-descricao-servico]').val();
+
+   if($('#checkbox10').is(':checked') == true){
+
+   var horarioInicial = $('select[name=editar-horario-atendimento-inicial]').val();
+   var horarioFinal = $('select[name=editar-horario-atendimento-final]').val();
+   var diaInicial = $('select[name=editar-dia-atendimento-inicial]').val();
+   var diaFinal = $('select[name=editar-dia-atendimento-final]').val();
+   var check = "0";
+
+   $.ajax({
+       url: '/iservices/functions/acoes.php',
+       type: 'GET',
+       dataType: 'json',
+       data: {
+        alterar: button,
+        id: id,
+        tipoServico: tipoServico,
+        valor: valor,
+        descricao: descricao,
+        horarioInicial: horarioInicial,
+        horarioFinal: horarioFinal,
+        diaInicial: diaInicial,
+        diaFinal: diaFinal,
+        checkClicado: check
+        
+    },
+   
+       success: function(resultado){
+        console.log(resultado);
+
+        if(resultado == "sucesso"){
+
+            $('#carregando-modal-alterar').show();
+
+            setTimeout(function() {
+                $('#carregando-modal-alterar').hide();
+                $('#alert-success-alterar').show();
+            }, 3000);
+
+            setTimeout(function() {
+                location.reload();
+            }, 5000);
+    }
+
+        else {
+            $('#alert-danger-alterar').show();
+    }
+
+    },
+
+   });
+
+} else if($('#checkbox11').is(':checked') == true){
+
+   var horarioInicial = "24horas";
+   var horarioFinal = "24horas";
+   var diaInicial = "Segunda-Feira/Domingo";
+   var diaFinal = "Segunda-Feira/Domingo";
+   var check = "1"
+
+    $.ajax({
+       url: '/iservices/functions/acoes.php',
+       type: 'GET',
+       dataType: 'json',
+       data: {
+        alterar: button,
+        id: id,
+        tipoServico: tipoServico,
+        valor: valor,
+        descricao: descricao,
+        horarioInicial: horarioInicial,
+        horarioFinal: horarioFinal,
+        diaInicial: diaInicial,
+        diaFinal: diaFinal,
+        checkClicado: check
+        
+    },
+   
+       success: function(resultado){
+        console.log(resultado);
+
+        if(resultado == "sucesso"){
+
+            $('#carregando-modal-alterar').show();
+
+            setTimeout(function() {
+                $('#carregando-modal-alterar').hide();
+                $('#alert-success-alterar').show();
+            }, 3000);
+
+            setTimeout(function() {
+                location.reload();
+            }, 5000);
+    }
+
+        else {
+            $('#alert-danger-alterar').show();
+    }
+
+    },
+
+   });
+
+} else {
+
+        $('#alert-warning-alterar').show();
+}
+
+});
+
 
 $('#contratacao-modal').on('show.bs.modal', function(event) {
     var button = $(event.relatedTarget);
@@ -93,31 +296,49 @@ $('#contratacao-modal').on('show.bs.modal', function(event) {
     $('#recebe-id-servico').val(id);
 });
 
+$('.visualizar-servico').click(function(event) {
 
-$('#modal-EditarCadastro').on('show.bs.modal', function(event) {
-    var button = $(event.relatedTarget);
-    var indetificador = button.data('whatever');
-    var tipoServico = button.data('whatevertiposervico');
-    var preco = button.data('whateverpreco');
-    var descricao = button.data('whateverdescricao');
-    var modal = $(this)
-    modal.find('#identificador').val(indetificador);
-    modal.find('#preco').val(preco);
-    modal.find('#descricao').val(descricao);
-    modal.find('#tipoServico').val(tipoServico);
-});
+   var button = $(this);
+   var id = button.data('id');
+   var tipoServico = button.data('tipo');
+   var valor = button.data('valor');
+   var descricao = button.data('descricao');
+   var horarioInicial = button.data('horarioinicial');
+   var horarioFinal = button.data('horariofinal');
+   var diaInicial = button.data('diainicial');
+   var diaFinal = button.data('diafinal');
+   var check = button.data('check');
 
-$('#modal-Visualizacao').on('show.bs.modal', function(event) {
-    var button = $(event.relatedTarget);
-    var indetificador = button.data('whatever');
-    var tipoServico = button.data('whatevertiposervico');
-    var preco = button.data('whateverpreco');
-    var descricao = button.data('whateverdescricao');
-    var modal = $(this)
-    modal.find('#identificador').val(indetificador);
-    modal.find('#preco').val(preco);
-    modal.find('#descricao').val(descricao);
-    modal.find('#tipoServico').val(tipoServico);
+   if(check == "0"){
+
+   $('span[name=visualizacao-id-servico]').text(id);
+   $('span[name=visualizacao-tipo-servico]').text(tipoServico);
+   $('span[name=visualizacao-valor-servico]').text(valor);
+   $('span[name=visualizacao-descricao-servico]').text(descricao);
+   $('span[name=visualizacao-horainicial-servico]').text(horarioInicial);
+   $('span[name=visualizacao-horafinal-servico]').text(horarioFinal);
+   $('span[name=visualizacao-diainicial-servico]').text(diaInicial);
+   $('span[name=visualizacao-diafinal-servico]').text(diaFinal);
+
+   
+   $('#modal-visualizacao').modal('show');
+}
+
+    else {
+
+   $('span[name=visualizacao-id-servico-dois]').text(id);
+   $('span[name=visualizacao-tipo-servico-dois]').text(tipoServico);
+   $('span[name=visualizacao-valor-servico-dois]').text(valor);
+   $('span[name=visualizacao-descricao-servico-dois]').text(descricao);     
+   $('span[name=visualizacao-horainicial-servico-dois]').text(horarioInicial);
+   $('span[name=visualizacao-diainicial-servico-dois]').text(diaInicial);
+
+   
+   $('#modal-visualizacao-dois').modal('show');
+
+
+}
+    
 });
 
 $('#avaliacao-modal').on('show.bs.modal', function(event) {
@@ -478,10 +699,109 @@ if ($('#checkbox4').is(':checked') == true){
 
 });
 
+$('#btn-cadastrar-servico').click(function(event) {
+   
+    var tipoServico = $('select[name=tipo-servico-cadastro]').val();
+    var valor = $('input[name=valor-servico]').val();
+    var descricao = $('textarea[name=descricao-servico]').val();
+    var button = $('button[name=cadastro-servico]').val();
+
+     if($('#checkbox8').is(':checked') == false && $('#checkbox9').is(':checked') == false){
+        $('#alert-warning-cadastro-servico').show();
+    }
+
+    else if ($('#checkbox8').is(':checked') == true){
+    var horarioInicial = $('select[name=horario-atendimento-inicial]').val();
+    var horarioFinal = $('select[name=horario-atendimento-final]').val();
+    var diaInicial = $('select[name=dia-atendimento-inicial]').val();
+    var diaFinal = $('select[name=dia-atendimento-final]').val();
+    var checkClicado = "0";
+
+    $.ajax({
+        url: '/iservices/functions/cadastro.php',
+        type: 'GET',
+        dataType: 'html',
+        data: {
+            tipoServico: tipoServico,
+            valor: valor,
+            descricao: descricao, 
+            horarioInicial: horarioInicial,
+            horarioFinal: horarioFinal,
+            diaInicial: diaInicial,
+            diaFinal: diaFinal,
+            checkClicado: checkClicado,
+            cadastrar: button
+
+        },
+
+        success: function(resultado){
+
+            $('#carregando-modal-cadastrar-servico').show();
+
+            setTimeout(function() {
+            $('#carregando-modal-cadastrar-servico').hide();
+            $('#alert-success-cadastrar-servico').show();
+            }, 3000);
+            
+            setTimeout(function() {
+                location.reload();
+            }, 5000);
+
+        },
+    });
+
+  } else{
+    var horarioInicial = "24horas";
+    var horarioFinal = "24horas";
+    var diaInicial = "Segunda-Feira/Domingo";
+    var diaFinal = "Segunda-Feira/Domingo";
+    var checkClicado = "1";
+
+    $.ajax({
+        url: '/iservices/functions/cadastro.php',
+        type: 'GET',
+        dataType: 'html',
+        data: {
+            tipoServico: tipoServico,
+            valor: valor,
+            descricao: descricao,
+            horarioInicial: horarioInicial,
+            horarioFinal: horarioFinal,
+            diaInicial: diaInicial,
+            diaFinal: diaFinal,
+            checkClicado: checkClicado,
+            cadastrar: button
+
+        },
+
+        success: function(resultado){
+
+            $('#carregando-modal-cadastrar-servico').show();
+
+            setTimeout(function() {
+            $('#carregando-modal-cadastrar-servico').hide();
+            $('#alert-success-cadastrar-servico').show();
+            }, 3000);
+
+            setTimeout(function() {
+                location.reload();
+            }, 5000);
+
+            },
+    
+        });
+    }
+
+});
+
 $('.close').click(function(event) {
    $('#alert-warning-cadastrar').hide();
    $('#alert-warning-login').hide();
    $('#alert-warning').hide();
+   $('#alert-warning-cadastro-servico').hide();
+   $('#alert-success-cadastrar-servico').hide();
+   $('#alert-warning-alterar').hide();
+   $('#alert-success-alterar').hide();
 });
 
 
@@ -554,4 +874,48 @@ $('.btn-pagamento').click(function(event) {
     $('#pagamento-modal').modal('show');
 
 
+});
+
+$('#checkbox8').change(function(event) {
+    $('#checkbox9').prop('checked', false);
+     $('#horario-atendimento').show();    
+     $('#horario-urgencia').hide();
+
+     if($('#checkbox8').is(':checked') == false){
+        $('#horario-atendimento').hide();
+     }
+
+});
+
+$('#checkbox9').change(function(event) {
+    $('#checkbox8').prop('checked', false);
+    $('#horario-urgencia').show();
+    $('#horario-atendimento').hide();
+
+    if($('#checkbox9').is(':checked') == false){
+        $('#horario-urgencia').hide();
+     }    
+     
+});
+
+$('#checkbox10').change(function(event) {
+    $('#checkbox11').prop('checked', false);
+     $('#editar-horario-atendimento').show();    
+     $('#editar-horario-urgencia').hide();
+
+     if($('#checkbox10').is(':checked') == false){
+        $('#editar-horario-atendimento').hide();
+     }
+
+});
+
+$('#checkbox11').change(function(event) {
+    $('#checkbox10').prop('checked', false);
+    $('#editar-horario-urgencia').show();
+    $('#editar-horario-atendimento').hide();
+
+    if($('#checkbox11').is(':checked') == false){
+        $('#editar-horario-urgencia').hide();
+     }    
+     
 });

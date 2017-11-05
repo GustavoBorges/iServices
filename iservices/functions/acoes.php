@@ -17,42 +17,54 @@
 	
 ?>
 
-    <?php
+<?php
 
-	if(isset($_GET['btn-ok']) && $_GET['btn-ok'] == "excluir")
-{
-	
+	if(isset($_GET['exclusao']) && $_GET['exclusao'] == "excluir"){
+
+	$result;
 	$id = (int)$_GET['id'];
 	$deletar = mysqli_query($conexao, "DELETE FROM servico WHERE idServico = '{$id}'");
 
 	if($deletar == true){
-		header("location: /iservices/pages/cliente.php");
+		$result = "sucesso";
+
+		echo json_encode($result);
 	} else {
-		echo "Erro ao excluir registro: " . mysqli_error($conexao);
+		$result = "insucesso";
+		echo json_encode($result);
 	}
 }
 
-	elseif(isset($_GET['alterar']) && $_GET['alterar'] == "alterar")
-	{
+	elseif(isset($_GET['alterar']) && $_GET['alterar'] == "alterar-servico"){
 		
-		$identificador = trim($_GET['Editaridentificador']);
-		$tipoServico = trim($_GET['EditartipoServico']);
-		$valor = trim($_GET['Editarvalor']);
-		$descricao = trim($_GET['Editardescricao']);
+		$result;
+		$identificador = trim($_GET['id']);
+		$tipoServico = trim($_GET['tipoServico']);
+		$valor = trim($_GET['valor']);
+		$descricao = trim($_GET['descricao']);
+		$horarioInicial = trim($_GET['horarioInicial']);
+		$horarioFinal = trim($_GET['horarioFinal']);
+		$diaInicial = trim($_GET['diaInicial']);
+		$diaFinal = trim($_GET['diaFinal']);
+		$checkClicado = trim($_GET['checkClicado']);
 
-		if($valor == "" || $descricao == ""){
-		echo "<script type='text/javascript' language='javascript'>alert('Preencha todos os campos!');window.location.href='/iservices/pages/cliente.php'</script>";
-	}else{
-		if($tipoServico == "Selecione Serviço"){
-			echo "<script type='text/javascript' language='javascript'>alert('Selecione um serviço!');window.location.href='/iservices/pages/cliente.php'</script>";
-			} else { 
+		//$recebe = "UPDATE servico SET tiposervico = '$tipoServico', valor = '$valor', descricao = '$descricao', horarioInicial = '$horarioInicial', horarioFinal = '$horarioFinal', diaInicial = '$diaInicial', diaFinal = '$diaFinal', checkClicado = '$checkClicado'  WHERE idServico = '$identificador'";
 
-				$sql = mysqli_query($conexao, "UPDATE servico SET tiposervico = '$tipoServico', valor = '$valor', descricao = '$descricao' WHERE idServico = '$identificador'");
-				echo "<script type='text/javascript' language='javascript'>alert('Serviço alterado com sucesso!!');</script>";
-				header("location: /iservices/pages/cliente.php"); 
+		$sql = mysqli_query($conexao, "UPDATE servico SET tiposervico = '$tipoServico', valor = '$valor', descricao = '$descricao', horarioInicial = '$horarioInicial', horarioFinal = '$horarioFinal', diaInicial = '$diaInicial', diaFinal = '$diaFinal', checkClicado = '$checkClicado'  WHERE idServico = '$identificador'");
+		
+		if($sql == true){
+			$result = "sucesso";
+
+			echo json_encode($result);
+		} else {
+			$result = "insucesso";
+
+			echo json_encode($result);
 		}
-										}
-	}
+
+}
+		
+
 		mysqli_close($conexao);
     
 ?>

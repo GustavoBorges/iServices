@@ -117,9 +117,6 @@
                                             <th>Contrato</th>
                                             <th>Tipo de Serviço</th>
                                             <th>Preço</th>
-                                            <th>Descrição</th>
-                                            <th>Prestador</th>
-                                            <th>Telefone</th>
                                             <th>Status</th>
                                             <th class="actions">Ações</th>
                                             <th>Detalhe</th>
@@ -142,15 +139,6 @@
                                                     <?=$recebeContrato['valor'];?>
                                                 </td>
                                                 <td>
-                                                    <?=$recebeContrato['descricao'];?>
-                                                </td>
-                                                <td>
-                                                    <?=$recebeContrato['nome'];?>
-                                                </td>
-                                                <td>
-                                                    <?=$recebeContrato['telefone'];?>
-                                                </td>
-                                                <td>
                                                     <?=$recebeContrato['status'];?>
                                                 </td>
                                                 <td class="actions">
@@ -160,7 +148,7 @@
                                                     </a>
                                                     <a href="" class="btn-pagamento" data-toggle="modal" data-id="<?=$recebeContrato['idContrato'];?>" data-status="<?=$recebeContrato['status'];?>" data-name="<?=$recebeContrato['nome'];?>" data-tel="<?=$recebeContrato['telefone'];?>" data-servico="<?=$recebeContrato['tiposervico'];?>"><i class="fa fa-money" style="font-size:20px"></i></a>
                                                 </td>
-                                                <td><a class="detail-icon" href=""><i class="glyphicon glyphicon-plus"></i></a></td>
+                                                <td><a class="detail-icon" href="#detalhes-modal" data-toggle="modal" data-name="<?=$recebeContrato['nome'];?>" data-descricao="<?=$recebeContrato['descricao'];?>" data-tel="<?=$recebeContrato['telefone'];?>"><i class="glyphicon glyphicon-plus"></i></a></td>
                                             </tr>
                                             <?php } ?>
                                     </tbody>
@@ -174,10 +162,13 @@
                 <div class="container" style="margin-top:2px;">
                     <div class="row">
                         <div class="panel panel-primary panel-table animated slideInDown">
-                            <div class="panel-heading " style="padding:37px;">
+                            <div class="panel-heading " style="padding:10px;">
                                 <div class="row">
                                     <div class="col col-xs-12 text-center">
                                         <h1 class="panel-title">Histórico</h1>
+                                        <a href="" class="btn btn-info pull-right h1">
+                                             <i class="glyphicon glyphicon-print"></i>&nbspImprimir Relatório
+                                       </a>
                                     </div>
                                 </div>
                             </div>
@@ -190,11 +181,9 @@
                                             <th>Contrato</th>
                                             <th>Tipo de Serviço</th>
                                             <th>Preço</th>
-                                            <th>Descrição</th>
                                             <th>Prestador</th>
                                             <th>Telefone</th>
                                             <th>Status</th>
-                                            <th>Detalhe</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -214,9 +203,6 @@
                                                     <?=$recebeContrato['valor'];?>
                                                 </td>
                                                 <td>
-                                                    <?=$recebeContrato['descricao'];?>
-                                                </td>
-                                                <td>
                                                     <?=$recebeContrato['nome'];?>
                                                 </td>
                                                 <td>
@@ -225,7 +211,6 @@
                                                 <td>
                                                     <?=$recebeContrato['status'];?>
                                                 </td>
-                                                <td><a class="detail-icon" href="#"><i class="glyphicon glyphicon-plus"></i></a></td>
                                             </tr>
                                             <?php } ?>
                                     </tbody>
@@ -271,7 +256,7 @@
                     </div>
                 </div>
             </div>
-            <!--Modal de avaliação do serviço-->
+            <!--Modal de pagamento do serviço-->
             <div class="modal fade" id="pagamento-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -315,7 +300,7 @@
                     </div>
                 </div>
             </div>
-            <!-- Modal para Excluir Cadastro-->
+            <!-- Modal para cancelar serviço-->
         <div class="modal fade" id="cancelar-servico-modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -327,7 +312,7 @@
                         Deseja realmente cancelar o serviço? <span class="nome"></span>
                     </div>
                     <div class="modal-footer">
-                        <a name="btn-ok" value="excluir" type="button" class="btn btn-success delete-yes">
+                        <a type="button" name="" value="" class="btn btn-success">
                             <i class="glyphicon glyphicon-thumbs-up"></i>&nbspSim
                         </a>
                         <a href="#" type="button" class="btn btn-danger" data-dismiss="modal">
@@ -438,6 +423,29 @@
                     </div>
                 </div>
             </div>
+            <!--Modal de detalhes do produto-->
+            <div class="modal fade" id="detalhes-modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="modalLabel">Detalhamento do contrato</h4>
+                    </div>
+                    <div class="modal-body">
+                        Nome do prestador de serviço: <span class="nome-prestador"></span></br>
+                        Telefone: <span class="telefone-prestador"></span></br>
+                        Descrição do serviço: <span class="descricao-servico-prestador"></span></br>
+                        Horário de atendimento: <span class="horario-atendimento"></span></br>
+                        Data e horário para realização do serviço: <span class="data-horario-servico"></span>
+                    </div>
+                    <div class="modal-footer">
+                        <a type="button" name="" class="btn btn-success" data-dismiss="modal">
+                            <i class="glyphicon glyphicon-thumbs-up"></i>&nbspOK
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
             <script src="http://code.jquery.com/jquery-latest.js"></script>
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
             <script src="//code.jquery.com/jquery-1.12.4.js"></script>
