@@ -442,7 +442,7 @@
                             </div>
                             <div class="alert alert-warning" id="alert-warning-login">
                                 <a href="#" class="close" aria-label="close">&times;</a>
-                                <strong>Atenção!</strong> Não foi selecionada nenhuma modalidade de acesso.
+                                <strong>Atenção!</strong> E-mail ou senha inválidos.
                             </div>                       
                     </div>
                 </div>

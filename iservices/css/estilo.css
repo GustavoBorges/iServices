@@ -346,6 +346,11 @@ label {
   font-weight: bold;
 }
 
+.data{
+  width: 120px;
+  display: inline;
+}
+
 .checkbox {
   padding-left: 20px; }
   .checkbox label {

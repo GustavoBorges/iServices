@@ -353,10 +353,6 @@
                                         </div>
                                         </br>
                                         <div class="form-check-label">
-                                            <input id="check-endcadastrado" type="checkbox">
-                                            <label>
-                                                Prestador de serviço
-                                            </label>
                                                 <label class="form-check-label">
                                                     <input type="checkbox" class="form-check-input" id="check-endcadastrado">
                                                     Endereço cadastrado

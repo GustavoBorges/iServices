@@ -21,7 +21,7 @@
 	
 	if(isset($_POST['contratar']) && $_POST['contratar'] == "Contratar"){
 
-		$idUsuario = $_SESSION['id'];
+		$idUsuario = $_SESSION['idUsuario'];
 		$id = trim($_POST['id']);
 		$rua = trim($_POST['rua']);
 		$numero = trim($_POST['numero']);
@@ -32,6 +32,7 @@
 		$enderecoCadastrado = trim($_POST['enderecoCadastrado']);
 		$data = date('Y/m/d');
 		$detalhes = trim($_POST['detalhes']);
+		$result;
 
 		$sql = mysqli_query($conexao, "SELECT idcliente FROM servico WHERE idServico = '{$id}'");
 		while ($row = mysqli_fetch_row($sql)){
@@ -39,35 +40,35 @@
 			
 		}
 			if(mysqli_num_rows($sql) > 0){
-				$sql = mysqli_query($conexao, "INSERT INTO contrato (idServico, idUsuario, idCliente, preco, dataPreco, status, enderecoCadastrado, detalhes) VALUES ('$id', '$idUsuario', '$recebeValor', '$preco', '$data', '0', '$enderecoCadastrado', '$detalhes')");
+					
+				//$sql = "INSERT INTO contrato (idServico, idUsuario, idCliente, preco, dataPreco, status, enderecoCadastrado, rua, numero, complemento, bairro, cidade, detalhes) VALUES ('$id', '$idUsuario', '$recebeValor', '$preco', '$data', '0', '$enderecoCadastrado', '$rua', '$numero', '$complemento', '$bairro', '$cidade', '$detalhes')";
+				$sql = mysqli_query($conexao, "INSERT INTO contrato (idServico, idUsuario, idCliente, preco, dataPreco, status, enderecoCadastrado, rua, numero, complemento, bairro, cidade, detalhes) VALUES ('$id', '$idUsuario', '$recebeValor', '$preco', '$data', '0', '$enderecoCadastrado', '$rua', '$numero', '$complemento', '$bairro', '$cidade', '$detalhes')");
 
-				$query = mysqli_query($conexao, "SELECT MAX(idContrato) as idContrato FROM contrato WHERE idUsuario = '{$idUsuario}'");
-				
-				while ($row = mysqli_fetch_row($query)){
-			    $recebeValor = $row[0];
-			
-			}	if(mysqli_num_rows($query) > 0){
-					$sql = mysqli_query($conexao, "INSERT INTO endereco_complementar (idContrato, rua, numero, complemento, bairro, cidade) VALUES ('$recebeValor', '$rua', '$numero', '$complemento', '$bairro', '$cidade')");
-				} else {
+				$result = "sucesso";
+		
+				echo json_encode($result);
+		} else {
 					mysqli_error($conexao);
+
+				$result = "insucesso";
+
+				echo json_encode($result);	
+
 				}
 
-				echo "sucesso";
 
-			} else {
-				mysqli_error($conexao);
-			}
-		}
+}
 
 		elseif(isset($_POST['contratarSemEnd']) && $_POST['contratarSemEnd'] == "Contratar"){
 
-		$idUsuario = $_SESSION['id'];
+		$idUsuario = $_SESSION['idUsuario'];
 		$id = trim($_POST['id']);
 		$preco = trim($_POST['preco']);
 		$enderecoCadastrado = trim($_POST['enderecoCadastrado']);		
 		$detalhes = trim($_POST['detalhes']);
 		$data = date('Y/m/d');
 		$sucesso = "sucesso";
+		$result;
 
 		$sql = mysqli_query($conexao, "SELECT idcliente FROM servico WHERE idServico = '{$id}'");
 		while ($row = mysqli_fetch_row($sql)){
@@ -75,13 +76,34 @@
 			
 		}
 			if(mysqli_num_rows($sql) > 0){
-				$sql = mysqli_query($conexao, "INSERT INTO contrato (idServico, idUsuario, idCliente, preco, dataPreco, status, enderecoCadastrado, detalhes) VALUES ('$id', '$idUsuario', '$recebeValor', '$preco', '$data', '0', '$enderecoCadastrado', '$detalhes')");
+				$recebeEndereco = mysqli_query($conexao, "SELECT logradouro, numero, complemento, bairro, cidade FROM usuario WHERE idUsuario = '{$idUsuario}'");
 
-				return $sucesso;
+				while ($row = mysqli_fetch_row($recebeEndereco)) {
+					$recebeRua = $row[0];
+					$recebeNumero = $row[1];
+					$recebeComplemento = $row[2];
+					$recebeBairro = $row[3];					
+					$recebeCidade = $row[4];
+			}
+
+				$sql = mysqli_query($conexao, "INSERT INTO contrato (idServico, idUsuario, idCliente, preco, dataPreco, status, enderecoCadastrado, rua, numero, complemento, bairro, cidade, detalhes)	VALUES ('$id', '$idUsuario', '$recebeValor', '$preco', '$data', '0', '$enderecoCadastrado', '$recebeRua', '$recebeNumero', '$recebeComplemento', '$recebeBairro', '$recebeCidade', '$detalhes')");
+
+				
+
+			if ($sql == true){
+				$result = "sucesso";
+		
+				echo json_encode($result);
 
 			} else {
-				mysqli_error($conexao);
-			}
+
+				$result = "insucesso";
+		
+				echo json_encode($result);
+
+			}	
+
+		   }
 		}
 
 ?>

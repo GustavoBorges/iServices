@@ -25,6 +25,8 @@ $(document).ready(function() {
         }
     });
 
+    $('[data-toggle="tooltip"]').tooltip(); 
+
     //Pegando posição atual do usuário
     getPosition();
 
@@ -59,6 +61,9 @@ $(document).ready(function() {
     $('#alert-warning-alterar').hide();
     $('#alert-success-alterar').hide();
     $('#alert-danger-alterar').hide();
+    $('#carregando-modal-visualizar-contratacao').hide();
+    $('#alert-warning-visualizar-contratacao').hide();
+    $('#alert-success-visualizar-contratacao').hide();
 
    /* setTimeout(function() {
         $('#carregamento-pagina-usuario').hide('slow');
@@ -440,10 +445,6 @@ $('#check-enddiferentecadastro').change( function (){
      }
 });
 
-$('.btn-visualizar-modal-servico').click(function() {
-    $('#detalhes-servico-modal').modal('show');
-});
-
 //Requisições ajax
 
 $('#btn-contratar-modal').click( function(){
@@ -462,7 +463,7 @@ $('#btn-contratar-modal').click( function(){
                     $.ajax({
                         url: '/iservices/functions/contrata.php',
                         type: 'POST',
-                        dataType: 'html',
+                        dataType: 'json',
                         data: {
                             contratarSemEnd: button,
                             id: id,
@@ -471,15 +472,22 @@ $('#btn-contratar-modal').click( function(){
                             detalhes: detalhes
                         },
                     
-                    complete: function(resultado) {
-                                                
+                    success: function(resultado) {
+                      
+                        if (resultado == "sucesso"){
                                     $('#carregando-modal-contratar').show();
                         setTimeout(function() {   
                                     $('#carregando-modal-contratar').hide();
                                     $('#alert-success-contratar').show();
                         }, 3000);
-                       
-                 },
+                        setTimeout(function() {   
+                                    location.reload();
+                        }, 4000);
+                      } else {
+                    }
+
+                                                
+             },
 
         }); 
 
@@ -495,7 +503,7 @@ $('#btn-contratar-modal').click( function(){
                     $.ajax({
                         url: '/iservices/functions/contrata.php',
                         type: 'POST',
-                        dataType: 'html',
+                        dataType: 'json',
                         data: {
                             id: id,
                             contratar: button,
@@ -509,12 +517,19 @@ $('#btn-contratar-modal').click( function(){
                             detalhes: detalhes
                         },
 
-                    complete: function(resultado) {
+                    success: function(resultado) {
+                        
+                        if (resultado == "sucesso"){
                                     $('#carregando-modal-contratar').show();
                         setTimeout(function() {   
                                     $('#carregando-modal-contratar').hide();
                                     $('#alert-success-contratar').show();
                         }, 3000);
+                        setTimeout(function() {   
+                                    location.reload();
+                        }, 4000);
+                      } else {
+                    }
                        
                        },
 
@@ -537,7 +552,7 @@ $('#btn-login').click( function() {
            $.ajax({
                 url: '/iservices/functions/validacao.php',
                 type: 'POST',
-                dataType: 'html',
+                dataType: 'json',
                 data: {
                     cnpj: cnpj,
                     senha: senha,
@@ -548,12 +563,24 @@ $('#btn-login').click( function() {
 
             success: function(resultado){
 
+              if (resultado == "sucesso"){
                 $('#carregando-acesso').show('slow');
 
                 setTimeout( function() {
                 window.location.href = "/iservices/pages/cliente.php";
                 }, 3000);
 
+              }
+
+              else {
+
+                $('#carregando-acesso').show('slow');
+
+                setTimeout( function() {
+                  $('#carregando-acesso').hide();
+                  $('#alert-warning-login').show();
+                }, 3000);
+              }
 
             },
 
@@ -918,4 +945,71 @@ $('#checkbox11').change(function(event) {
         $('#editar-horario-urgencia').hide();
      }    
      
+});
+
+$('.btn-visualizar-modal-servico').click(function(event) {
+  
+        var button = $(this);
+        var id = button.data('id');
+        var tipoServico = button.data('tipo');
+        var preco = button.data('valor');
+        var descricao = button.data('descricao');
+        var horarioInicial = button.data('horarioinicial');
+        var horarioFinal = button.data('horariofinal');
+        var diaInicial  = button.data('diainicial');
+        var diaFinal = button.data('diafinal');
+        var nomeContratante  = button.data('contratante');
+        var telefoneContratante = button.data('telefonecontratante');
+        var emailContratante = button.data('emailcontratante');
+        var endContratante= button.data('enderecocontratante');
+        var detalhes= button.data('detalhes');
+        var checkClidado = button.data('check');
+
+        if (checkClidado == "1"){
+
+        $('span[name=visualizacao-solicitacao-id-servico-dois]').text(id);
+        $('span[name=visualizacao-solicitacao-tipo-servico-dois]').text(tipoServico);
+        $('span[name=visualizacao-solicitacao-valor-servico-dois]').text(preco);
+        $('span[name=visualizacao-solicitacao-descricao-servico-dois]').text(descricao);
+        $('span[name=visualizacao-solicitacao-contratante-servico-dois]').text(nomeContratante);
+        $('span[name=visualizacao-solicitacao-telefone-servico-dois]').text(telefoneContratante);
+        $('span[name=visualizacao-solicitacao-email-servico-dois]').text(emailContratante);
+        $('span[name=visualizacao-solicitacao-endereco-servico-dois]').text(endContratante);
+        $('textarea[name=detalhes-solicitacao-modal-contratar-dois]').val(detalhes);        
+        $('span[name=visualizacao-solicitacao-horainicial-servico-dois]').text(horarioInicial);
+        $('span[name=visualizacao-solicitacao-diainicial-servico-dois]').text(diaInicial);
+
+        $('textarea[name=detalhes-solicitacao-modal-contratar-dois]').prop('disabled', true);
+
+        $('#detalhes-servico-modal-dois').modal('show');
+        
+
+      } else if (checkClidado = "0") {
+
+              $('span[name=visualizacao-solicitacao-id-servico]').text(id);
+              $('span[name=visualizacao-solicitacao-tipo-servico]').text(tipoServico);
+              $('span[name=visualizacao-solicitacao-valor-servico]').text(preco);
+              $('span[name=visualizacao-solicitacao-descricao-servico]').text(descricao);
+              $('span[name=visualizacao-solicitacao-contratante-servico]').text(nomeContratante);
+              $('span[name=visualizacao-solicitacao-telefone-servico]').text(telefoneContratante);
+              $('span[name=visualizacao-solicitacao-email-servico]').text(emailContratante);
+              $('span[name=visualizacao-solicitacao-endereco-servico]').text(endContratante);
+              $('textarea[name=detalhes-solicitacao-modal-contratar]').val(detalhes);        
+              $('span[name=visualizacao-solicitacao-horainicial-servico]').text(horarioInicial);
+              $('span[name=visualizacao-solicitacao-diainicial-servico]').text(diaInicial);
+              $('span[name=visualizacao-solicitacao-horafinal-servico]').text(horarioFinal);
+              $('span[name=visualizacao-solicitacao-diafinal-servico]').text(diaFinal);
+
+              $('textarea[name=detalhes-solicitacao-modal-contratar]').prop('disabled', true);
+
+              $('#detalhes-servico-modal').modal('show');
+
+
+      }   
+
+});
+
+$('.datepicker').datepicker({ 
+    format:  'mm / dd / aaaa', 
+    startDate:  '-3d' 
 });

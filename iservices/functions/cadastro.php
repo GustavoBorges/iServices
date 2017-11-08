@@ -25,7 +25,7 @@ if (isset($_POST['enviar']) && $_POST['enviar'] == "Enviar" && $_POST['tipo'] ==
 
 		$razaoSocial = trim($_POST['razaoSocial']);
 		$cpfcnpj = trim($_POST['cpfcnpj']);
-		$senha = trim($_POST['senha']);
+		md5($senha = trim($_POST['senha']));
 		$confirmaSenha = trim($_POST['confirmaSenha']);
 		$rua = trim($_POST['rua']);
 		$numero = trim($_POST['numero']);

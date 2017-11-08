@@ -22,6 +22,7 @@ session_start();
 if (isset($_POST['acessar']) && $_POST['acessar'] == "Acessar" && $_POST['tipoAcesso'] == "0") {
         $cnpj = trim($_POST['cnpj']);
         $senha = trim($_POST['senha']);
+        $result;
 
         $sql = mysqli_query($conexao, "SELECT * FROM cliente WHERE cnpj = '{$cnpj}' AND senha = '{$senha}'");
 
@@ -29,12 +30,16 @@ if (isset($_POST['acessar']) && $_POST['acessar'] == "Acessar" && $_POST['tipoAc
             $sql = mysqli_query($conexao, "SELECT idCliente FROM cliente WHERE cnpj = '{$cnpj}'");
             $recebe = mysqli_fetch_array($sql);
             
-            $_SESSION['idCliente'] = $recebe['idCliente'];            
+            $_SESSION['idCliente'] = $recebe['idCliente']; 
 
-            echo "sucesso";
+            $result = "sucesso";
+
+            echo json_encode($result);
 
         } else {
-            echo "insucesso";
+            $result = "insucesso";
+
+            echo json_encode($result);
         }
         
 }

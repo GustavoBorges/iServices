@@ -63,7 +63,6 @@
                                         <th>Preço</th>
                                         <th class="actions">Ações</th>
                                         <th>Ativo</th>
-                                        <th>Detalhes</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -90,7 +89,6 @@
                                                    <span class="slider round"></span>
                                                 </label>
                                             </td>
-                                            <td><a class="detail-icon" href="#"><i class="glyphicon glyphicon-plus"></i></a></td>
                                         </tr>
                                         <?php } ?>
                                 </tbody>
@@ -120,7 +118,6 @@
                                         <th>Contrato</th>
                                         <th>Tipo de Serviço</th>
                                         <th>Preço</th>
-                                        <th>Descrição</th>
                                         <th>Contratante</th>
                                         <th>Telefone</th>
                                         <th>Status</th>
@@ -142,10 +139,7 @@
                                                 <?=$recebe['tiposervico'];?>
                                             </td>
                                             <td>R$
-                                                <?=$recebe['valor'];?>
-                                            </td>
-                                            <td>
-                                                <?=$recebe['descricao'];?>
+                                                <?=$recebe['preco'];?>
                                             </td>
                                             <td>
                                                 <?=$recebe['nome'];?>
@@ -157,9 +151,9 @@
                                                 <?=$recebe['status'];?>
                                             </td>
                                             <td class="actions">
-                                                <a href="" class="btn-visualizar-modal-servico" data-toggle="modal"><i class="glyphicon glyphicon-eye-open"></i></a>
-                                                <a href="" id="btnAceitar"><i class="glyphicon glyphicon-ok icon-success"></i></a>
-                                                <a href="" id="btnRejeitar"><i class="glyphicon glyphicon-remove icon-remove" id="btn-rejeitar"></i></a>
+                                                <a href="" class="btn-visualizar-modal-servico" data-toggle="modal" data-id="<?=$recebe['idContrato']?>" data-tipo="<?=$recebe['tiposervico']?>" data-valor="<?=$recebe['preco']?>" data-descricao="<?=$recebe['descricao']?>" data-horarioInicial="<?=$recebe['horarioInicial']?>" data-horariofinal="<?=$recebe['horarioFinal']?>" data-diainicial="<?=$recebe['diaInicial']?>" data-diafinal="<?=$recebe['diaFinal']?>" data-contratante="<?=$recebe['nome']?>" data-telefonecontratante="<?=$recebe['telefone']?>" data-emailcontratante="<?=$recebe['email']?>" data-enderecocontratante="<?=$recebe['endereco']?>" data-detalhes="<?=$recebe['detalhes']?>" data-check="<?=$recebe['checkClicado']?>"><i class="glyphicon glyphicon-eye-open"></i></a>
+                                                <a href="" id="btnAceitar" data-toggle="tooltip" title="A clicar neste botão você estará aceitando o serviço."><i class="glyphicon glyphicon-ok icon-success"></i></a>
+                                                <a href="" id="btnRejeitar" data-toggle="tooltip" title="Ao clicar neste botão você estará rejeitando a proposta de serviço."><i class="glyphicon glyphicon-remove icon-remove" id="btn-rejeitar"></i></a>
                                             </td>
                                             <td><a class="detail-icon" href="#"><i class="glyphicon glyphicon-plus"></i></a></td>
                                         </tr>
@@ -194,11 +188,10 @@
                                         <th>Contrato</th>
                                         <th>Tipo de Serviço</th>
                                         <th>Preço</th>
-                                        <th>Descrição</th>
                                         <th>Contratante</th>
                                         <th>Telefone</th>
+                                        <th>Preço Pago</th>
                                         <th>Status</th>
-                                        <th>Detalhe</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -216,9 +209,6 @@
                                             </td>
                                             <td>R$
                                                 <?=$recebe['valor'];?>
-                                            </td>
-                                            <td>
-                                                <?=$recebe['descricao'];?>
                                             </td>
                                             <td>
                                                 <?=$recebe['nome'];?>
@@ -706,7 +696,7 @@
                     </div>
                 </div>
             </div>
-            <!-- Modal para visualizar cadastro de serviço -->
+            <!-- Modal para visualizar cadastro de serviço atendimento urgência -->
             <div id="modal-visualizacao-dois" class="modal fade" role="dialog">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -731,8 +721,8 @@
                         </div>
                     </div>
                 </div>
-        <!--Modal de contratação de serviço-->
-            <div class="modal fade" id="detalhes-servico-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <!--Modal de visualização de contratação de serviço-->
+            <div class="modal fade" id="detalhes-servico-modal-dois" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -749,51 +739,17 @@
                         <div class="tab-content">
                             <div role="tabpanel" class="tab-pane active" id="tab-informacoes">
                                 <div class="modal-body">
-                                    <form>
-                                        <div class="form">
-                                            <label for="nome-servico" class="col-form-label">Nome do Serviço</label>
-                                            <input class="form-control" id="recebe-nome-servico" readonly="true"></input>
-                                            <label for="valor-servico" class="col-form-label">Preço do Serviço</label>
-                                            <input class="form-control" id="recebe-valor-servico" name="recebe-preco-servico" readonly="true"></input>
-                                            <div id="div-recebe-id-servico">
-                                            <label for="id-servico" class="col-form-label">Id</label>
-                                            <input name="recebe-id-servico" class="form-control" id="recebe-id-servico" name="recebe-id-servico"></input>
-                                            </div>
-                                        </div>
-                                        </br>
-                                        <div class="form-check-label">
-                                                <label class="form-check-label">
-                                                    <input type="checkbox" class="form-check-input" id="check-endcadastrado">
-                                                    Endereço cadastrado
-                                                </label>
-                                                </br>
-                                                <label class="form-check-label">
-                                                    <input type="checkbox" class="form-check-input" id="check-enddiferentecadastro">
-                                                    Endereço diferente do cadastrado
-                                                </label>
-                                            <div id="form-enddiferente">
-                                                <label for="rua">Av/Rua:</label>
-                                                <input type="text" name="rua" id="rua" class="form-control"></input>
-                                                <label for="numero">Número:</label>
-                                                <input type="text" name="numero" id="numero" class="form-control"></input>
-                                                <label for="complemento">Complemento:</label>
-                                                <input type="text" name="complemento" class="form-control"></input>
-                                                <label for="bairro">Bairro:</label>
-                                                <input type="text" name="bairro" id="bairro" class="form-control"></input>
-                                                <label for="cidade">Cidade:</label>
-                                                <input type="text" name="cidade" id="cidade" class="form-control"></input>
-                                            </div>
-                                        </div>
-                                        </br>
-                                        <div class="form">
-                                            <label for="message-text" class="col-form-label">Termo</label>
-                                            <textarea class="form-control" id="message-text" name="messagem-text-termo">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi massa eros, fermentum in tincidunt eu, in lobortis sit amet, blandit sed ipsum. Aenean pharetra blandit lorem, quis mattis libero tincidunt in. Nulla vestibulum lobortis vulputate. Praesent sit amet nunc commodo, ultricies nulla eu, vestibulum justo. Maecenas orci dui, mattis sit amet euismod a, placerat ac ante. Integer ornare tortor elit, eu mollis nisl varius ultrices. Maecenas consectetur, ipsum in tincidunt fermentum, est nulla vehicula erat, sed laoreet urna quam a erat. Phasellus feugiat mi vel ante venenatis viverra. Pellentesque ornare tortor non eros aliquam porta. Curabitur pulvinar accumsan dui nec viverra.
-                                            </textarea>
-                                        </div>
-                                        <label class="form-check-label"><input type="checkbox" id="check-termo">
-                                         Li e concordo com os termos em condições
-                                        </label>
-                                    </form>
+                                    <div id="dados-visualizacao-servico">
+                                        Número de contrato: <span name="visualizacao-solicitacao-id-servico-dois"></span></br>
+                                        Tipo de Serviço: <span name="visualizacao-solicitacao-tipo-servico-dois"></span></br>
+                                        Preço do Serviço: <span name="visualizacao-solicitacao-valor-servico-dois"></span></br>
+                                        Descrição: <span name="visualizacao-solicitacao-descricao-servico-dois"></span></br>
+                                        Atendimento: <span name="visualizacao-solicitacao-horainicial-servico-dois"></span> De: <span name="visualizacao-solicitacao-diainicial-servico-dois"></span></span></br>
+                                        Contratante: <span name="visualizacao-solicitacao-contratante-servico-dois"></span></br>
+                                        Telefone: <span name="visualizacao-solicitacao-telefone-servico-dois"></span></br>
+                                        E-mail: <span name="visualizacao-solicitacao-email-servico-dois"></span></br>
+                                        Endereço: <span name="visualizacao-solicitacao-endereco-servico-dois"></span></br>
+                                    </div>                                                                               
                                 </div>
                             </div>
                             <div role="tabpanel" class="tab-pane" id="tab-detalhes">
@@ -801,15 +757,15 @@
                                     <form>
                                         <div class="form">
                                             <label for="message-text" class="col-form-label">Detalhamento da ocorrência</label>
-                                            <textarea class="form-control" id="message-text" placeholder="Digite aqui o detalhamento da sua ocorrência..." name="detalhes-modal-contratar"></textarea>
+                                            <textarea class="form-control" id="message-text" placeholder="Digite aqui o detalhamento da sua ocorrência..." name="detalhes-solicitacao-modal-contratar-dois"></textarea>
                                         </div>
                                     </form>
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-success" id="btn-contratar-modal" name="btn-contratar-modal" value="Contratar">
-                                <i class="glyphicon glyphicon-ok"></i>&nbspContratar
+                            <button type="submit" class="btn btn-success" id="btn-aceita-contratar-modal" name="btn-contratar-modal" value="Aceitar">
+                                <i class="glyphicon glyphicon-ok"></i>&nbspAceitar Proposta
                             </button>
                             <button type="button" class="btn btn-danger" data-dismiss="modal">
                                 <i class="glyphicon glyphicon-remove"></i>&nbspCancelar
@@ -822,6 +778,70 @@
                             <strong>Atenção!</strong> Não foi selecionada nenhuma modalidade de endereço.
                         </div>
                         <div class="alert alert-success" id="alert-success-contratar">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            <strong>Sucesso!</strong> O seu serviço foi contratado com sucesso.
+                        </div>                        
+                    </div>
+                </div>
+            </div>  
+            <!--Modal de visualização dois de contratação de serviço-->
+            <div class="modal fade" id="detalhes-servico-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <div class="container">
+                                <ul class="nav nav-tabs" id="menu-modal-contratacao" role="tablist">
+                                    <li role="presentation" class="active"><a href="#tab-informacoes-dois" arial-controls="" data-toggle="tab" role="tab">Informações</a></li>
+                                    <li role="presentation"><a href="#tab-detalhes-dois" arial-controls="" data-toggle="tab" role="tab">Detalhes</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane active" id="tab-informacoes-dois">
+                                <div class="modal-body">
+                                    <div id="dados-visualizacao-servico">
+                                        Número de contrato: <span name="visualizacao-solicitacao-id-servico"></span></br>
+                                        Tipo de Serviço: <span name="visualizacao-solicitacao-tipo-servico"></span></br>
+                                        Preço do Serviço: <span name="visualizacao-solicitacao-valor-servico"></span></br>
+                                        Descrição: <span name="visualizacao-solicitacao-descricao-servico"></span></br>
+                                        Atendimento: Atendimento: De: <span name="visualizacao-solicitacao-horainicial-servico"></span> às <span name="visualizacao-solicitacao-horafinal-servico"></span> / De: <span name="visualizacao-solicitacao-diainicial-servico"></span> à <span name="visualizacao-solicitacao-diafinal-servico"></span></br>
+                                        Contratante: <span name="visualizacao-solicitacao-contratante-servico"></span></br>
+                                        Telefone: <span name="visualizacao-solicitacao-telefone-servico"></span></br>
+                                        E-mail: <span name="visualizacao-solicitacao-email-servico-dois"></span></br>
+                                        Endereço: <span name="visualizacao-solicitacao-endereco-servico"></span></br>
+                                        Data inicial: <input type="date" class="data form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="tab-detalhes-dois">
+                                <div class="modal-body">
+                                    <form>
+                                        <div class="form">
+                                            <label for="message-text" class="col-form-label">Detalhamento da ocorrência</label>
+                                            <textarea class="form-control" id="message-text" placeholder="Digite aqui o detalhamento da sua ocorrência..." name="detalhes-solicitacao-modal-contratar"></textarea>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-success" id="btn-aceita-contratar-modal" name="btn-contratar-modal" value="Aceitar">
+                                <i class="glyphicon glyphicon-ok"></i>&nbspAceitar Proposta
+                            </button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">
+                                <i class="glyphicon glyphicon-remove"></i>&nbspCancelar
+                            </button>
+                            </br>
+                            <div id="carregando-modal-visualizar-contratacao" align="center"><img src="/iservices/img/carregando.gif"></br><span>Contratando Serviço</span></div>
+                        </div>
+                        <div class="alert alert-warning" id="alert-warning-visualizar-contratacao">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            <strong>Atenção!</strong> Não foi selecionada nenhuma modalidade de endereço.
+                        </div>
+                        <div class="alert alert-success" id="alert-success-visualizar-contratacao">
                             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                             <strong>Sucesso!</strong> O seu serviço foi contratado com sucesso.
                         </div>                        

@@ -73,12 +73,31 @@
 
 		$idCliente = $_SESSION['idCliente'];
 
-		$recebeServicoSolicitado = mysqli_query($conexao, "SELECT c.idContrato, s.tiposervico, s.valor, s.descricao, u.nome, u.email, u.telefone, c.status FROM contrato AS c
-												INNER JOIN servico AS s
-												ON c.idServico = s.idServico
-												INNER JOIN usuario AS u
-												ON c.idUsuario = u.idUsuario
-												WHERE c.idCliente = '{$idCliente}'");
+		$recebeServicoSolicitado = mysqli_query($conexao, "SELECT contrato.idContrato, 
+			servico.tiposervico, 
+			contrato.preco, 
+			servico.descricao, 
+			servico.horarioInicial,
+			servico.horarioFinal,
+			servico.diaInicial,
+			servico.diaFinal, 
+			usuario.nome, 
+			usuario.email, 
+			usuario.telefone,
+			contrato.status,
+			contrato.detalhes,
+			servico.checkClicado,
+			CONCAT(contrato.rua,', ',
+			contrato.numero,' - ',
+			contrato.complemento,' - ',
+			contrato.bairro,'/ ',
+			contrato.cidade) AS endereco 
+			FROM contrato 
+			INNER JOIN usuario 
+			ON contrato.idUsuario = usuario.idUsuario 
+			INNER JOIN servico 
+			ON contrato.idServico = servico.idServico
+			WHERE contrato.idCliente = '{$idCliente}'");
 
 		while ($recebe = mysqli_fetch_array($recebeServicoSolicitado)) {
 				array_push($carregaContrato, $recebe);
