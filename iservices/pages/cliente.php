@@ -1,5 +1,4 @@
 <?php
-   include("C:XAMPP/htdocs/iservices/conexao/conecta.php");
    include("C:XAMPP/htdocs/iservices/functions/funcoes.php");
    $recebeu = recebeNomeCliente($conexao);
    ?>
@@ -749,6 +748,8 @@
                                         Telefone: <span name="visualizacao-solicitacao-telefone-servico-dois"></span></br>
                                         E-mail: <span name="visualizacao-solicitacao-email-servico-dois"></span></br>
                                         Endereço: <span name="visualizacao-solicitacao-endereco-servico-dois"></span></br>
+                                        Data inicial: <input type="date" name="data-inicial" class="data form-control" id="data-visualizacao-servico" >
+                                        <span name="check-clicado-visualizacao-dois" style="display:none;" id="spaanCheckdois"></span>
                                     </div>                                                                               
                                 </div>
                             </div>
@@ -764,7 +765,7 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-success" id="btn-aceita-contratar-modal" name="btn-contratar-modal" value="Aceitar">
+                            <button type="submit" class="btn-aceita-contratar-modal btn btn-success" id="btn-aceita-contratar-modal" name="aceitar" value="aceitar-servico">
                                 <i class="glyphicon glyphicon-ok"></i>&nbspAceitar Proposta
                             </button>
                             <button type="button" class="btn btn-danger" data-dismiss="modal">
@@ -812,7 +813,8 @@
                                         Telefone: <span name="visualizacao-solicitacao-telefone-servico"></span></br>
                                         E-mail: <span name="visualizacao-solicitacao-email-servico-dois"></span></br>
                                         Endereço: <span name="visualizacao-solicitacao-endereco-servico"></span></br>
-                                        Data inicial: <input type="date" class="data form-control">
+                                        Data inicial: <input type="date" name="data-inicial" class="data form-control" id="data-visualizacao-servico" >
+                                        <span name="check-clicado-visualizacao" style="display:none;" id="spaanCheck"></span>
                                     </div>
                                 </div>
                             </div>
@@ -828,7 +830,7 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-success" id="btn-aceita-contratar-modal" name="btn-contratar-modal" value="Aceitar">
+                            <button type="submit" class="btn-aceita-contratar-modal btn btn-success" id="btn-aceita-contratar-modal" name="aceitar" value="aceitar-servico">
                                 <i class="glyphicon glyphicon-ok"></i>&nbspAceitar Proposta
                             </button>
                             <button type="button" class="btn btn-danger" data-dismiss="modal">

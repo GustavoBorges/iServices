@@ -1,5 +1,4 @@
 <?php
-   include("C:XAMPP/htdocs/iservices/conexao/conecta.php");
    include("C:XAMPP/htdocs/iservices/functions/funcoes.php");
    $recebeu = recebeNomeUsuario($conexao);
    ?>

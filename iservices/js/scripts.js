@@ -25,6 +25,7 @@ $(document).ready(function() {
         }
     });
 
+    //balões de informações
     $('[data-toggle="tooltip"]').tooltip(); 
 
     //Pegando posição atual do usuário
@@ -540,6 +541,8 @@ $('#btn-contratar-modal').click( function(){
 
 $('#btn-login').click( function() {
 
+     $('#alert-warning-login').hide();
+
      var senha = $('input[name=senha-acesso]').val();
      var button = $('button[name=acessar]').val();
 
@@ -978,6 +981,7 @@ $('.btn-visualizar-modal-servico').click(function(event) {
         $('textarea[name=detalhes-solicitacao-modal-contratar-dois]').val(detalhes);        
         $('span[name=visualizacao-solicitacao-horainicial-servico-dois]').text(horarioInicial);
         $('span[name=visualizacao-solicitacao-diainicial-servico-dois]').text(diaInicial);
+        $('span[name=check-clicado-visualizacao-dois]').text(checkClidado);
 
         $('textarea[name=detalhes-solicitacao-modal-contratar-dois]').prop('disabled', true);
 
@@ -999,6 +1003,7 @@ $('.btn-visualizar-modal-servico').click(function(event) {
               $('span[name=visualizacao-solicitacao-diainicial-servico]').text(diaInicial);
               $('span[name=visualizacao-solicitacao-horafinal-servico]').text(horarioFinal);
               $('span[name=visualizacao-solicitacao-diafinal-servico]').text(diaFinal);
+              $('span[name=check-clicado-visualizacao]').text(checkClidado);
 
               $('textarea[name=detalhes-solicitacao-modal-contratar]').prop('disabled', true);
 
@@ -1009,7 +1014,57 @@ $('.btn-visualizar-modal-servico').click(function(event) {
 
 });
 
-$('.datepicker').datepicker({ 
-    format:  'mm / dd / aaaa', 
-    startDate:  '-3d' 
+
+$('button.btn-aceita-contratar-modal').click(function(event) {
+      
+      var data = $('input[name=data-inicial').val();
+      var button = $(this).val();
+      teste = $('span[name=check-clicado-visualizacao]').attr('text');
+      //index = $('span[name=check-clicado-visualizacao]').text();      
+      //indexDois = $('span[name=check-clicado-visualizacao-dois]').text();
+      console.log(teste);
+     
+
+      if (teste == "1"){
+     
+      teste = "";  
+      var id = $('span[name=visualizacao-solicitacao-id-servico-dois]').text();
+      
+      console.log(data);
+      console.log(id);
+      console.log(button);
+      console.log(teste);
+
+      }
+
+      else if (teste == "0") {
+      var id = $('span[name=visualizacao-solicitacao-id-servico]').text();
+
+      teste = ""; 
+      console.log(data);
+      console.log(id);
+      console.log(button);
+
+      console.log(teste);
+      }
+
+      
+/*
+      $.ajax({
+        url: '/iservices/functions/acoes.php',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+          data: data,
+          aceitar: button
+
+        },
+      
+        success: function(resultado){
+          console.log(resultado);
+        }
+
+      });*/
+      
+
 });

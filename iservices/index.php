@@ -7,12 +7,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Delivery de serviços | Entrega de serviços online | Peça iServices</title>
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600&amp;subset=latin-ext" rel="stylesheet">
-        <link href="/iservices/css/font-awesome.min.css" rel="stylesheet">
-        <link rel="shortcut icon" href="/iservices/img/icon_logo.ico">
-        <link href="/iservices/css/style.css" rel="stylesheet">
-        <link href="/iservices/css/estilo.css" rel="stylesheet">
+        <link href="./css/font-awesome.min.css" rel="stylesheet">
+        <link rel="shortcut icon" href="./img/icon_logo.ico">
+        <link href="./css/style.css" rel="stylesheet">
+        <link href="./css/estilo_index.css" rel="stylesheet">
         <link href="https://fortawesome.github.io/Font-Awesome/assets/font-awesome/css/font-awesome.css" rel="stylesheet">
-        <link href="/iservices/bootstrap/css/bootstrap.min.css" rel="stylesheet">      
+        <link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet">      
     </head>
 
     <body>
@@ -42,7 +42,7 @@
                <i class="fa fa-bars"></i>
                </button>
                     <a href="index.html" class="navbar-brand">
-               <img src="/iservices/img/logo.png" alt="Post">
+               <img src="./img/logo.png" alt="Post">
                </a>
                     <div class="collapse navbar-collapse" id="bs-navbar-collapse">
                         <ul class="nav navbar-nav main-navbar-nav">
@@ -181,7 +181,7 @@
                                 <ul>
                                     <li class="col-md-3 col-sm-6 col-xs-12">
                                         <div class="thumbnail">
-                                            <img src="/iservices/img/h1.jpeg" alt="Post">
+                                            <img src="./img/h1.jpeg" alt="Post">
                                             <div class="caption">
                                                 <h3><a href="#">Post Title</a></h3>
                                                 <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
@@ -191,7 +191,7 @@
                                     </li>
                                     <li class="col-md-3 col-sm-6 col-xs-12">
                                         <div class="thumbnail">
-                                            <img src="/iservices/img/h2.jpg" class="img-responsive" alt="Post">
+                                            <img src="./img/h2.jpg" class="img-responsive" alt="Post">
                                             <div class="caption">
                                                 <h3><a href="#">Post Title</a></h3>
                                                 <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
@@ -201,7 +201,7 @@
                                     </li>
                                     <li class="col-md-3 col-sm-6 col-xs-12">
                                         <div class="thumbnail">
-                                            <img src="/iservices/img/h3.jpeg" class="img-responsive" alt="Post">
+                                            <img src="./img/h3.jpeg" class="img-responsive" alt="Post">
                                             <div class="caption">
                                                 <h3><a href="#">Post Title</a></h3>
                                                 <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
@@ -211,7 +211,7 @@
                                     </li>
                                     <li class="col-md-3 col-sm-6 col-xs-12">
                                         <div class="thumbnail">
-                                            <img src="/iservices/img/h4.jpeg" class="img-responsive" alt="Post">
+                                            <img src="./img/h4.jpeg" class="img-responsive" alt="Post">
                                             <div class="caption">
                                                 <h3><a href="#">Post Title</a></h3>
                                                 <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
@@ -229,82 +229,82 @@
                                         <div class="carousel-inner">
                                             <div class="item active">
                                                 <div class="col-md-2 col-sm-6 col-xs-12 p10">
-                                                    <a href="#"><img src="/iservices/img/l1.jpg" class="img-responsive" alt="Reference"></a>
+                                                    <a href="#"><img src="./img/l1.jpg" class="img-responsive" alt="Reference"></a>
                                                 </div>
                                             </div>
                                             <div class="item">
                                                 <div class="col-md-2 col-sm-6 col-xs-12 p10">
-                                                    <a href="#"><img src="/iservices/img/l2.jpg" class="img-responsive" alt="Reference"></a>
+                                                    <a href="#"><img src="./img/l2.jpg" class="img-responsive" alt="Reference"></a>
                                                 </div>
                                             </div>
                                             <div class="item">
                                                 <div class="col-md-2 col-sm-6 col-xs-12">
-                                                    <a href="#"><img src="/iservices/img/l3.jpg" class="img-responsive" alt="Reference"></a>
+                                                    <a href="#"><img src="./img/l3.jpg" class="img-responsive" alt="Reference"></a>
                                                 </div>
                                             </div>
                                             <div class="item">
                                                 <div class="col-md-2 col-sm-6 col-xs-12">
-                                                    <a href="#"><img src="/iservices/img/l4.jpg" class="img-responsive" alt="Reference"></a>
+                                                    <a href="#"><img src="./img/l4.jpg" class="img-responsive" alt="Reference"></a>
                                                 </div>
                                             </div>
                                             <div class="item">
                                                 <div class="col-md-2 col-sm-6 col-xs-12">
-                                                    <a href="#"><img src="/iservices/img/l5.jpg" class="img-responsive" alt="Reference"></a>
+                                                    <a href="#"><img src="./img/l5.jpg" class="img-responsive" alt="Reference"></a>
                                                 </div>
                                             </div>
                                             <div class="item">
                                                 <div class="col-md-2 col-sm-6 col-xs-12">
-                                                    <a href="#"><img src="/iservices/img/l6.jpg" class="img-responsive" alt="Reference"></a>
+                                                    <a href="#"><img src="./img/l6.jpg" class="img-responsive" alt="Reference"></a>
                                                 </div>
                                             </div>
                                             <div class="item">
                                                 <div class="col-md-2 col-sm-6 col-xs-12">
-                                                    <a href="#"><img src="/iservices/img/l7.jpg" class="img-responsive" alt="Reference"></a>
+                                                    <a href="#"><img src="./img/l7.jpg" class="img-responsive" alt="Reference"></a>
                                                 </div>
                                             </div>
                                             <div class="item">
                                                 <div class="col-md-2 col-sm-6 col-xs-12">
-                                                    <a href="#"><img src="/iservices/img/l8.jpg" class="img-responsive" alt="Reference"></a>
+                                                    <a href="#"><img src="./img/l8.jpg" class="img-responsive" alt="Reference"></a>
                                                 </div>
                                             </div>
                                             <div class="item">
                                                 <div class="col-md-2 col-sm-6 col-xs-12 p10">
-                                                    <a href="#"><img src="/iservices/img/l1.jpg" class="img-responsive" alt="Reference"></a>
+                                                    <a href="#"><img src="./img/l1.jpg" class="img-responsive" alt="Reference"></a>
                                                 </div>
                                             </div>
                                             <div class="item">
                                                 <div class="col-md-2 col-sm-6 col-xs-12 p10">
-                                                    <a href="#"><img src="/iservices/img/l2.jpg" class="img-responsive" alt="Reference"></a>
+                                                    <a href="#"><img src="./img/l2.jpg" class="img-responsive" alt="Reference"></a>
                                                 </div>
                                             </div>
                                             <div class="item">
                                                 <div class="col-md-2 col-sm-6 col-xs-12">
-                                                    <a href="#"><img src="/iservices/img/l3.jpg" class="img-responsive" alt="Reference"></a>
+                                                    <a href="#"><img src="./img/l3.jpg" class="img-responsive" alt="Reference"></a>
                                                 </div>
                                             </div>
                                             <div class="item">
                                                 <div class="col-md-2 col-sm-6 col-xs-12">
-                                                    <a href="#"><img src="/iservices/img/l4.jpg" class="img-responsive" alt="Reference"></a>
+                                                    <a href="#"><img src="./img/l4.jpg" class="img-responsive" alt="Reference"></a>
                                                 </div>
                                             </div>
                                             <div class="item">
                                                 <div class="col-md-2 col-sm-6 col-xs-12">
-                                                    <a href="#"><img src="/iservices/img/l5.jpg" class="img-responsive" alt="Reference"></a>
+                                                    <a href="#"><img src="./img/l5.jpg" class="img-responsive" alt="Reference"></a>
                                                 </div>
                                             </div>
                                             <div class="item">
                                                 <div class="col-md-2 col-sm-6 col-xs-12">
-                                                    <a href="#"><img src="/iservices/img/l6.jpg" class="img-responsive" alt="Reference"></a>
+                                                    <a href="#"><img src="./img/l6.jpg" class="img-responsive" alt="Reference"></a>
                                                 </div>
                                             </div>
                                             <div class="item">
                                                 <div class="col-md-2 col-sm-6 col-xs-12">
-                                                    <a href="#"><img src="/iservices/img/l7.jpg" class="img-responsive" alt="Reference"></a>
+                                                    <a href="#"><img src="./img/l7.jpg" class="img-responsive" alt="Reference"></a>
                                                 </div>
                                             </div>
                                             <div class="item">
                                                 <div class="col-md-2 col-sm-6 col-xs-12">
-                                                    <a href="#"><img src="/iservices/img/l8.jpg" class="img-responsive" alt="Reference"></a>
+                                                    <a href="#"><img src="./img/l8.jpg" class="img-responsive" alt="Reference"></a>
                                                 </div>
                                             </div>
                                         </div>
@@ -402,7 +402,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <img src="/iservices/img/logo.png" alt="Logo da empresa" class="logoTelaLogin"></img>
+                        <img src="./img/logo.png" alt="Logo da empresa" class="logoTelaLogin"></img>
                     </div>
                     <div class="tipo-acesso modal-body">
                         <div class="checkbox checkbox-primary">
@@ -438,7 +438,7 @@
                                 <button type="submit" class="btn btn-success" name="acessar" value="Acessar" id="btn-login">Acessar</button>
                                 <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button></br>
                                 <a href="" data-toggle="modal" id="cadastrar-usuario">Cadastra-se</a>
-                                <div id="carregando-acesso" align="center"><img src="/iservices/img/carregando.gif"><span>Verificando...</span></div>
+                                <div id="carregando-acesso" align="center"><img src="./img/carregando.gif"></br><span>Verificando</span></div>
                             </div>
                             <div class="alert alert-warning" id="alert-warning-login">
                                 <a href="#" class="close" aria-label="close">&times;</a>
@@ -454,7 +454,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <img src="/iservices/img/logo.png" alt="Logo da empresa" class="logoCadastroServico"></img>
+                        <img src="./img/logo.png" alt="Logo da empresa" class="logoCadastroServico"></img>
                     </div>
                     <div class="modal-body">
                             <div class="container">
@@ -535,7 +535,7 @@
                                 </button>
                                 </br>
                                 </br>
-                                <div id="carregando-modal-cadastro" align="center"><img src="/iservices/img/carregando.gif"></br><span>Cadastrando...</span></div>
+                                <div id="carregando-modal-cadastro" align="center"><img src="./img/carregando.gif"></br><span>Cadastrando...</span></div>
                             </div>
                             <div class="alert alert-success" id="alert-success-cadastrar">
                                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -554,7 +554,7 @@
         <script src="//code.jquery.com/jquery-1.12.4.js"></script>
         <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
-        <script src="/iservices/js/bootstrap.min.js"></script>                
-        <script type="text/javascript" src="/iservices/js/scripts.js"></script> 
+        <script src="./js/bootstrap.min.js"></script>                
+        <script type="text/javascript" src="./js/scripts.js"></script> 
     </body>
 </html>

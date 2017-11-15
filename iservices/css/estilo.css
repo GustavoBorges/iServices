@@ -241,24 +241,6 @@ label {
         }   
     }
 
-@media only screen and (max-width: 600px) {
-          #menu-modal-cadastro {
-          width: 100%;
-
-          }   
-    }
-
-
-@media only screen and (max-width: 2200px) {
-          #menu-modal-cadastro {
-          width: 49%;
-        }   
-    }
-
-#menu-modal-cadastro form input{
-            display: inline;
-  }
-
 .icon-success:hover{
     color: #00FF7F;
 }
@@ -337,18 +319,13 @@ label {
   display: inline;
 }
 
-#editar-horario-atendimento select.dia{
-  width: 145px;
+#data-visualizacao-servico{
+  width: 150px;
   display: inline;
 }
 
 #dados-visualizacao-servico span{
   font-weight: bold;
-}
-
-.data{
-  width: 120px;
-  display: inline;
 }
 
 .checkbox {
