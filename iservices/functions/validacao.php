@@ -1,6 +1,6 @@
 <?php
 
-    include("C:XAMPP/htdocs/iservices/conexao/conecta.php");
+    include("../conexao/conecta.php");
     session_start();
 
 ?>

@@ -1,6 +1,6 @@
 <?php
 
-	include("C:XAMPP/htdocs/iservices/conexao/conecta.php");
+	include("../conexao/conecta.php");
 	session_start();
 	
 ?>
@@ -20,7 +20,6 @@
 		$enderecoCadastrado = trim($_POST['enderecoCadastrado']);
 		$data = date('Y/m/d');
 		$detalhes = trim($_POST['detalhes']);
-		$result;
 
 		$sql = mysqli_query($conexao, "SELECT idcliente FROM servico WHERE idServico = '{$id}'");
 		while ($row = mysqli_fetch_row($sql)){

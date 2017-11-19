@@ -1,6 +1,6 @@
 <?php
 
-   include("C:XAMPP/htdocs/iservices/conexao/conecta.php");	
+   include("../conexao/conecta.php");	
    session_start();
 
 ?>
@@ -12,7 +12,7 @@
 
 	$idCliente = $_SESSION['idCliente'];
 
-	$sql = mysqli_query($conexao, "SELECT idServico, tiposervico, valor, descricao, horarioInicial, horarioFinal, diaInicial, diaFinal, checkClicado, REPLACE(ativo, '1', 'checked') AS ativo FROM servico WHERE idcliente = '{$idCliente}'");
+	$sql = mysqli_query($conexao, "SELECT idServico, tiposervico, valor, descricao, horarioInicial, horarioFinal, diaInicial, diaFinal, checkClicado, ativo FROM servico WHERE idcliente = '{$idCliente}'");
 	
 	 
 	while ($recebe = mysqli_fetch_array($sql)) {
@@ -34,7 +34,7 @@
 
 		$idUsuario = $_SESSION['idUsuario'];
 
-		$sql = mysqli_query($conexao, "SELECT c.idContrato, s.tiposervico, s.valor, s.descricao, cl.nome, cl.telefone, c.status FROM contrato AS c
+		$sql = mysqli_query($conexao, "SELECT c.idContrato, s.tiposervico, s.valor, s.descricao, cl.idCliente, cl.nome, cl.telefone, c.status FROM contrato AS c
 							INNER JOIN servico AS s
 							ON c.idServico = s.idServico
 							INNER JOIN usuario AS u
@@ -105,7 +105,7 @@
 
 		$idCliente = $_SESSION['idCliente'];
 
-		$recebeContratoFinalizado = mysqli_query($conexao, "SELECT c.idContrato, s.tiposervico, s.valor, s.descricao, u.nome, u.email, u.telefone, REPLACE(c.status, 0, 'Finalizado') AS status FROM contrato AS c
+		$recebeContratoFinalizado = mysqli_query($conexao, "SELECT c.idContrato, s.tiposervico, s.valor, s.descricao, u.nome, u.email, u.telefone, c.pgto, c.status FROM contrato AS c
 												INNER JOIN servico AS s
 												ON c.idServico = s.idServico
 												INNER JOIN usuario AS u

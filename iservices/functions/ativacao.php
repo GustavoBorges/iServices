@@ -1,6 +1,6 @@
 <?php
 	
-	include("C:XAMPP/htdocs/iservices/conexao/conecta.php");	
+	include("../conexao/conecta.php");	
 	session_start();
 
 ?>
@@ -13,7 +13,7 @@
 	$ativacao = mysqli_query($conexao, "UPDATE servico SET ativo = '1' WHERE idServico = '{$id}'");
 
 	if($ativacao == true){
-		header("location: /iservices/pages/cliente.php");
+		header("location: ../pages/cliente.php");
 			} else {
 		echo "Erro ao ativar registro: " . mysqli_error($conexao);
 		}
@@ -25,7 +25,7 @@
 	$desativacao = mysqli_query($conexao, "UPDATE servico SET ativo = '0' WHERE idServico = '{$id}'");
 
 	if($desativacao == true){
-		header("location: /iservices/pages/cliente.php");
+		header("location: ../pages/cliente.php");
 			} else {
 		echo "Erro ao desativar registro: " . mysqli_error($conexao);
 		}

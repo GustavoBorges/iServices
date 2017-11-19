@@ -220,7 +220,10 @@ footer { background-color:#0c1a1e; min-height:350px; font-family: 'Open Sans', s
 }
 
 #message-text {
-  height: 150px;
+  height: 70px;
+  max-width: 95%;
+  margin-left: 2.5%;
+  margin-bottom: 2%;
 }
 
 label {
@@ -241,11 +244,7 @@ label {
         }   
     }
 
-.icon-success:hover{
-    color: #00FF7F;
-}
-
-.icon-remove:hover{
+button.btn-rejeitar-proposta:hover{
   color: #FF0000;
 }
 #icon-contratacao{
@@ -316,6 +315,11 @@ label {
 
 #editar-horario-atendimento select.horario{
   width: 85px;
+  display: inline;
+}
+
+#editar-horario-atendimento select.dia{
+  width: 140px;
   display: inline;
 }
 
@@ -453,3 +457,30 @@ label {
     color: yellow;
   }
 
+
+
+/*CSS da votação*/
+#modal-body-pontuacao{
+  margin-left: 10px;
+  margin-bottom: 20px;
+}
+
+.titulo-questao{
+  font-size: 25px;
+  color: #777;
+  font-family: "Maven Pro",sans-serif;
+    
+}
+
+.questao{
+  font-size: 15px;
+  color: #444;
+  font-family: "Maven Pro", sans-serif;
+  font-style: italic;
+  margin-left: 20px;
+}
+
+.btn-voltar-avaliacao{
+  margin-left: 10px;
+  margin-top: 10px;
+}
