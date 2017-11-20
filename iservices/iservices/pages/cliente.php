@@ -184,7 +184,7 @@
                                     <td class="actions">
                                         <button class="btn-visualizar-modal-servico btn btn-default"
                                             data-toggle="tooltip"
-                                            title="Ao clicar neste botão você estará 'Visualizando' os datalhes da proposta de serviço solicitado pelo <?=$recebe['nome'];?>."
+                                            title="Ao clicar neste botão você estará 'Visualizando' os datalhes da proposta de serviço solicitado pelo <?=$recebe['nome'];?>. Posteriormente poderá aceitar a proposta de serviço"
                                             data-id="<?=$recebe['idContrato']?>"
                                             data-tipo="<?=$recebe['tiposervico']?>"
                                             data-valor="<?=$recebe['preco']?>"
@@ -202,23 +202,42 @@
                                             data-check="<?=$recebe['checkClicado']?>">
                                             <i class="glyphicon glyphicon-eye-open"></i>
                                         </button>
-                                        <button class="btn-aceitar-proposta btn btn-default"
+                                        <button class="btn-conclui-proposta btn btn-default" value="btn-conclui-proposta"
                                             data-toggle="tooltip"
                                             title="Ao clicar neste botão você estará 'Concluindo' a proposta de serviço solicitado pelo <?=$recebe['nome'];?>, a qual foi aceita e está com o pagamento confirmado."
-                                            data-id="<?=$recebe['idContrato']?>"
+                                            data-idcontrato="<?=$recebe['idContrato']?>"
                                             data-status="<?=$recebe['status'];?>">
                                             <i class="glyphicon glyphicon-ok icon-success"></i>
                                         </button>
                                         <button class="btn-rejeitar-proposta btn btn-default"
                                             data-toggle="tooltip"
                                             title="Ao clicar neste botão você estará 'Rejeitando' a proposta de serviço solicitado pelo <?=$recebe['nome'];?>."
-                                            data-id="<?=$recebe['idContrato']?>">                                            
-                                            <i class="glyphicon glyphicon-remove icon-remove" id="btn-rejeitar"></i>
+                                            data-idcontrato="<?=$recebe['idContrato']?>"
+                                            data-status="<?=$recebe['status'];?>">                                            
+                                            <i class="glyphicon glyphicon-remove icon-remove"></i>
                                         </button>
                                     </td>
                                     <td>
-                                        <button class="btn-detalhes-tab-solicitacao btn btn-default" data-status="<?=$recebe['status'];?>">
-                                        <i class="glyphicon glyphicon-plus"></i>
+                                        <button class="btn-detalhes-tab-solicitacao btn btn-default"
+                                            data-toggle="tooltip"
+                                            title="Ao clicar neste botão você estará 'Visualizando' os datalhes da proposta de serviço solicitado pelo <?=$recebe['nome'];?>."
+                                            data-id="<?=$recebe['idContrato']?>"
+                                            data-tipo="<?=$recebe['tiposervico']?>"
+                                            data-valor="<?=$recebe['preco']?>"
+                                            data-descricao="<?=$recebe['descricao']?>"
+                                            data-status="<?=$recebe['status'];?>"
+                                            data-horarioInicial="<?=$recebe['horarioInicial']?>"
+                                            data-horariofinal="<?=$recebe['horarioFinal']?>"
+                                            data-diainicial="<?=$recebe['diaInicial']?>"
+                                            data-diafinal="<?=$recebe['diaFinal']?>"
+                                            data-contratante="<?=$recebe['nome']?>"
+                                            data-telefonecontratante="<?=$recebe['telefone']?>"
+                                            data-emailcontratante="<?=$recebe['email']?>"
+                                            data-enderecocontratante="<?=$recebe['endereco']?>"
+                                            data-detalhes="<?=$recebe['detalhes']?>"
+                                            data-check="<?=$recebe['checkClicado']?>"
+                                            data-inicial="<?=$recebe['dataInicial'];?>">
+                                            <i class="glyphicon glyphicon-plus"></i>
                                         </button>
                                     </td>
                                 </tr>
@@ -255,6 +274,7 @@
                                     <th>Preço</th>
                                     <th>Contratante</th>
                                     <th>Telefone</th>
+                                    <th>E-mail</th>
                                     <th>Preço Pago</th>
                                     <th>Status</th>
                                 </tr>
@@ -272,7 +292,7 @@
                                     <td>
                                         <?=$recebe['tiposervico'];?>
                                     </td>
-                                    <td>R$ <?=$recebe['valor'];?>
+                                    <td>R$ <?=$recebe['preco'];?>
                                     </td>
                                     <td>
                                         <?=$recebe['nome'];?>
@@ -281,7 +301,10 @@
                                         <?=$recebe['telefone'];?>
                                     </td>
                                     <td>
-                                        <?=$recebe['pgto'];?>
+                                        <?=$recebe['email'];?>
+                                    </td>
+                                    <td>
+                                        R$ <?=$recebe['pgto'];?>
                                     </td>
                                     <td class="status" data-name="<?=$recebe['status'];?>">
                                         <?=$recebe['status'];?>
@@ -533,7 +556,7 @@
                 </div>
                 <div class="alert alert-warning" id="alert-warning-cancelar-servico">
                     <a href="#" class="close" aria-label="close">&times;</a> 
-                    <strong>Atenção!</strong>Não foi possível cancelar o serviço, pois já foi pago.
+                    <strong>Atenção!</strong>Não foi possível cancelar o serviço, pois o mesmo já foi pago.
                 </div>
                 <div class="alert alert-success" id="alert-success-cancelar-servico">
                     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -543,6 +566,27 @@
                     <a href="#" class="close" aria-label="close">&times;</a>
                     <strong>Error!</strong>Ocorreu um erro ao aceitar o serviço.
                 </div>
+            </div>
+        </div>
+    </div>
+    <!--Modal de Conclusão do serviço-->
+    <div class="modal fade" id="concluido-servico-modal" tabindex="-1"
+        role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                </br>
+                <div id="carregando-modal-conclui-servico" align="center">
+                    <img src="../img/carregando.gif"></br><span>Concluindo Serviço</span>
+                </div>
+                <div id="modal-body-agradecimento" class="step3" style="display: block;">
+                    <p class="thanks">Serviço concluido, obrigado!</p>
+                </div> 
+                </br>
             </div>
         </div>
     </div>
@@ -789,7 +833,7 @@
             </div>
         </div>
     </div>
-    <!-- Modal para visualizar cadastro de serviço atendimento definido -->
+    <!-- Modal para visualizar e aceitação do cadastro de serviço atendimento definido -->
     <div id="modal-visualizacao" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -817,7 +861,7 @@
             </div>
         </div>
     </div>
-    <!-- Modal para visualizar cadastro de serviço atendimento urgência -->
+    <!-- Modal para visualizar e aceitação do cadastro de serviço atendimento urgência -->
     <div id="modal-visualizacao-dois" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -1007,6 +1051,132 @@
                 <div class="alert alert-warning" id="alert-warning-aceita-servico-prestador">
                     <a href="#" class="close">&times;</a> 
                     <strong>Atenção!</strong>Informe a data inicial do serviço.
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Modal que é aberto ao clicar no botão detalhes da Tab "Serviços Solicitador"-->
+    <div class="modal fade" id="detalhes-solicitacao-servico-modal-dois" tabindex="-1"
+        role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <div class="container">
+                        <ul class="nav nav-tabs" id="menu-modal-contratacao" role="tablist">
+                            <li role="presentation" class="active">
+                                <a href="#tab-informacoes" arial-controls="" data-toggle="tab" role="tab">Informações</a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#tab-detalhes" arial-controls="" data-toggle="tab" role="tab">Detalhes</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!--Serviço 24hrs = 1-->
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="tab-informacoes">
+                        <div class="modal-body">
+                            <div id="dados-visualizacao-servico">
+                                Número de contrato: <span name="visualizacao-solicitacao-id-servico-dois"></span></br> 
+                                Tipo de Serviço: <span name="visualizacao-solicitacao-tipo-servico-dois"></span></br>
+                                Preço do Serviço: <span name="visualizacao-solicitacao-valor-servico-dois"></span></br>
+                                Descrição: <span name="visualizacao-solicitacao-descricao-servico-dois"></span></br>
+                                Atendimento: <span name="visualizacao-solicitacao-horainicial-servico-dois"></span>
+                                De: <span name="visualizacao-solicitacao-diainicial-servico-dois"></span></span></br>
+                                Contratante: <span name="visualizacao-solicitacao-contratante-servico-dois"></span></br>
+                                Telefone: <span name="visualizacao-solicitacao-telefone-servico-dois"></span></br>
+                                E-mail: <span name="visualizacao-solicitacao-email-servico-dois"></span></br>
+                                Endereço: <span name="visualizacao-solicitacao-endereco-servico-dois"></span></br>
+                                Data inicial: <span name="data-inicial"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="tab-detalhes">
+                        <div class="modal-body">
+                            <form>
+                                <div class="form">
+                                    <label for="message-text" class="col-form-label">Detalhamento da ocorrência</label>
+                                    <textarea class="form-control" id="message-text"
+                                        placeholder="Digite aqui o detalhamento da sua ocorrência..."
+                                        name="detalhes-solicitacao-modal-contratar-dois">
+                                    </textarea>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">
+                        <i class="glyphicon glyphicon-remove"></i>&nbspFechar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Modal dois que é aberto ao clicar no botão detalhes da Tab "Serviços Solicitador"-->
+    <div class="modal fade" id="detalhes-solicitacao-servico-modal" tabindex="-1"
+        role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <div class="container">
+                        <ul class="nav nav-tabs" id="menu-modal-contratacao" role="tablist">
+                            <li role="presentation" class="active">
+                                <a href="#tab-informacoes-dois" arial-controls="" data-toggle="tab" role="tab">Informações</a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#tab-detalhes-dois" arial-controls="" data-toggle="tab" role="tab">Detalhes</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!--Serviço Atendimento = 0-->
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active"
+                        id="tab-informacoes-dois">
+                        <div class="modal-body">
+                            <div id="dados-visualizacao-servico">
+                                Número de contrato: <span name="visualizacao-solicitacao-id-servico"></span></br> 
+                                Tipo de Serviço: <span name="visualizacao-solicitacao-tipo-servico"></span></br>
+                                Preço do Serviço: <span name="visualizacao-solicitacao-valor-servico"></span></br>
+                                Descrição: <span name="visualizacao-solicitacao-descricao-servico"></span></br>
+                                Atendimento: Atendimento: De: <span name="visualizacao-solicitacao-horainicial-servico"></span> 
+                                às <span name="visualizacao-solicitacao-horafinal-servico"></span>
+                                / De: <span name="visualizacao-solicitacao-diainicial-servico"></span>
+                                à <span name="visualizacao-solicitacao-diafinal-servico"></span></br>
+                                Contratante: <span name="visualizacao-solicitacao-contratante-servico"></span></br>
+                                Telefone: <span name="visualizacao-solicitacao-telefone-servico"></span></br>
+                                E-mail: <span name="visualizacao-solicitacao-email-servico"></span></br>
+                                Endereço: <span name="visualizacao-solicitacao-endereco-servico"></span></br> 
+                                Data inicial: <span name="data-inicial"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="tab-detalhes-dois">
+                        <div class="modal-body">
+                            <form>
+                                <div class="form">
+                                    <label for="message-text" class="col-form-label">Detalhamento da ocorrência</label>
+                                    <textarea class="form-control" id="message-text"
+                                        placeholder="Digite aqui o detalhamento da sua ocorrência..."
+                                        name="detalhes-solicitacao-modal-contratar">
+                                    </textarea>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">
+                        <i class="glyphicon glyphicon-remove"></i>&nbspFechar
+                    </button>
                 </div>
             </div>
         </div>

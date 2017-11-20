@@ -138,8 +138,20 @@ function verificaButtonsAcoesUsuario(){
         $(this).html("Proposta Aceita");
       }
 
+      else if (recebeNome == "2"){
+        $(this).html("Pagamento Realizado");
+      }
+
       else if (recebeNome == "3"){
         $(this).html("Proposta Cancelada");
+      }
+
+      else if (recebeNome == "4"){
+        $(this).html("Serviço Concluido");
+      }
+
+      else if (recebeNome == "5"){
+        $(this).html("Serviço Avaliado");
       }
       
     });
@@ -152,6 +164,12 @@ function verificaButtonsAcoesUsuario(){
       if (recebeStatus != 4){
         pegaPropriedade.prop('disabled', true);
 
+      } else {
+        pegaPropriedade.hover(function() {
+          pegaPropriedade.css('color', 'yellow');
+        }, function() {
+          pegaPropriedade.css('color', '#333');
+        });
       }
       
     });
@@ -164,6 +182,12 @@ function verificaButtonsAcoesUsuario(){
       if (recebeStatus != 0){
         pegaPropriedade.prop('disabled', true);
 
+      } else {
+        pegaPropriedade.hover(function() {
+          pegaPropriedade.css('color', '#FF0000');
+        }, function() {
+          pegaPropriedade.css('color', '#333');
+        });
       }
       
     });
@@ -175,7 +199,13 @@ function verificaButtonsAcoesUsuario(){
 
       if (recebeStatus != 1){
         pegaPropriedade.prop('disabled', true);
-
+      
+      } else {
+        pegaPropriedade.hover(function() {
+          pegaPropriedade.css('color', '#228B22');
+        }, function() {
+          pegaPropriedade.css('color', '#333');
+        });
       }
       
     });
@@ -204,9 +234,21 @@ function verificaStatus(){
       $(this).html("Proposta Aceita");
     }
 
+    else if (recebeNome == "2"){
+      $(this).html("Pagamento Confirmado");
+    }
+
     else if (recebeNome == "3"){
         $(this).html("Proposta Cancelada");
-      }
+    }
+
+    else if (recebeNome == "4"){
+        $(this).html("Serviço Concluido");
+    }
+
+    else if (recebeNome == "5"){
+        $(this).html("Serviço Avaliado");
+    }
     
   });
   
@@ -228,11 +270,11 @@ function verificaStatus(){
 
   });
 
-    $('.btn-aceitar-proposta').each(function(index, value) {
+    $('.btn-conclui-proposta').each(function(index, value) {
     var propriedadeButton = $(this);
     var recebeStatus = propriedadeButton.data('status');
 
-    if (recebeStatus != "5"){
+    if (recebeStatus != "2"){
 
       propriedadeButton.prop('disabled', true);
            
@@ -250,12 +292,38 @@ function verificaStatus(){
     var recebeStatus = propriedadeButton.data('status');
 
     if (recebeStatus != "0"){
-      propriedadeButton.prop('disabled', false);           
+      propriedadeButton.prop('disabled', false);
+      propriedadeButton.hover(function() {
+        propriedadeButton.css('color', '#6495ED');
+      }, function() {
+        propriedadeButton.css('color', '#333');
+      });            
     } else {
       propriedadeButton.prop('disabled', true); 
     }
   });
 }
+
+$('.btn-rejeitar-proposta').each(function(index, value) {
+    var propriedadeButton = $(this);
+    var recebeStatus = propriedadeButton.data('status');
+
+    if (recebeStatus == "0" || recebeStatus == "1"){
+      console.log("teste");
+
+      propriedadeButton.prop('disabled', false);
+      propriedadeButton.hover(function() {
+        propriedadeButton.css('color', '#FF0000');
+      }, function (){
+        propriedadeButton.css('color', '#333');
+      });
+           
+    } else {
+
+      propriedadeButton.prop('disabled', true); 
+      
+    } 
+  });
 
 //FUNÇÕES DE BOTÕES SEM REQUISIÇÕES AJAX
 
@@ -267,6 +335,7 @@ $('.btn-rejeitar-proposta').click(function(event) {
     $('#cancelar-servico-modal').modal('show');
 
 });
+
 
 $('.btn-excluir').click(function(event) {
     var button = $(this);
@@ -719,10 +788,126 @@ $('.btn-visualizar-modal-servico').click(function(event) {
 
 });
 
+$('.btn-detalhes-tab-solicitacao').click(function(event) {
+  
+        var button = $(this);
+        var id = button.data('id');
+        var tipoServico = button.data('tipo');
+        var preco = button.data('valor');
+        var descricao = button.data('descricao');
+        var horarioInicial = button.data('horarioinicial');
+        var horarioFinal = button.data('horariofinal');
+        var diaInicial  = button.data('diainicial');
+        var diaFinal = button.data('diafinal');
+        var nomeContratante  = button.data('contratante');
+        var telefoneContratante = button.data('telefonecontratante');
+        var emailContratante = button.data('emailcontratante');
+        var endContratante= button.data('enderecocontratante');
+        var detalhes= button.data('detalhes');
+        var checkClidado = button.data('check');
+        var dataInicial = button.data('inicial');
+        
+        if (checkClidado == "1"){
+
+        $('span[name=visualizacao-solicitacao-id-servico-dois]').text(id);
+        $('span[name=visualizacao-solicitacao-tipo-servico-dois]').text(tipoServico);
+        $('span[name=visualizacao-solicitacao-valor-servico-dois]').text(preco);
+        $('span[name=visualizacao-solicitacao-descricao-servico-dois]').text(descricao);
+        $('span[name=visualizacao-solicitacao-contratante-servico-dois]').text(nomeContratante);
+        $('span[name=visualizacao-solicitacao-telefone-servico-dois]').text(telefoneContratante);
+        $('span[name=visualizacao-solicitacao-email-servico-dois]').text(emailContratante);
+        $('span[name=visualizacao-solicitacao-endereco-servico-dois]').text(endContratante);
+        $('textarea[name=detalhes-solicitacao-modal-contratar-dois]').val(detalhes);        
+        $('span[name=visualizacao-solicitacao-horainicial-servico-dois]').text(horarioInicial);
+        $('span[name=visualizacao-solicitacao-diainicial-servico-dois]').text(diaInicial);
+        $('span[name=check-clicado-visualizacao-dois]').text(checkClidado);
+        $('span[name=data-inicial-dois]').text(dataInicial);
+
+
+        $('textarea[name=detalhes-solicitacao-modal-contratar-dois]').prop('disabled', true);
+
+        $('#detalhes-solicitacao-servico-modal-dois').modal('show');
+        
+
+      } else if (checkClidado = "0") {
+
+              $('span[name=visualizacao-solicitacao-id-servico]').text(id);
+              $('span[name=visualizacao-solicitacao-tipo-servico]').text(tipoServico);
+              $('span[name=visualizacao-solicitacao-valor-servico]').text(preco);
+              $('span[name=visualizacao-solicitacao-descricao-servico]').text(descricao);
+              $('span[name=visualizacao-solicitacao-contratante-servico]').text(nomeContratante);
+              $('span[name=visualizacao-solicitacao-telefone-servico]').text(telefoneContratante);
+              $('span[name=visualizacao-solicitacao-email-servico]').text(emailContratante);
+              $('span[name=visualizacao-solicitacao-endereco-servico]').text(endContratante);
+              $('textarea[name=detalhes-solicitacao-modal-contratar]').val(detalhes);        
+              $('span[name=visualizacao-solicitacao-horainicial-servico]').text(horarioInicial);
+              $('span[name=visualizacao-solicitacao-diainicial-servico]').text(diaInicial);
+              $('span[name=visualizacao-solicitacao-horafinal-servico]').text(horarioFinal);
+              $('span[name=visualizacao-solicitacao-diafinal-servico]').text(diaFinal);
+              $('span[name=check-clicado-visualizacao]').text(checkClidado);
+              $('span[name=data-inicial]').text(dataInicial);
+
+              $('textarea[name=detalhes-solicitacao-modal-contratar]').prop('disabled', true);
+
+              $('#detalhes-solicitacao-servico-modal').modal('show');
+
+      }   
+
+});
+
+
 //FUNÇÕES DE BOTÕES COM REQUISIÇÃO AJAX
 
+$('.btn-conclui-proposta').click(function(event) {
+  var idContrato = $(this).data('idcontrato');
+  var pegaValorButton = $(this).val();
 
- $('.btn-sim-cancela-servico-usuario').click(function(event) {
+  $.ajax({
+    url: '../functions/acoes.php',
+    type: 'POST',
+    dataType: 'json',
+    data: {
+      idContrato: idContrato,
+      concluir: pegaValorButton
+    
+    },
+
+    success: function(resultado){
+
+    $('#concluido-servico-modal').modal('show');
+      
+        if (resultado == "sucesso"){
+           
+          setTimeout(function() {
+            $('#carregando-modal-conclui-servico').hide();
+            $('#modal-body-agradecimento').show();            
+          }, 2000);
+
+          setTimeout(function() {
+            location.reload();
+          }, 4000);
+
+
+        } else {
+          
+          setTimeout(function() {
+          $('#carregando-modal-conclui-servico').hide();
+          $('.thanks').text('Ocorreu um erro ao concluir o serviço...');
+          $('#modal-body-agradecimento').show();
+          }, 2000);
+
+          setTimeout(function() {
+            location.reload();
+          }, 4000);
+
+        }
+      }
+  })
+
+});
+
+
+$('.btn-sim-cancela-servico-usuario').click(function(event) {
 
         $('#alert-warning-cancelar-servico').hide();
         $('#alert-success-cancelar-servico').hide();
@@ -783,10 +968,6 @@ $('.btn-sim-cancela-servico-prestador').click(function(event) {
         var tipoCancelamento = "1";
         var pegaValorButton = $(this).val();
 
-        console.log(idContrato, pegaValorButton);
-
-
-
         $.ajax({
           url: '../functions/acoes.php',
           type: 'POST',
@@ -811,16 +992,12 @@ $('.btn-sim-cancela-servico-prestador').click(function(event) {
                 location.reload();
               }, 4000);
 
-              console.log("Tudo certo");
             } else if (resultado == "pago"){
               $('#alert-warning-cancelar-servico').show();
 
-              console.log("Contrato pago");
-
             } else{
               $('#alert-danger-cancelar-servico').show();
-              console.log("erro");
-
+              
             }
 
           }, 3000);

@@ -169,7 +169,7 @@
                                                 data-idcliente="<?=$recebeContrato['idCliente'];?>"
                                                 data-nomeprestador="<?=$recebeContrato['nome']?>"
                                                 data-status="<?=$recebeContrato['status'];?>">
-                                                <i class="glyphicon glyphicon-star" id="icon-estrela"></i>
+                                                <i class="glyphicon glyphicon-star" ></i>
                                             </button>
                                             <button class="btn-pagamento btn btn-default"
                                                 data-toggle="tooltip"

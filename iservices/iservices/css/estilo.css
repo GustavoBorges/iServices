@@ -244,9 +244,6 @@ label {
         }   
     }
 
-button.btn-rejeitar-proposta:hover{
-  color: #FF0000;
-}
 #icon-contratacao{
   font-size: 22px;
 }
@@ -452,12 +449,6 @@ button.btn-rejeitar-proposta:hover{
   border-color: #428bca; }
 .radio-primary input[type="radio"]:checked + label::after {
   background-color: #428bca; }
-
-  #icon-estrela:hover{
-    color: yellow;
-  }
-
-
 
 /*CSS da votação*/
 #modal-body-pontuacao{

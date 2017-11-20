@@ -74,6 +74,7 @@
 			usuario.telefone,
 			contrato.status,
 			contrato.detalhes,
+			date_format(contrato.dataInicial, '%d/%c/%Y') As dataInicial,
 			servico.checkClicado,
 			CONCAT(contrato.rua,', ',
 			contrato.numero,' - ',
@@ -85,7 +86,10 @@
 			ON contrato.idUsuario = usuario.idUsuario 
 			INNER JOIN servico 
 			ON contrato.idServico = servico.idServico
-			WHERE contrato.idCliente = '{$idCliente}'");
+			WHERE contrato.idCliente = '{$idCliente}' 
+			AND contrato.status = '0'
+			OR contrato.status = '1'
+			OR contrato.status = '2'");
 
 		while ($recebe = mysqli_fetch_array($recebeServicoSolicitado)) {
 				array_push($carregaContrato, $recebe);
@@ -105,19 +109,30 @@
 
 		$idCliente = $_SESSION['idCliente'];
 
-		$recebeContratoFinalizado = mysqli_query($conexao, "SELECT c.idContrato, s.tiposervico, s.valor, s.descricao, u.nome, u.email, u.telefone, c.pgto, c.status FROM contrato AS c
-												INNER JOIN servico AS s
-												ON c.idServico = s.idServico
-												INNER JOIN usuario AS u
-												ON c.idUsuario = u.idUsuario
-												WHERE c.idCliente = {$idCliente} AND c.status = '0'");
+		$recebeContratoFinalizado = mysqli_query($conexao, "SELECT contrato.idContrato, 
+			servico.tiposervico, 
+			contrato.preco,
+			usuario.nome, 
+			usuario.email, 
+			usuario.telefone,
+			contrato.pgto,
+			contrato.status,			
+			date_format(contrato.dataInicial, '%d/%c/%Y') As dataInicial
+			FROM contrato 
+			INNER JOIN usuario 
+			ON contrato.idUsuario = usuario.idUsuario 
+			INNER JOIN servico 
+			ON contrato.idServico = servico.idServico
+			WHERE contrato.idCliente = '{$idCliente}' 
+			AND contrato.status = '3'
+			OR contrato.status = '4'
+			OR contrato.status = '5'");
 
 		while ($recebe = mysqli_fetch_array($recebeContratoFinalizado)) {
 				array_push($carregaContratoFinalizado, $recebe);
 		}
 
 		return $carregaContratoFinalizado;
-
 
 	}
 
