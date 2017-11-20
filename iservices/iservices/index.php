@@ -250,7 +250,9 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <img src="./img/logo.png" alt="Logo da empresa" class="logoTelaLogin"></img>
+                    <div align="center">
+                        <img src="./img/logo.png" alt="Logo da empresa"></img>
+                    </div>
                 </div>
                 <div class="tipo-acesso modal-body">
                     <div class="checkbox checkbox-primary">
@@ -309,7 +311,10 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <img src="./img/logo.png" alt="Logo da empresa" class="logoCadastroServico"></img>
+                    <div align="center">
+                        <img src="./img/logo.png" alt="Logo da empresa"></img></br>
+                        <div>iServices</div>                        
+                    </div>
                 </div>
                 <div class="modal-body">
                     <div class="container">

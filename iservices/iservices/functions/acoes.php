@@ -59,6 +59,8 @@
 														   status = '1'
 									   WHERE idContrato = '{$idContrato}'");
 
+
+
 		if ($sql == true){
 			$result = "sucesso";
 			echo json_encode($result);
@@ -68,7 +70,7 @@
 			echo json_encode($result);
 		}
 
-	}
+}
 
 	elseif (isset($_GET['avaliandoprestador']) && $_GET['avaliandoprestador'] == "avaliando"){
 
@@ -164,8 +166,11 @@
 	elseif (isset($_POST['concluir']) && $_POST['concluir'] == "btn-conclui-proposta") {
 
 			$idContrato = trim($_POST['idContrato']);
+			$date = date('Y/m/d');
 
-			$sql = mysqli_query($conexao, "UPDATE contrato SET status = '4' WHERE idContrato = '{$idContrato}'" );
+			$sql = mysqli_query($conexao, "UPDATE contrato SET status = '4',
+															   dataFinal = '$date' 
+											WHERE idContrato = '{$idContrato}'" );
 
 				if ($sql == true){
 					$result = "sucesso";
@@ -177,6 +182,28 @@
 					echo json_encode($result);
 				}
 				
+}
+
+	elseif (isset($_POST['pagamento']) && $_POST['pagamento'] == "btn-confirmar-pagamento") {
+
+			$idContrato = trim($_POST['idContrato']);
+			$precoPago = trim($_POST['precoPago']);
+			$formapgto = trim($_POST['formapgto']);
+
+		  $sql = mysqli_query($conexao, "UPDATE contrato SET pgto = '$precoPago', 
+										   					 formapgto = '$formapgto',
+										   					 status = '2'
+									     WHERE idContrato = '{$idContrato}'");
+
+			if ($sql == true){
+				$result = "sucesso";
+
+				echo json_encode($result);
+			} else {
+				$result = "insucesso";
+
+				echo json_encode($result);
+			}
 }		
 
 

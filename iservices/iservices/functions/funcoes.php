@@ -34,13 +34,37 @@
 
 		$idUsuario = $_SESSION['idUsuario'];
 
-		$sql = mysqli_query($conexao, "SELECT c.idContrato, s.tiposervico, s.valor, s.descricao, cl.idCliente, cl.nome, cl.telefone, c.status FROM contrato AS c
-							INNER JOIN servico AS s
-							ON c.idServico = s.idServico
-							INNER JOIN usuario AS u
-							ON c.idUsuario = u.idUsuario
-                            INNER JOIN cliente AS cl 
-                            ON c.idCliente = cl.idCliente WHERE c.idUsuario = '{$idUsuario}'");
+		$sql = mysqli_query($conexao, "SELECT contrato.idContrato, 
+			servico.tiposervico, 
+			contrato.preco,
+			contrato.idCliente, 
+			servico.descricao, 
+			servico.horarioInicial,
+			servico.horarioFinal,
+			servico.diaInicial,
+			servico.diaFinal, 
+			cliente.nome, 
+			cliente.telefone,
+			contrato.status,
+			contrato.detalhes,
+			date_format(contrato.dataInicial, '%d/%c/%Y') As dataInicial,
+			date_format(contrato.dataFinal, '%d/%c/%Y') As dataFinal,
+			servico.checkClicado,
+			CONCAT(contrato.rua,', ',
+			contrato.numero,' - ',
+			contrato.complemento,' - ',
+			contrato.bairro,'/ ',
+			contrato.cidade) AS endereco 
+			FROM contrato 
+			INNER JOIN cliente 
+			ON contrato.idCliente = cliente.idCliente 
+			INNER JOIN servico 
+			ON contrato.idServico = servico.idServico
+			WHERE contrato.idUsuario = '{$idUsuario}' 
+			AND contrato.status = '0'
+			OR contrato.status = '1'
+			OR contrato.status = '2'
+			OR contrato.status = '4'");
 
 		while($recebe = mysqli_fetch_array($sql)){
 			array_push($contratos, $recebe);
@@ -145,7 +169,7 @@
 
 	$servicos = array();
 
-	$sql = mysqli_query($conexao, "SELECT servico.idServico, servico.tiposervico, servico.valor, servico.descricao, cliente.nome FROM servico 
+	$sql = mysqli_query($conexao, "SELECT servico.idServico, servico.tiposervico, servico.valor, servico.descricao, cliente.nome, cliente.telefone FROM servico 
 								   INNER JOIN cliente ON servico.idCliente = cliente.idCliente");
 	 
 	while ($recebe = mysqli_fetch_array($sql)) {

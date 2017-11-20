@@ -63,6 +63,8 @@
                             <table class="table table-striped table-bordered table-list" cellspacing="0" cellpadding="0" id="tab-servicos">
                                 <thead>
                                     <tr>
+                                        <th>Prestador</th>
+                                        <th>Contato</th>
                                         <th>Número do Serviço</th>
                                         <th>Tipo de Serviço</th>
                                         <th>Preço</th>
@@ -78,6 +80,12 @@
                                     ?>
                                     <tr>
                                         <td>
+                                            <img src="../img/foto.jpg"> <?=$recebe['nome'];?>
+                                        </td>
+                                        <td>
+                                            <?=$recebe['telefone'];?>
+                                        </td>
+                                        <td>
                                             <?=$recebe['idServico'];?>
                                         </td>
                                         <td>
@@ -85,7 +93,7 @@
                                         </td>
                                         <td>R$ <?=$recebe['valor'];?>
                                         </td>
-                                        <td class="actions">
+                                        <td class="actions" align="center">
                                             <a href="#" class="contrata-servico"
                                             data-toggle="modal" data-target="#contratacao-modal"
                                             data-name="<?=$recebe['tiposervico'];?>"
@@ -149,7 +157,7 @@
                                         <td>
                                             <?=$recebeContrato['tiposervico'];?>
                                         </td>
-                                        <td>R$ <?=$recebeContrato['valor'];?>
+                                        <td>R$ <?=$recebeContrato['preco'];?>
                                         </td>
                                         <td class="statusUsuario" data-name="<?=$recebeContrato['status'];?>">
                                             <?=$recebeContrato['status'];?>
@@ -184,12 +192,24 @@
                                             </button>
                                         </td>
                                         <td>
-                                            <a class="detail-icon" href="#detalhes-modal"
-                                            data-toggle="modal" data-name="<?=$recebeContrato['nome'];?>"
+                                            <button class="detalhe-contrato-tab-servico-usuario btn btn-default"
+                                            data-toggle="modal"
+                                            data-idcontrato="<?=$recebeContrato['idContrato'];?>"
+                                            data-tiposervico="<?=$recebeContrato['tiposervico'];?>"
+                                            data-preco="<?=$recebeContrato['preco'];?>"
+                                            data-status="<?=$recebeContrato['status'];?>" 
+                                            data-name="<?=$recebeContrato['nome'];?>"                                            
+                                            data-tel="<?=$recebeContrato['telefone'];?>"
                                             data-descricao="<?=$recebeContrato['descricao'];?>"
-                                            data-tel="<?=$recebeContrato['telefone'];?>">
+                                            data-horainicial="<?=$recebeContrato['horarioInicial'];?>"
+                                            data-horafinal="<?=$recebeContrato['horarioFinal'];?>"
+                                            data-diainicial="<?=$recebeContrato['diaFinal'];?>"
+                                            data-diafinal="<?=$recebeContrato['diaInicial'];?>"
+                                            data-inicial="<?=$recebeContrato['dataInicial'];?>"
+                                            data-final="<?=$recebeContrato['dataFinal'];?>"
+                                            data-check="<?=$recebeContrato['checkClicado'];?>">
                                             <i class="glyphicon glyphicon-plus"></i>
-                                            </a>
+                                            </button>
                                         </td>
                                     </tr>
                                     <?php } ?>
@@ -355,32 +375,58 @@
                         </button>
                     </div>
                     <div class="modal-body" id="detalhes-modal-pagamento">
-                        Contrato: <span class="contrato"></span></br> 
+                        Contrato do serviço: <span class="contrato"></span></br> 
                         Status: <span class="status"></span></br> 
                         Prestador de serviço: <span class="nome-prestador"></span></br> 
                         Telefone: <span class="telefone"></span></br>
                         Serviço: <span class="servico"></span></br></br> 
                         <label>Preço à ser pago: R$</label> 
-                        <input class="form-control" id="input-preco-pagamento">
+                        <input class="form-control" id="input-preco-pagamento" name="input-preco-pagamento">
                         <div class="checkbox checkbox-primary">
-                            <input id="checkbox6" type="checkbox"> 
+                            <input id="checkbox6" type="checkbox" class="verifica-forma-pagamento" value="0"> 
                             <label for="checkbox6">Cartão de crédito</label>&nbsp 
                             <i class="glyphicon glyphicon-credit-card" style="font-size: 20px"></i>
                         </div>
                         <div class="checkbox checkbox-primary">
-                            <input id="checkbox7" type="checkbox"> 
+                            <input id="checkbox12" type="checkbox" class="verifica-forma-pagamento" value="1"> 
+                            <label for="checkbox12">Cartão de débito</label>&nbsp 
+                            <i class="glyphicon glyphicon-credit-card" style="font-size: 20px"></i>
+                        </div>
+                        <div class="checkbox checkbox-primary">
+                            <input id="checkbox7" type="checkbox" class="verifica-forma-pagamento" value="2"> 
                             <label for="checkbox7">Dinheiro</label>&nbsp 
                             <i class="fa fa-money" style="font-size: 20px"></i>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-success">
-                            <i class="glyphicon glyphicon-thumbs-up"></i>&nbspConfirma Pagamento
+                        <button class="btn-confirmar-pagamento btn btn-success" value="btn-confirmar-pagamento">
+                            <i class="glyphicon glyphicon-thumbs-up"></i>&nbspConfirmar Pagamento
                         </button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">
                             <i class="glyphicon glyphicon-thumbs-down"></i>&nbspCancelar
                         </button>
+                        </br>
+                        </br>
+                        <div id="carregando-modal-confirma-pagamento" align="center">
+                            <img src="../img/carregando.gif"></br><span name="carregamento-pagamento">Confirmando Pagamento</span>
+                        </div>
                     </div>
+                    <div class="alert alert-warning" id="alert-warning-confirma-pagamento">
+                        <a href="#" class="close" aria-label="close">&times;</a> 
+                        <strong>Atenção!</strong>Não foi selecionada nenhuma forma de pagamento.
+                    </div>
+                    <div class="alert alert-warning" id="alert-warning-confirma-pagamento-preco">
+                        <a href="#" class="close" aria-label="close">&times;</a> 
+                        <strong>Atenção!</strong>Não foi informado o valor de pagamento.
+                    </div>
+                    <div class="alert alert-success" id="alert-success-confirma-pagamento">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>Sucesso!</strong>Pagamento realizado com sucesso.
+                    </div>
+                    <div class="alert alert-danger" id="alert-danger-cancelar-servico">
+                        <a href="#" class="close" aria-label="close">&times;</a>
+                        <strong>Error!</strong>Ocorreu um erro ao efetuar o pagamento do serviço.
+                    </div>                    
                 </div>
             </div>
         </div>
@@ -529,8 +575,8 @@
                 </div>
             </div>
         </div>
-        <!--Modal de detalhes do produto-->
-        <div class="modal fade" id="detalhes-modal" tabindex="-1"
+        <!--Modal de detalhes do produto atendimento 24hrs-->
+        <div class="modal fade" id="detalhes-modal-comercial" tabindex="-1"
             role="dialog" aria-labelledby="modalLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -540,12 +586,52 @@
                         </button>
                         <h4 class="modal-title" id="modalLabel">Detalhamento do contrato</h4>
                     </div>
-                    <div class="modal-body">
-                        Nome do prestador de serviço: <span class="nome-prestador"></span></br>
-                        Telefone: <span class="telefone-prestador"></span></br> 
-                        Descrição do serviço: <span class="descricao-servico-prestador"></span></br> 
-                        Horário de atendimento: <span class="horario-atendimento"></span></br> 
-                        Data e horário para realização do serviço: <span class="data-horario-servico"></span>
+                    <div class="modal-body" id="corpo-detalhe-servico-usuario-dois">                        
+                        Número de contrato: <span name="numero-contrato-dois"></span></br>
+                        Tipo de serviço: <span name="tipo-servico-contrato-dois"></span></br>
+                        Preço do serviço: <span name="preco-servico-contrato-dois"></span></br>
+                        Status do serviço: <span name="status-servico-contrato-dois"></span></br>                        
+                        Nome do prestador de serviço: <span name="nome-prestador-dois"></span></br>
+                        Telefone: <span name="telefone-prestador-dois"></span></br> 
+                        Descrição do serviço: <span name="descricao-servico-prestador-dois"></span></br> 
+                        Atendimento: De: <span name="horario-inicial-atendimento-detalhes-dois"></span> 
+                        às <span name="horario-final-atendimento-detalhes-dois"></span>
+                        / De: <span name="dia-inicial-atendimento-detalhes-dois"></span>
+                        à <span name="dia-final-atendimento-detalhes-dois"></span></br>
+                        Data inicial para realização do serviço: <span name="data-inicial-horario-servico-dois"></span></br>
+                        Data final da realização do serviço: <span name="data-final-horario-servico-dois"></span>
+                    </div>
+                    <div class="modal-footer">
+                        <a type="button" name="" class="btn btn-success" data-dismiss="modal"> 
+                            <i class="glyphicon glyphicon-thumbs-up"></i>&nbspOK
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Modal de detalhes do produto atendimento dentro do horário comercial-->
+        <div class="modal fade" id="detalhes-modal-vintequatro" tabindex="-1"
+            role="dialog" aria-labelledby="modalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title" id="modalLabel">Detalhamento do contrato</h4>
+                    </div>
+                    <div class="modal-body" id="corpo-detalhe-servico-usuario">                        
+                        Número de contrato: <span name="numero-contrato"></span></br>
+                        Tipo de serviço: <span name="tipo-servico-contrato"></span></br>
+                        Preço do serviço: <span name="preco-servico-contrato"></span></br>
+                        Status do serviço: <span name="status-servico-contrato"></span></br>                        
+                        Nome do prestador de serviço: <span name="nome-prestador"></span></br>
+                        Telefone: <span name="telefone-prestador"></span></br> 
+                        Descrição do serviço: <span name="descricao-servico-prestador"></span></br> 
+                        Atendimento: <span name="horario-atendimento-detalhes"></span>
+                        De: <span name="dia-atendimento-detalhes"></span></span></br>
+                        Data inicial para realização do serviço: <span name="data-inicial-horario-servico"></span></br>
+                        Data final da realização do serviço: <span name="data-final-horario-servico"></span>
                     </div>
                     <div class="modal-footer">
                         <a type="button" name="" class="btn btn-success" data-dismiss="modal"> 

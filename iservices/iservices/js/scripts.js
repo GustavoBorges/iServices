@@ -105,6 +105,11 @@ function escondeDivs(){
     $('#alert-warning-cancelar-servico').hide();
     $('#alert-success-cancelar-servico').hide();
     $('#alert-danger-cancelar-servico').hide();
+    $('#alert-warning-confirma-pagamento').hide();
+    $('#alert-success-confirma-pagamento').hide();
+    $('#carregando-modal-confirma-pagamento').hide();
+    $('#alert-warning-confirma-pagamento-preco').hide();
+
 
 }
 
@@ -599,6 +604,11 @@ $('.close').click(function(event) {
    $('#alert-warning-cancelar-servico').hide();
    $('#alert-success-cancelar-servico').hide();
    $('#alert-danger-cancelar-servico').hide();
+   //alerts modal pagamento do serviço pelo usuário
+   $('#alert-warning-confirma-pagamento').hide();
+   $('#alert-success-confirma-pagamento').hide();
+   $('#alert-warning-confirma-pagamento-preco').hide();
+
 
 });
 
@@ -649,12 +659,20 @@ $('#checkbox5').change(function(event) {
 
 $('#checkbox6').change(function(event) {
     $('#checkbox7').prop('checked', false);
+    $('#checkbox12').prop('checked', false);
    
 });
 
 
 $('#checkbox7').change(function(event) {
     $('#checkbox6').prop('checked', false);
+    $('#checkbox12').prop('checked', false);
+
+});
+
+$('#checkbox12').change(function(event) {
+    $('#checkbox6').prop('checked', false);
+    $('#checkbox7').prop('checked', false);
 
 });
 
@@ -666,6 +684,13 @@ $('.btn-pagamento').click(function(event) {
     var servico = button.data('servico');
     var status = button.data('status');
     var telefone = button.data('tel');
+
+    if (status == "1"){
+
+        status = "Proposta Aceita";
+
+    }
+
     $('span.contrato').text(id);
     $('span.status').text(status);   
     $('span.nome-prestador').text(name);
@@ -675,6 +700,8 @@ $('.btn-pagamento').click(function(event) {
     $('#pagamento-modal').modal('show');
 
 });
+
+
 
 $('#checkbox8').change(function(event) {
     $('#checkbox9').prop('checked', false);
@@ -809,45 +836,45 @@ $('.btn-detalhes-tab-solicitacao').click(function(event) {
         
         if (checkClidado == "1"){
 
-        $('span[name=visualizacao-solicitacao-id-servico-dois]').text(id);
-        $('span[name=visualizacao-solicitacao-tipo-servico-dois]').text(tipoServico);
-        $('span[name=visualizacao-solicitacao-valor-servico-dois]').text(preco);
-        $('span[name=visualizacao-solicitacao-descricao-servico-dois]').text(descricao);
-        $('span[name=visualizacao-solicitacao-contratante-servico-dois]').text(nomeContratante);
-        $('span[name=visualizacao-solicitacao-telefone-servico-dois]').text(telefoneContratante);
-        $('span[name=visualizacao-solicitacao-email-servico-dois]').text(emailContratante);
-        $('span[name=visualizacao-solicitacao-endereco-servico-dois]').text(endContratante);
-        $('textarea[name=detalhes-solicitacao-modal-contratar-dois]').val(detalhes);        
-        $('span[name=visualizacao-solicitacao-horainicial-servico-dois]').text(horarioInicial);
-        $('span[name=visualizacao-solicitacao-diainicial-servico-dois]').text(diaInicial);
-        $('span[name=check-clicado-visualizacao-dois]').text(checkClidado);
-        $('span[name=data-inicial-dois]').text(dataInicial);
+        $('span[name=detalhes-visualizacao-solicitacao-id-servico-dois]').text(id);
+        $('span[name=detalhes-visualizacao-solicitacao-tipo-servico-dois]').text(tipoServico);
+        $('span[name=detalhes-visualizacao-solicitacao-valor-servico-dois]').text(preco);
+        $('span[name=detalhes-visualizacao-solicitacao-descricao-servico-dois]').text(descricao);
+        $('span[name=detalhes-visualizacao-solicitacao-contratante-servico-dois]').text(nomeContratante);
+        $('span[name=detalhes-visualizacao-solicitacao-telefone-servico-dois]').text(telefoneContratante);
+        $('span[name=detalhes-visualizacao-solicitacao-email-servico-dois]').text(emailContratante);
+        $('span[name=detalhes-visualizacao-solicitacao-endereco-servico-dois]').text(endContratante);
+        $('textarea[name=detalhes-textarea-solicitacao-modal-contratar-dois]').val(detalhes);        
+        $('span[name=detalhes-visualizacao-solicitacao-horainicial-servico-dois]').text(horarioInicial);
+        $('span[name=detalhes-visualizacao-solicitacao-diainicial-servico-dois]').text(diaInicial);
+        $('span[name=detalhes-check-clicado-visualizacao-dois]').text(checkClidado);
+        $('span[name=detalhes-data-inicial-dois]').text(dataInicial);
 
 
-        $('textarea[name=detalhes-solicitacao-modal-contratar-dois]').prop('disabled', true);
+        $('textarea[name=detalhes-textarea-solicitacao-modal-contratar-dois]').prop('disabled', true);
 
         $('#detalhes-solicitacao-servico-modal-dois').modal('show');
         
 
       } else if (checkClidado = "0") {
 
-              $('span[name=visualizacao-solicitacao-id-servico]').text(id);
-              $('span[name=visualizacao-solicitacao-tipo-servico]').text(tipoServico);
-              $('span[name=visualizacao-solicitacao-valor-servico]').text(preco);
-              $('span[name=visualizacao-solicitacao-descricao-servico]').text(descricao);
-              $('span[name=visualizacao-solicitacao-contratante-servico]').text(nomeContratante);
-              $('span[name=visualizacao-solicitacao-telefone-servico]').text(telefoneContratante);
-              $('span[name=visualizacao-solicitacao-email-servico]').text(emailContratante);
-              $('span[name=visualizacao-solicitacao-endereco-servico]').text(endContratante);
-              $('textarea[name=detalhes-solicitacao-modal-contratar]').val(detalhes);        
-              $('span[name=visualizacao-solicitacao-horainicial-servico]').text(horarioInicial);
-              $('span[name=visualizacao-solicitacao-diainicial-servico]').text(diaInicial);
-              $('span[name=visualizacao-solicitacao-horafinal-servico]').text(horarioFinal);
-              $('span[name=visualizacao-solicitacao-diafinal-servico]').text(diaFinal);
-              $('span[name=check-clicado-visualizacao]').text(checkClidado);
-              $('span[name=data-inicial]').text(dataInicial);
+              $('span[name=detalhes-visualizacao-solicitacao-id-servico]').text(id);
+              $('span[name=detalhes-visualizacao-solicitacao-tipo-servico]').text(tipoServico);
+              $('span[name=detalhes-visualizacao-solicitacao-valor-servico]').text(preco);
+              $('span[name=detalhes-visualizacao-solicitacao-descricao-servico]').text(descricao);
+              $('span[name=detalhes-visualizacao-solicitacao-contratante-servico]').text(nomeContratante);
+              $('span[name=detalhes-visualizacao-solicitacao-telefone-servico]').text(telefoneContratante);
+              $('span[name=detalhes-visualizacao-solicitacao-email-servico]').text(emailContratante);
+              $('span[name=detalhes-visualizacao-solicitacao-endereco-servico]').text(endContratante);
+              $('textarea[name=detalhes-textarea-solicitacao-modal-contratar]').val(detalhes);        
+              $('span[name=detalhes-visualizacao-solicitacao-horainicial-servico]').text(horarioInicial);
+              $('span[name=detalhes-visualizacao-solicitacao-diainicial-servico]').text(diaInicial);
+              $('span[name=detalhes-visualizacao-solicitacao-horafinal-servico]').text(horarioFinal);
+              $('span[name=detalhes-visualizacao-solicitacao-diafinal-servico]').text(diaFinal);
+              $('span[name=detalhes-check-clicado-visualizacao]').text(checkClidado);
+              $('span[name=detalhes-data-inicial]').text(dataInicial);
 
-              $('textarea[name=detalhes-solicitacao-modal-contratar]').prop('disabled', true);
+              $('textarea[name=detalhes-textarea-solicitacao-modal-contratar]').prop('disabled', true);
 
               $('#detalhes-solicitacao-servico-modal').modal('show');
 
@@ -855,8 +882,161 @@ $('.btn-detalhes-tab-solicitacao').click(function(event) {
 
 });
 
+$('.detalhe-contrato-tab-servico-usuario').click(function(event) {
+  
+        var button = $(this);
+        var idContrato = button.data('idcontrato');
+        var tipoServico = button.data('tiposervico');
+        var preco = button.data('preco');
+        var status = button.data('status');        
+        var nomePrestador  = button.data('name');
+        var telefonePrestador = button.data('tel');
+        var descricao = button.data('descricao');
+        var horarioInicial = button.data('horainicial');
+        var horarioFinal = button.data('horafinal');
+        var diaInicial  = button.data('diainicial');
+        var diaFinal = button.data('diafinal');
+        var dataInicial = button.data('inicial');
+        var dataFinal = button.data('final');
+        var checkClidado = button.data('check');
+
+        if (status == "0"){
+           status = "Serviço Solicitado";
+        }
+        if (status == "1"){
+           status = " Proposta Aceita";
+        }
+        if (status == "2"){
+           status = "Pagamento Confirmado";
+        }
+        if (status == "4"){
+           status = "Serviço Concluido";
+        }
+
+        console.log(idContrato,checkClidado, horarioInicial, horarioFinal, dataInicial);
+        
+        
+        if (checkClidado == "0"){
+
+              $('span[name=numero-contrato-dois]').text(idContrato);
+              $('span[name=tipo-servico-contrato-dois]').text(tipoServico);
+              $('span[name=preco-servico-contrato-dois]').text(preco);
+              $('span[name=status-servico-contrato-dois]').text(status);
+              $('span[name=nome-prestador-dois]').text(nomePrestador);
+              $('span[name=telefone-prestador-dois]').text(telefonePrestador);
+              $('span[name=descricao-servico-prestador-dois]').text(descricao);
+              $('span[name=horario-inicial-atendimento-detalhes-dois]').text(horarioInicial);
+              $('span[name=horario-final-atendimento-detalhes-dois]').text(horarioFinal);
+              $('span[name=dia-inicial-atendimento-detalhes-dois]').text(diaInicial);
+              $('span[name=dia-final-atendimento-detalhes-dois]').text(diaFinal);
+              $('span[name=data-inicial-horario-servico-dois]').text(dataInicial);
+              $('span[name=data-final-horario-servico-dois]').text(dataFinal);
+      
+              $('#detalhes-modal-comercial').modal('show');
+        
+//Atendimento 24 horas
+      } else if (checkClidado = "1") {
+
+              $('span[name=numero-contrato]').text(idContrato);
+              $('span[name=tipo-servico-contrato]').text(tipoServico);
+              $('span[name=preco-servico-contrato]').text(preco);
+              $('span[name=status-servico-contrato]').text(status);
+              $('span[name=nome-prestador]').text(nomePrestador);
+              $('span[name=telefone-prestador]').text(telefonePrestador);
+              $('span[name=descricao-servico-prestador]').text(descricao);
+              $('span[name=horario-atendimento-detalhes]').text(horarioInicial);
+              $('span[name=dia-atendimento-detalhes]').text(diaInicial);
+              $('span[name=data-inicial-horario-servico]').text(dataInicial);
+              $('span[name=data-final-horario-servico]').text(dataFinal);
+              
+              $('#detalhes-modal-vintequatro').modal('show');
+
+      }   
+
+});
+
 
 //FUNÇÕES DE BOTÕES COM REQUISIÇÃO AJAX
+
+$('.btn-confirmar-pagamento').click(function(event) {
+
+    $('#alert-danger-cancelar-servico').hide();
+    $('#alert-warning-confirma-pagamento').hide();
+    $('#alert-success-confirma-pagamento').hide();
+    $('#alert-warning-confirma-pagamento-preco').hide();
+
+     var idContrato = $('span.contrato').text();
+     var pegaPropriedade = $(this).val();
+     var precoPago = $('input[name=input-preco-pagamento]').val();
+     var formapgto;
+     var count = 0;
+
+     $('.verifica-forma-pagamento').each(function(index, el) {
+           if ($(this).is(':checked')){
+           formapgto = $(this).val();
+          
+          } else {
+            count = count + 1;
+          }
+     });
+
+     if (count == "3"){
+        $('#alert-warning-confirma-pagamento').show();
+
+     } else {
+
+        if (precoPago == ""){
+        $('#alert-warning-confirma-pagamento-preco').show();
+
+      } else {
+
+     $.ajax({
+         url: '../functions/acoes.php',
+         type: 'POST',
+         dataType: 'json',
+         data: {
+          idContrato: idContrato,
+          precoPago: precoPago,
+          formapgto: formapgto,
+          pagamento: pegaPropriedade
+        },
+
+        success: function(resultado){
+          console.log(resultado);
+
+          if (resultado == "sucesso"){
+
+            $('#carregando-modal-confirma-pagamento').show();
+
+            setTimeout(function() {
+              $('span[name=carregamento-pagamento]').text('Aguarde só mais um momento')
+            }, 2000);
+
+            setTimeout(function() {
+              $('span[name=carregamento-pagamento]').text('Pagamento concluido')
+            }, 4000);
+
+            setTimeout(function() {
+              $('#carregando-modal-confirma-pagamento').hide();              
+              $('#alert-success-confirma-pagamento').show();
+            }, 5000);
+
+            setTimeout(function() {
+              location.reload();
+            }, 7000);
+
+          } else {
+
+              $('#alert-danger-cancelar-servico').show();
+          }
+      }
+       
+       })
+
+     }
+  }         
+
+});
 
 $('.btn-conclui-proposta').click(function(event) {
   var idContrato = $(this).data('idcontrato');
@@ -1567,6 +1747,9 @@ $('#btn-cadastrar-servico').click(function(event) {
 
 $('button.btn-aceita-contratar-modal-dois').click(function(event) {
 
+      $('#alert-success-aceita-servico-prestador-dois').hide();
+      $('#alert-danger-aceita-servico-prestador-dois').hide();
+
       var button = $(this).val();
       var data = $('input[name=data-inicial-dois').val();
       var idContrato = $('span[name=visualizacao-solicitacao-id-servico-dois]').text();      
@@ -1585,7 +1768,7 @@ $('button.btn-aceita-contratar-modal-dois').click(function(event) {
         },
       
         success: function(resultado){
-          
+
           if (resultado == "sucesso"){
             
             $('#alert-success-aceita-servico-prestador-dois').hide();

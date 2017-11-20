@@ -262,6 +262,14 @@ label {
   font-weight: bold;
 }
 
+#corpo-detalhe-servico-usuario-dois span{
+  font-weight: bold;
+}
+
+#corpo-detalhe-servico-usuario span {
+ font-weight: bold;
+}
+
 #horario-urgencia{
   display: inline;
 }

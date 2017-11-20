@@ -1000,7 +1000,7 @@
                                 Tipo de Serviço: <span name="visualizacao-solicitacao-tipo-servico"></span></br>
                                 Preço do Serviço: <span name="visualizacao-solicitacao-valor-servico"></span></br>
                                 Descrição: <span name="visualizacao-solicitacao-descricao-servico"></span></br>
-                                Atendimento: Atendimento: De: <span name="visualizacao-solicitacao-horainicial-servico"></span> 
+                                Atendimento: De: <span name="visualizacao-solicitacao-horainicial-servico"></span> 
                                 às <span name="visualizacao-solicitacao-horafinal-servico"></span>
                                 / De: <span name="visualizacao-solicitacao-diainicial-servico"></span>
                                 à <span name="visualizacao-solicitacao-diafinal-servico"></span></br>
@@ -1081,17 +1081,17 @@
                     <div role="tabpanel" class="tab-pane active" id="tab-informacoes">
                         <div class="modal-body">
                             <div id="dados-visualizacao-servico">
-                                Número de contrato: <span name="visualizacao-solicitacao-id-servico-dois"></span></br> 
-                                Tipo de Serviço: <span name="visualizacao-solicitacao-tipo-servico-dois"></span></br>
-                                Preço do Serviço: <span name="visualizacao-solicitacao-valor-servico-dois"></span></br>
-                                Descrição: <span name="visualizacao-solicitacao-descricao-servico-dois"></span></br>
-                                Atendimento: <span name="visualizacao-solicitacao-horainicial-servico-dois"></span>
-                                De: <span name="visualizacao-solicitacao-diainicial-servico-dois"></span></span></br>
-                                Contratante: <span name="visualizacao-solicitacao-contratante-servico-dois"></span></br>
-                                Telefone: <span name="visualizacao-solicitacao-telefone-servico-dois"></span></br>
-                                E-mail: <span name="visualizacao-solicitacao-email-servico-dois"></span></br>
-                                Endereço: <span name="visualizacao-solicitacao-endereco-servico-dois"></span></br>
-                                Data inicial: <span name="data-inicial"></span>
+                                Número de contrato: <span name="detalhes-visualizacao-solicitacao-id-servico-dois"></span></br> 
+                                Tipo de Serviço: <span name="detalhes-visualizacao-solicitacao-tipo-servico-dois"></span></br>
+                                Preço do Serviço: <span name="detalhes-visualizacao-solicitacao-valor-servico-dois"></span></br>
+                                Descrição: <span name="detalhes-visualizacao-solicitacao-descricao-servico-dois"></span></br>
+                                Atendimento: <span name="detalhes-visualizacao-solicitacao-horainicial-servico-dois"></span>
+                                De: <span name="detalhes-visualizacao-solicitacao-diainicial-servico-dois"></span></span></br>
+                                Contratante: <span name="detalhes-visualizacao-solicitacao-contratante-servico-dois"></span></br>
+                                Telefone: <span name="detalhes-visualizacao-solicitacao-telefone-servico-dois"></span></br>
+                                E-mail: <span name="detalhes-visualizacao-solicitacao-email-servico-dois"></span></br>
+                                Endereço: <span name="detalhes-visualizacao-solicitacao-endereco-servico-dois"></span></br>
+                                Data inicial: <span name="detalhes-data-inicial"></span>
                             </div>
                         </div>
                     </div>
@@ -1102,7 +1102,7 @@
                                     <label for="message-text" class="col-form-label">Detalhamento da ocorrência</label>
                                     <textarea class="form-control" id="message-text"
                                         placeholder="Digite aqui o detalhamento da sua ocorrência..."
-                                        name="detalhes-solicitacao-modal-contratar-dois">
+                                        name="detalhes-textarea-solicitacao-modal-contratar-dois">
                                     </textarea>
                                 </div>
                             </form>
@@ -1143,19 +1143,19 @@
                         id="tab-informacoes-dois">
                         <div class="modal-body">
                             <div id="dados-visualizacao-servico">
-                                Número de contrato: <span name="visualizacao-solicitacao-id-servico"></span></br> 
-                                Tipo de Serviço: <span name="visualizacao-solicitacao-tipo-servico"></span></br>
-                                Preço do Serviço: <span name="visualizacao-solicitacao-valor-servico"></span></br>
-                                Descrição: <span name="visualizacao-solicitacao-descricao-servico"></span></br>
-                                Atendimento: Atendimento: De: <span name="visualizacao-solicitacao-horainicial-servico"></span> 
-                                às <span name="visualizacao-solicitacao-horafinal-servico"></span>
-                                / De: <span name="visualizacao-solicitacao-diainicial-servico"></span>
-                                à <span name="visualizacao-solicitacao-diafinal-servico"></span></br>
-                                Contratante: <span name="visualizacao-solicitacao-contratante-servico"></span></br>
-                                Telefone: <span name="visualizacao-solicitacao-telefone-servico"></span></br>
-                                E-mail: <span name="visualizacao-solicitacao-email-servico"></span></br>
-                                Endereço: <span name="visualizacao-solicitacao-endereco-servico"></span></br> 
-                                Data inicial: <span name="data-inicial"></span>
+                                Número de contrato: <span name="detalhes-visualizacao-solicitacao-id-servico"></span></br> 
+                                Tipo de Serviço: <span name="detalhes-visualizacao-solicitacao-tipo-servico"></span></br>
+                                Preço do Serviço: <span name="detalhes-visualizacao-solicitacao-valor-servico"></span></br>
+                                Descrição: <span name="detalhes-visualizacao-solicitacao-descricao-servico"></span></br>
+                                Atendimento: De: <span name="detalhes-visualizacao-solicitacao-horainicial-servico"></span> 
+                                às <span name="detalhes-visualizacao-solicitacao-horafinal-servico"></span>
+                                / De: <span name="detalhes-visualizacao-solicitacao-diainicial-servico"></span>
+                                à <span name="detalhes-visualizacao-solicitacao-diafinal-servico"></span></br>
+                                Contratante: <span name="detalhes-visualizacao-solicitacao-contratante-servico"></span></br>
+                                Telefone: <span name="detalhes-visualizacao-solicitacao-telefone-servico"></span></br>
+                                E-mail: <span name="detalhes-visualizacao-solicitacao-email-servico"></span></br>
+                                Endereço: <span name="detalhes-visualizacao-solicitacao-endereco-servico"></span></br> 
+                                Data inicial: <span name="detalhes-data-inicial"></span>
                             </div>
                         </div>
                     </div>
@@ -1166,7 +1166,7 @@
                                     <label for="message-text" class="col-form-label">Detalhamento da ocorrência</label>
                                     <textarea class="form-control" id="message-text"
                                         placeholder="Digite aqui o detalhamento da sua ocorrência..."
-                                        name="detalhes-solicitacao-modal-contratar">
+                                        name="detalhes-textarea-solicitacao-modal-contratar">
                                     </textarea>
                                 </div>
                             </form>

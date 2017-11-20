@@ -49,7 +49,7 @@ a.none:hover {text-decoration: none;}
 @media screen and (max-width: 992px) {.navbar-toggle {display: block;}.navbar-collapse.collapse {display: none !important;}.main-navbar-nav.navbar-nav,.main-navbar-nav.navbar-nav > li {float: none !important;}.navbar-collapse.collapse.in {display: block !important;overflow-y: auto !important;}}
 
 /* Hero */
-.hero_area {background-image: url(../img/hero.png);background-position: center center;background-repeat: no-repeat;background-size: cover;max-width: 792px;max-height: 475px;padding: 0;}
+.hero_area {background-image: url(../img/hero.png);background-position: center center;background-repeat: no-repeat;background-size: cover;max-width: 1300px;max-height: 475px;padding: 0;}
 .hero_content {padding: 475px 0;}
 .hero_content h1 {text-shadow: 1px 1px 2px rgba(0,0,0,0.75);color: #005FA6;font-weight: 700;font-size: 42px;}
 .hero_content h2 {text-shadow: 1px 1px 2px rgba(0,0,0,0.25);color: #000;font-weight: 700;font-size: 32px;margin-top: 0;width: 45%;line-height: 38px;}
