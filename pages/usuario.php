@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css" />
     <link rel="shortcut icon" href="../img/favicon.png">
     <link rel="stylesheet" type="text/css" href="../css/estilo.css">
-    <link href="https://fortawesome.github.io/Font-Awesome/assets/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
     <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
@@ -31,14 +31,17 @@
             <li role="presentation">
                 <a href="#contratos" aria-controls="contratos" data-toggle="tab" role="tab">Serviços Contratados</a>
             </li>
+            <li role="presentation">
+                <a href="#favoritos" aria-controls="favoritos" data-toggle="tab" role="tab">Favoritos</a>
+            </li>
             <li class="navbar-right">
                 <a href="" id="dropdownLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="glyphicon glyphicon-user"></i>&nbspSeja bem vindo, <?=$recebeu;?>!
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown" href="#"><i class="glyphicon glyphicon-pencil"></i>&nbspMeu Perfil</a></li>
-                    <li><a class="dropdown" href="#"><i class="glyphicon glyphicon-file"></i>&nbspContratos</a></li>
-                    <li><a class="dropdown" href="#"><i class="glyphicon glyphicon-off"></i>&nbspSair</a></li>
+                    <li><a class="dropdown" href="#funcao-construcao-modal" data-toggle="modal"><i class="glyphicon glyphicon-pencil"></i>&nbspMeu Perfil</a></li>
+                    <li><a class="dropdown" href="#contratos" data-toggle="tab"><i class="glyphicon glyphicon-file"></i>&nbspContratos</a></li>
+                    <li><a class="deslogar dropdown" href="#"><i class="glyphicon glyphicon-off"></i>&nbspSair</a></li>
                 </ul>
             </li>
         </ul>
@@ -85,7 +88,7 @@
                                         <td>
                                             <?=$recebe['telefone'];?>
                                         </td>
-                                        <td>
+                                        <td class= "td-carrega-servico">
                                             <?=$recebe['idServico'];?>
                                         </td>
                                         <td>
@@ -95,20 +98,42 @@
                                         </td>
                                         <td class="actions" align="center">
                                             <a href="#" class="contrata-servico"
-                                            data-toggle="modal" data-target="#contratacao-modal"
+                                            data-toggle="modal"
+                                            data-target="#contratacao-modal"
+                                            data-balao="tooltip"
+                                            title="Clicando neste botão você estará contratando o serviço."
                                             data-name="<?=$recebe['tiposervico'];?>"
                                             data-valor="<?=$recebe['valor'];?>"
                                             data-id="<?=$recebe['idServico'];?>"> 
                                             <i class="fa fa-handshake-o" id="icon-contratacao"></i>
+                                            </a>&nbsp
+
+                                            <a href="#" class="favoritos-usuario"
+                                            data-balao="tooltip"
+                                            title="Clicando neste botão você estará inserindo o prestador/serviço como favoritos."
+                                            data-idCliente="<?=$recebe['idCliente'];?>"
+                                            data-idservico="<?=$recebe['idServico'];?>"
+                                            data-favorito="<?=$recebe['adicionado'];?>">
+                                                <i class="glyphicon glyphicon-heart" id="icon-favoritos"></i>
                                             </a>
                                         </td>
                                         <td>
-                                            <a href="#" class="detail-icon"
+                                            <button  class="btn-detalhe-buscar-servicos btn btn-default"
+                                            data-balao="tooltip"
+                                            title="Clicando neste botão você estará visualizando os detalhes do serviço."                                            
+                                            data-idservico="<?=$recebe['idServico'];?>"
+                                            data-tiposervico="<?=$recebe['tiposervico'];?>"
+                                            data-preco="<?=$recebe['valor']?>"
+                                            data-descricao="<?=$recebe['descricao'];?>"
                                             data-name="<?=$recebe['nome'];?>"
                                             data-tel="<?=$recebe['telefone'];?>"
-                                            data-descricao="<?=$recebe['descricao'];?>">
+                                            data-horarioinicial="<?=$recebe['horarioInicial'];?>"
+                                            data-horariofinal="<?=$recebe['horarioFinal'];?>"
+                                            data-diainicial="<?=$recebe['diaInicial'];?>"
+                                            data-diafinal="<?=$recebe['diaFinal'];?>"
+                                            data-check="<?=$recebe['checkClicado'];?>">
                                             <i class="glyphicon glyphicon-plus"></i>
-                                            </a>
+                                            </button>
                                         </td>
                                     </tr>
                                     <?php } ?>
@@ -141,7 +166,7 @@
                                         <th>Preço</th>
                                         <th>Status</th>
                                         <th class="actions">Ações</th>
-                                        <th>Detalhe</th>
+                                        <th>Detalhes</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -164,24 +189,24 @@
                                         </td>
                                         <td class="actions">
                                             <button class="cancelar-proposta btn btn-default" id="btnRejeitar"
-                                                data-target="#cancelar-servico-modal" data-toggle="tooltip"
-                                                title="Ao clicar neste botão você estara cancelando a proposta de serviço realizada."
+                                                data-target="#cancelar-servico-modal" data-balao="tooltip"
+                                                title="Clicando neste botão você estará cancelando a proposta de serviço."
                                                 data-status="<?=$recebeContrato['status'];?>"
                                                 data-idcontrato="<?=$recebeContrato['idContrato'];?>">
                                                 <i class="glyphicon glyphicon-remove icon-remove" id="btn-rejeitar"></i>
                                             </button>
                                             <button class="avaliar-prestador btn btn-default"
-                                                data-toggle="tooltip"
-                                                title="Ao clicar neste botão você estará avaliando o prestador de serviço."
+                                                data-balao="tooltip"
+                                                title="Clicando neste botão você estará avaliando o prestador de serviço."
                                                 data-idcontrato="<?=$recebeContrato['idContrato'];?>"
                                                 data-idcliente="<?=$recebeContrato['idCliente'];?>"
                                                 data-nomeprestador="<?=$recebeContrato['nome']?>"
                                                 data-status="<?=$recebeContrato['status'];?>">
-                                                <i class="glyphicon glyphicon-star" ></i>
+                                                <i class="glyphicon glyphicon-star"></i>
                                             </button>
                                             <button class="btn-pagamento btn btn-default"
-                                                data-toggle="tooltip"
-                                                title="Ao clicar neste botão você estará selecionando a forma de pagamento do serviço contratado."
+                                                data-balao="tooltip"
+                                                title="Clicando neste botão você estará selecionando a forma de pagamento do serviço."
                                                 data-id="<?=$recebeContrato['idContrato'];?>"
                                                 data-status="<?=$recebeContrato['status'];?>"
                                                 data-name="<?=$recebeContrato['nome'];?>"
@@ -193,7 +218,8 @@
                                         </td>
                                         <td>
                                             <button class="detalhe-contrato-tab-servico-usuario btn btn-default"
-                                            data-toggle="modal"
+                                            data-balao="tooltip"
+                                            title="Clicando neste botão você estará verificando todos os detalhes do contrato."
                                             data-idcontrato="<?=$recebeContrato['idContrato'];?>"
                                             data-tiposervico="<?=$recebeContrato['tiposervico'];?>"
                                             data-preco="<?=$recebeContrato['preco'];?>"
@@ -228,7 +254,7 @@
                             <div class="row">
                                 <div class="col col-xs-12 text-center">
                                     <h1 class="panel-title">Histórico</h1>
-                                    <a href="" class="btn btn-info pull-right h1"> <i
+                                    <a href="#funcao-construcao-modal" data-toggle="modal" class="btn btn-info pull-right h1"> <i
                                         class="glyphicon glyphicon-print"></i>&nbspGerar Relatório
                                     </a>
                                 </div>
@@ -242,7 +268,8 @@
                                     <tr>
                                         <th>Contrato</th>
                                         <th>Tipo de Serviço</th>
-                                        <th>Preço</th>
+                                        <th>Preço do Serviço</th>
+                                        <th>Preço Pago</th>
                                         <th>Prestador</th>
                                         <th>Telefone</th>
                                         <th>Status</th>
@@ -263,6 +290,8 @@
                                         </td>
                                         <td>R$ <?=$recebeContrato['valor'];?>
                                         </td>
+                                        <td>R$ <?=$recebeContrato['pgto'];?>
+                                        </td>
                                         <td>
                                             <?=$recebeContrato['nome'];?>
                                         </td>
@@ -281,13 +310,73 @@
                 </div>
             </div>
         </div>
+        <div role="tabpanel" class="tab-pane" id="favoritos">
+            <div class="container" style="margin-top: 2px;">
+                <div class="row">
+                    <div class="panel panel-primary panel-table animated slideInDown">
+                        <div class="panel-heading" style="padding: 37px;">
+                            <div class="row">
+                                <div class="col col-xs-12 text-center">
+                                    <h1 class="panel-title">Favoritos</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="list" class="row">
+                        <div class="table-responsive col-md-12">
+                            <table class="table table-striped table-bordered table-list" cellspacing="0" cellpadding="0" id="tab-favoritos">
+                                <thead>
+                                    <tr>
+                                        <th>Nome</th>
+                                        <th>Telefone</th>
+                                        <th>Ações</th>
+                                        <th>Serviço</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                            $favoritos = recebeFavoritos($conexao);
+                                            foreach ($favoritos as $recebeContrato) {
+                                            
+                                    ?>
+                                    <tr>
+                                        <td>
+                                            <?=$recebeContrato['nome'];?>
+                                        </td>
+                                        <td>
+                                            <?=$recebeContrato['telefone'];?>
+                                        </td>
+                                        <td align="center">
+                                            <a href="#" class="btn-contratar-favorito"
+                                            data-balao="tooltip"
+                                            title="Clicando neste botão você estará contratando o serviço."
+                                            data-toggle="modal" data-target="#contratacao-modal-favorito"
+                                            data-name="<?=$recebeContrato['tiposervico'];?>"
+                                            data-valor="<?=$recebeContrato['valor'];?>"
+                                            data-id="<?=$recebeContrato['idServico'];?>"> 
+                                            <i class="fa fa-handshake-o" id="icon-contratacao"></i>                                                
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <?=$recebeContrato['tiposervico'];?>
+                                        </td>
+                                    </tr>
+                                    <?php } ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
         <!--Modal de avaliação do serviço-->
         <div class="modal fade" id="avaliacao-modal" tabindex="-1"
             role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Avaliação do prestado de serviço</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Avaliação do prestador de serviço</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -352,7 +441,7 @@
                             <span class="idcliente-avaliacao" name="idcliente-avaliacao" style="display: none;"></span>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-success" id="avaliando-prestador" name="avaliando-prestador" value="avaliando">
+                            <button type="button" class="btn btn-primary" id="avaliando-prestador" name="avaliando-prestador" value="avaliando">
                                 <i class="glyphicon glyphicon-thumbs-up"></i>&nbspAvaliar
                             </button>
                         </div>
@@ -369,7 +458,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Pagamento do prestado de serviço</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Pagamento do prestador de serviço</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -399,10 +488,10 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn-confirmar-pagamento btn btn-success" value="btn-confirmar-pagamento">
+                        <button class="btn-confirmar-pagamento btn btn-primary" value="btn-confirmar-pagamento">
                             <i class="glyphicon glyphicon-thumbs-up"></i>&nbspConfirmar Pagamento
                         </button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
                             <i class="glyphicon glyphicon-thumbs-down"></i>&nbspCancelar
                         </button>
                         </br>
@@ -413,19 +502,19 @@
                     </div>
                     <div class="alert alert-warning" id="alert-warning-confirma-pagamento">
                         <a href="#" class="close" aria-label="close">&times;</a> 
-                        <strong>Atenção!</strong>Não foi selecionada nenhuma forma de pagamento.
+                        <strong>Atenção!</strong> Selecione uma forma de pagamento.
                     </div>
                     <div class="alert alert-warning" id="alert-warning-confirma-pagamento-preco">
                         <a href="#" class="close" aria-label="close">&times;</a> 
-                        <strong>Atenção!</strong>Não foi informado o valor de pagamento.
+                        <strong>Atenção!</strong> Informe o valor de pagamento.
                     </div>
                     <div class="alert alert-success" id="alert-success-confirma-pagamento">
                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                        <strong>Sucesso!</strong>Pagamento realizado com sucesso.
+                        <strong>Sucesso!</strong> Pagamento efetuado.
                     </div>
                     <div class="alert alert-danger" id="alert-danger-cancelar-servico">
                         <a href="#" class="close" aria-label="close">&times;</a>
-                        <strong>Error!</strong>Ocorreu um erro ao efetuar o pagamento do serviço.
+                        <strong>Error!</strong> Ocorreu uma inconsistência ao efetuar o pagamento.
                     </div>                    
                 </div>
             </div>
@@ -445,27 +534,27 @@
                         Deseja realmente cancelar o serviço? <span class="cancela-idcontrato" style="display: none;"></span>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" name="" value="btn-sim-cancela-servico-usuario" class="btn-sim-cancela-servico-usuario btn btn-success"> 
+                        <button type="button" name="" value="btn-sim-cancela-servico-usuario" class="btn-sim-cancela-servico-usuario btn btn-primary"> 
                             <i class="glyphicon glyphicon-thumbs-up"></i>&nbspSim
                         </button> 
-                        <button href="#" type="button" class="btn btn-danger" data-dismiss="modal"> 
+                        <button href="#" type="button" class="btn btn-default" data-dismiss="modal"> 
                             <i class="glyphicon glyphicon-thumbs-down"></i>&nbspN&atilde;o
                         </button>
-                        <div id="carregando-modal-cancelar-servico" align="center">
+                        <div id="carregando-modal-cancelar-servico-usuario" align="center">
                             <img src="../img/carregando.gif"></br><span>Cancelando Serviço</span>
                         </div>                    
                     </div>
-                    <div class="alert alert-warning" id="alert-warning-cancelar-servico">
+                    <div class="alert alert-warning" id="alert-warning-cancelar-servico-usuario">
                         <a href="#" class="close" aria-label="close">&times;</a> 
-                        <strong>Atenção!</strong>Não foi possível cancelar o serviço, pois o mesmo foi "Aceito" pelo prestador.
+                        <strong>Atenção!</strong> Não foi possível cancelar o serviço, pois o mesmo já foi "Aceito" pelo prestador.
                     </div>
-                    <div class="alert alert-success" id="alert-success-cancelar-servico">
+                    <div class="alert alert-success" id="alert-success-cancelar-servico-usuario">
                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                        <strong>Sucesso!</strong>O seu serviço foi cancelado com sucesso.
+                        <strong>Sucesso!</strong> Serviço cancelado.
                     </div>
-                    <div class="alert alert-danger" id="alert-danger-cancelar-servico">
+                    <div class="alert alert-danger" id="alert-danger-cancelar-servico-usuario">
                         <a href="#" class="close" aria-label="close">&times;</a>
-                        <strong>Error!</strong>Ocorreu um erro ao aceitar o serviço.
+                        <strong>Error!</strong> Ocorreu uma inconsistência ao aceitar o serviço.
                     </div>
                 </div>
             </div>
@@ -495,22 +584,20 @@
                             <div class="modal-body">
                                 <form>
                                     <div class="form">
-                                        <label for="nome-servico" class="col-form-label">Nome do Serviço:</label> 
-                                        <input class="form-control" id="recebe-nome-servico" readonly="true"></input> 
-                                        <label for="valor-servico" class="col-form-label">Preço do Serviço:</label> 
-                                        <input class="form-control" id="recebe-valor-servico" name="recebe-preco-servico" readonly="true"></input>
+                                        Nome do Serviço: <span id="recebe-nome-servico" readonly="true"></span></br>
+                                        Preço do Serviço: R$<span id="recebe-valor-servico" name="recebe-preco-servico" readonly="true"></span>
                                         <div id="div-recebe-id-servico">
                                             <label for="id-servico" class="col-form-label">Id:</label> 
-                                            <input name="recebe-id-servico" class="form-control" id="recebe-id-servico" name="recebe-id-servico"></input>
+                                            <span name="recebe-id-servico" id="recebe-id-servico" name="recebe-id-servico"></span>
                                         </div>
                                     </div>
                                     </br>
                                     <div class="form-check-label">
                                         <label class="form-check-label"> 
-                                            <input type="checkbox" class="form-check-input" id="check-endcadastrado">Endereço cadastrado
+                                            <input type="checkbox" class="form-check-input" id="check-endcadastrado"> Endereço cadastrado
                                         </label></br> 
                                         <label class="form-check-label"> 
-                                            <input type="checkbox" class="form-check-input" id="check-enddiferentecadastro">Endereço diferente do cadastrado
+                                            <input type="checkbox" class="form-check-input" id="check-enddiferentecadastro"> Endereço diferente do cadastrado
                                         </label>
                                         <div id="form-enddiferente">
                                             <label for="rua">Av/Rua:</label> 
@@ -529,11 +616,11 @@
                                     <div class="form">
                                         <label for="message-text" class="col-form-label">Termo</label>
                                         <textarea class="form-control" id="message-text"
-                                            name="messagem-text-termo">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi massa eros, fermentum in tincidunt eu, in lobortis sit amet, blandit sed ipsum. Aenean pharetra blandit lorem, quis mattis libero tincidunt in. Nulla vestibulum lobortis vulputate. Praesent sit amet nunc commodo, ultricies nulla eu, vestibulum justo. Maecenas orci dui, mattis sit amet euismod a, placerat ac ante. Integer ornare tortor elit, eu mollis nisl varius ultrices. Maecenas consectetur, ipsum in tincidunt fermentum, est nulla vehicula erat, sed laoreet urna quam a erat. Phasellus feugiat mi vel ante venenatis viverra. Pellentesque ornare tortor non eros aliquam porta. Curabitur pulvinar accumsan dui nec viverra.
+                                            name="messagem-text-termo">O contrato de prestação de serviços foi criado para garantir os direitos e deveres dos profissionais que pretendem prestar serviços na condição de autônomos, como também defender os direitos e deveres dos contratantes.
                                         </textarea>
                                     </div>
                                     <label class="form-check-label">
-                                        <input type="checkbox" id="check-termo">Li e concordo com os termos e condições</label>
+                                        <input type="checkbox" id="check-termo"> Li e concordo com os termos e condições</label>
                                 </form>
                             </div>
                         </div>
@@ -541,7 +628,7 @@
                             <div class="modal-body">
                                 <form>
                                     <div class="form">
-                                        <label for="message-text" class="col-form-label">Detalhamento da ocorrência</label>
+                                        <label for="message-text" class="col-form-label">Detalhamento da ocorrência:</label>
                                         <textarea class="form-control" id="message-text"
                                             placeholder="Digite aqui o detalhamento da sua ocorrência..." name="detalhes-modal-contratar">
                                         </textarea>
@@ -551,12 +638,12 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-success"
+                        <button type="submit" class="btn btn-primary"
                             id="btn-contratar-modal" name="btn-contratar-modal"
                             value="Contratar">
                             <i class="glyphicon glyphicon-ok"></i>&nbspContratar
                         </button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
                             <i class="glyphicon glyphicon-remove"></i>&nbspCancelar
                         </button>
                         </br>
@@ -566,11 +653,114 @@
                     </div>
                     <div class="alert alert-warning" id="alert-warning-contratar">
                         <a href="#" class="close" aria-label="close">&times;</a> 
-                        <strong>Atenção!</strong>Não foi selecionada nenhuma modalidade de endereço.
-                    </div>
+                        <strong name="alert-warning-contratar">Atenção!</strong> Selecione uma modalidade de endereço.
+                    </div>                    
                     <div class="alert alert-success" id="alert-success-contratar">
                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                        <strong>Sucesso!</strong>O seu serviço foi contratado com sucesso.
+                        <strong>Sucesso!</strong> Serviço contratado.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Modal de contratação de serviço pela tab Favoritos-->
+        <div class="modal fade" id="contratacao-modal-favorito" tabindex="-1"
+            role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <div class="container">
+                            <ul class="nav nav-tabs" id="menu-modal-contratacao-favorito" role="tablist">
+                                <li role="presentation" class="active">
+                                    <a href="#tab-informacoes-favorito" arial-controls="" data-toggle="tab" role="tab">Informações</a>
+                                </li>
+                                <li role="presentation">
+                                    <a href="#tab-detalhes-favorito" arial-controls="" data-toggle="tab" role="tab">Detalhes</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="tab-informacoes-favorito">
+                            <div class="modal-body">
+                                <form>
+                                    <div class="form">
+                                        Nome do Serviço: <span id="recebe-nome-servico-favorito" readonly="true"></span></br>
+                                        Preço do Serviço: R$<span id="recebe-valor-servico-favorito" name="recebe-preco-servico-favorito" readonly="true"></span>
+                                        <div id="div-recebe-id-servico-favorito">
+                                            <label for="id-servico-favorito" class="col-form-label">Id:</label> 
+                                            <span name="recebe-id-servico-favorito" id="recebe-id-servico-favorito" name="recebe-id-servico-favorito"></span>
+                                        </div>
+                                    </div>
+                                    </br>
+                                    <div class="form-check-label">
+                                        <label class="form-check-label"> 
+                                            <input type="checkbox" class="form-check-input" id="check-endcadastrado-favorito"> Endereço cadastrado
+                                        </label></br> 
+                                        <label class="form-check-label"> 
+                                            <input type="checkbox" class="form-check-input" id="check-enddiferentecadastro-favorito"> Endereço diferente do cadastrado
+                                        </label>
+                                        <div id="form-enddiferente-favorito">
+                                            <label for="rua">Av/Rua:</label> 
+                                            <input type="text" name="rua-favorito" id="rua-favorito" class="form-control"></input> 
+                                            <label for="numero">Número:</label> 
+                                            <input type="text" name="numero-favorito" id="numero-favorito" class="form-control"></input> 
+                                            <label for="complemento">Complemento:</label> 
+                                            <input type="text" name="complemento-favorito" class="form-control"></input> 
+                                            <label for="bairro">Bairro:</label> 
+                                            <input type="text" name="bairro-favorito" id="bairro-favorito" class="form-control"></input> 
+                                            <label for="cidade">Cidade:</label> 
+                                            <input type="text" name="cidade-favorito" id="cidade-favorito" class="form-control"></input>
+                                        </div>
+                                    </div>
+                                    </br>
+                                    <div class="form">
+                                        <label for="message-text" class="col-form-label">Termo</label>
+                                        <textarea class="form-control" id="message-text-favorito"
+                                            name="messagem-text-termo-favorito">O contrato de prestação de serviços foi criado para garantir os direitos e deveres dos profissionais que pretendem prestar serviços na condição de autônomos, como também defender os direitos e deveres dos contratantes.
+                                        </textarea>
+                                    </div>
+                                    <label class="form-check-label">
+                                        <input type="checkbox" id="check-termo-favorito"> Li e concordo com os termos e condições</label>
+                                </form>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="tab-detalhes-favorito">
+                            <div class="modal-body">
+                                <form>
+                                    <div class="form">
+                                        <label for="message-text" class="col-form-label">Detalhamento da ocorrência</label>
+                                        <textarea class="form-control" id="message-text-favorito"
+                                            placeholder="Digite aqui o detalhamento da sua ocorrência..." name="detalhes-modal-contratar-favorito">
+                                        </textarea>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary"
+                            id="btn-contratar-modal-favorito" name="btn-contratar-modal-favorito"
+                            value="Contratar">
+                            <i class="glyphicon glyphicon-ok"></i>&nbspContratar
+                        </button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                            <i class="glyphicon glyphicon-remove"></i>&nbspCancelar
+                        </button>
+                        </br>
+                        <div id="carregando-modal-contratar-favorito" align="center">
+                            <img src="../img/carregando.gif"></br><span>Contratando Serviço</span>
+                        </div>
+                    </div>
+                    <div class="alert alert-warning" id="alert-warning-contratar-favorito">
+                        <a href="#" class="close" aria-label="close">&times;</a> 
+                        <strong>Atenção!</strong> Selecione uma modalidade de endereço.
+                    </div>
+                    <div class="alert alert-success" id="alert-success-contratar-favorito">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>Sucesso!</strong> Serviço contratado.
                     </div>
                 </div>
             </div>
@@ -584,7 +774,7 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                             <span aria-hidden="true">&times;</span>
                         </button>
-                        <h4 class="modal-title" id="modalLabel">Detalhamento do contrato</h4>
+                        <h4 class="modal-title" id="modalLabel">Detalhamento do Contrato</h4>
                     </div>
                     <div class="modal-body" id="corpo-detalhe-servico-usuario-dois">                        
                         Número de contrato: <span name="numero-contrato-dois"></span></br>
@@ -602,7 +792,7 @@
                         Data final da realização do serviço: <span name="data-final-horario-servico-dois"></span>
                     </div>
                     <div class="modal-footer">
-                        <a type="button" name="" class="btn btn-success" data-dismiss="modal"> 
+                        <a type="button" name="" class="btn btn-primary" data-dismiss="modal"> 
                             <i class="glyphicon glyphicon-thumbs-up"></i>&nbspOK
                         </a>
                     </div>
@@ -618,7 +808,7 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                             <span aria-hidden="true">&times;</span>
                         </button>
-                        <h4 class="modal-title" id="modalLabel">Detalhamento do contrato</h4>
+                        <h4 class="modal-title" id="modalLabel">Detalhamento do Contrato</h4>
                     </div>
                     <div class="modal-body" id="corpo-detalhe-servico-usuario">                        
                         Número de contrato: <span name="numero-contrato"></span></br>
@@ -634,10 +824,105 @@
                         Data final da realização do serviço: <span name="data-final-horario-servico"></span>
                     </div>
                     <div class="modal-footer">
-                        <a type="button" name="" class="btn btn-success" data-dismiss="modal"> 
+                        <a type="button" name="" class="btn btn-primary" data-dismiss="modal"> 
                             <i class="glyphicon glyphicon-thumbs-up"></i>&nbspOK
                         </a>
                     </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal para visualizar e aceitação do cadastro de serviço atendimento definido -->
+        <div id="modal-visualizacao-usuario-buscar-servico" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <div align="center">
+                            <img src="../img/logo.png" alt="Logo da empresa"></img>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <div id="dados-visualizacao-servico">
+                            Identificador do serviço: <span name="visualizacao-id-servico-usuario-buscar-servico"></span></br>
+                            Tipo de Serviço: <span name="visualizacao-tipo-servico-usuario-buscar-servico"></span></br>
+                            Preço do Serviço: <span name="visualizacao-valor-servico-usuario-buscar-servico"></span></br>
+                            Descrição: <span name="visualizacao-descricao-servico-usuario-buscar-servico"></span></br>
+                            Prestador: <span name="visualizacao-prestador-servico-usuario-buscar-servico"></span></br>
+                            Telefone: <span name="visualizacao-telefone-servico-usuario-buscar-servico"></span></br>
+                            Atendimento: De: <span name="visualizacao-horainicial-servico-usuario-buscar-servico"></span>
+                            às <span name="visualizacao-horafinal-servico-usuario-buscar-servico"></span>
+                            / De: <span name="visualizacao-diainicial-servico-usuario-buscar-servico"></span>
+                            à <span name="visualizacao-diafinal-servico-usuario-buscar-servico"></span></br>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal para visualizar o serviço atendimento urgência -->
+        <div id="modal-visualizacao-usuario-buscar-servico-dois" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <div align="center">
+                            <img src="../img/logo.png" alt="Logo da empresa"></img>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <div id="dados-visualizacao-servico">
+                            Identificador do serviço: <span name="visualizacao-id-servico-usuario-buscar-servico-dois"></span></br> 
+                            Tipo de Serviço: <span name="visualizacao-tipo-servico-usuario-buscar-servico-dois"></span></br> 
+                            Preço do Serviço: <span name="visualizacao-valor-servico-usuario-buscar-servico-dois"></span></br> 
+                            Descrição: <span name="visualizacao-descricao-servico-usuario-buscar-servico-dois"></span></br> 
+                            Prestador: <span name="visualizacao-prestador-servico-usuario-buscar-servico-dois"></span></br>
+                            Telefone: <span name="visualizacao-telefone-servico-usuario-buscar-servico-dois"></span></br>
+                            Atendimento: <span name="visualizacao-horainicial-servico-usuario-buscar-servico-dois"></span> 
+                            De: <span name="visualizacao-diainicial-servico-usuario-buscar-servico-dois"></span></span></br>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Modal caso ocorra um erro ao inserir o registro de favoritos-->
+        <div id="modal-favorito" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body" style="font-family:Times New Roman; font-size: 17px" align="center">
+                        <span style="font-weight: bold; color: red;">Atenção!</span>&nbsp
+                        <span class="resultado-favorito"></span>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal para funções em construção Cadastro-->
+        <div class="modal fade" id="funcao-construcao-modal" tabindex="-1"
+            role="dialog" aria-labelledby="modalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Esta função está Inativa, pois a mesma se encontra em fase de desenvolvimento.
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#" type="button" class="btn btn-primary" data-dismiss="modal">OK</a>
+                    </div>
+                    <div id="retorno"></div>
                 </div>
             </div>
         </div>

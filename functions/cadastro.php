@@ -28,14 +28,24 @@ if (isset($_POST['enviar']) && $_POST['enviar'] == "Enviar" && $_POST['tipo'] ==
 
 		if(mysqli_num_rows($sql) > 0 ){
 
-			echo "existe";
+			$result = "existe";
+
+			echo json_encode($result);
 		}else {
 
 		$sql = mysqli_query($conexao, "INSERT INTO cliente (nome, cnpj, senha, confirmasenha, logradouro, numero, complemento, bairro, cidade, estado, cep, telefone)
 			VALUES ('$razaoSocial', '$cpfcnpj', '$senha', '$confirmaSenha', '$rua', '$numero', '$complemento', '$bairro', '$cidade', '$estado', '$cep' ,'$telefone')");
 
 
-	echo "cadastrado";
+					if ($sql == true){
+						$result = "cadastrado";
+						
+						echo json_encode($result);
+					} else {
+						$result = "erro";
+						
+						echo json_encode($result);
+					}
 			}
 }
 
@@ -58,13 +68,24 @@ elseif (isset($_POST['enviar']) && $_POST['enviar'] == "Enviar" && $_POST['tipo'
 
 		if(mysqli_num_rows($sql) > 0 ){
 
-			echo "existe";
+			$result = "existe";
+
+			echo json_encode($result);
 		}else {
 
 		$sql = mysqli_query($conexao, "INSERT INTO  usuario (nome, email, senha, confirmasenha, logradouro, numero, complemento, bairro, cidade, estado, cep, telefone) 
 			VALUES ('$nome','$email','$senha','$confirmaSenha','$rua','$numero', '$complemento' ,'$bairro','$cidade','$estado', '$cep', '$telefone')");
 
-	echo "cadastrado";
+			if ($sql == true){
+				$result = "cadastrado";
+
+				echo json_encode($result);
+			} else {
+				$result = "erro";
+
+				echo json_encode($result);
+			}
+				
 			}
 }			
 

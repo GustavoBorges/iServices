@@ -204,7 +204,79 @@
 
 				echo json_encode($result);
 			}
-}		
+}	
+
+	elseif (isset($_GET['favorito']) && $_GET['favorito'] == "favorito" && $_GET['decisao'] == "1") {
+			$idUsuario = $_SESSION['idUsuario'];
+			$idCliente = $_GET['idCliente'];
+			$idServico = $_GET['idServico'];
+
+			$recebe = "SELECT idFavorito FROM favoritos 
+										            WHERE idCliente = '{$idCliente}'
+										            AND idUsuario = '{$idUsuario}'
+										            AND idServico = '{$idServico}'";
+
+			$sql = mysqli_query($conexao, "SELECT idFavorito FROM favoritos 
+										            WHERE idCliente = '{$idCliente}'
+										            AND idUsuario = '{$idUsuario}'
+										            AND idServico = '{$idServico}'");
+
+			$pegaIdFavorito = mysqli_fetch_assoc($sql);
+			$idFavorito = $pegaIdFavorito['idFavorito'];
+
+			if (mysqli_num_rows($sql) > 0){
+
+			$sql = mysqli_query($conexao, "DELETE FROM favoritos WHERE idFavorito = '{$idFavorito}'");
+
+			if ($sql == true){
+				$result = "sucesso";
+
+				echo json_encode($result);
+			} else {
+				$result = "insucesso";
+
+				echo json_encode($result);
+			}
+		} else {
+			$result = "inexistente";
+
+			echo json_encode($result);
+		}
+
+}
+	
+	elseif (isset($_GET['favorito']) && $_GET['favorito'] == "favorito" && $_GET['decisao'] == "0") {
+			$idUsuario = $_SESSION['idUsuario'];
+			$idCliente = $_GET['idCliente'];
+			$idServico = $_GET['idServico'];
+
+			$sql = mysqli_query($conexao, "SELECT * FROM favoritos 
+										            WHERE idCliente = '{$idCliente}'
+										            AND idUsuario = '{$idUsuario}'
+										            AND idServico = '{$idServico}'");
+
+			if (mysqli_num_rows($sql) == 0){
+
+			$sql = mysqli_query($conexao, "INSERT INTO favoritos (idCliente, idUsuario, idServico, adicionado)
+										   VALUES ('$idCliente', '$idUsuario', '$idServico', '1')");
+
+
+			if ($sql == true){
+				$result = "sucesso";
+
+				echo json_encode($result);
+			} else {
+				$result = "insucesso";
+
+				echo json_encode($result);
+			}
+		} else {
+			$result = "existe";
+
+			echo json_encode($result);
+		}
+
+}	
 
 
 		mysqli_close($conexao);

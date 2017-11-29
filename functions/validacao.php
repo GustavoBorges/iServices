@@ -38,16 +38,21 @@ elseif (isset($_POST['acessar']) && $_POST['acessar'] == "Acessar" && $_POST['ti
 
         $sql = mysqli_query($conexao, "SELECT * FROM usuario WHERE email = '{$email}' AND senha = '{$senha}'");
 
+        
         if (mysqli_num_rows($sql) > 0) {
             $sql = mysqli_query($conexao, "SELECT idUsuario FROM usuario WHERE email = '{$email}'");
             $recebe = mysqli_fetch_array($sql);
 
             $_SESSION['idUsuario'] = $recebe['idUsuario'];
             
-            echo "sucesso";
+            $result = "sucesso";
+
+            echo json_encode($result);
 
            } else {
-            echo "insucesso";
+                $result = "insucesso";
+
+                echo json_encode($result);
            }
         
 }
@@ -55,10 +60,14 @@ elseif (isset($_POST['acessar']) && $_POST['acessar'] == "Acessar" && $_POST['ti
 
 
 
-/*if ($_GET["act"] == "logout") {
+elseif ($_GET["deslogar"] == "logout") {
+
     session_destroy(); 
-    header("location: /iservices/pages/index.php");
+
+    echo json_encode("sucesso");
+
     exit;
-}*/
+}
+
 ?>
 

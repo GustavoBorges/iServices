@@ -1,22 +1,4 @@
-    @media only screen and (max-width: 600px) {
-          #menu-modal-cadastro {
-          width: 100%;
-
-          }   
-    }
-
-
-@media only screen and (max-width: 2200px) {
-          #menu-modal-cadastro {
-          width: 49%;
-        }   
-    }
-
-#menu-modal-cadastro form input{
-            display: inline;
-  }
-
-  .checkbox {
+.checkbox {
   padding-left: 20px; }
   .checkbox label {
     display: inline-block;
@@ -137,8 +119,49 @@
 .radio-primary input[type="radio"]:checked + label::after {
   background-color: #428bca; }
 
-  #icon-estrela:hover{
-    color: yellow;
-  }
 
-    
+.about__title{
+    color: #404040;;    
+    font-family: inherit;
+    font-weight: 700;
+    text-align: center;
+    display: block;
+}
+
+@media screen and (min-width: 960px){
+h1, .section-title {
+     font-size: 32px;
+  }
+}
+
+.about__step{
+
+    color: #1393f6;
+    font-family: inherit;
+    font-weight: 700;
+    margin-top: 46px;
+    text-align: center;
+}
+
+.about__step small{
+    font-weight: 500;
+}
+
+.form-faleconosco div{
+  margin-bottom: 10px;
+}
+
+
+#form-dadosacesso .input-group, #form-dados-endereco .input-group{
+  margin-bottom: 10px;
+}
+
+#acesso-prestador-servico{
+  padding: 0;
+  padding-left: 5%;
+}
+
+#acesso-prestador-servico input{  
+  width: 95%;
+}
+

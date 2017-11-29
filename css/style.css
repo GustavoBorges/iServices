@@ -31,7 +31,7 @@ a.none:hover {text-decoration: none;}
 .navbar-brand>img {padding: 5px;}
 
 @media screen and (max-width: 768px) {.navbar-default .navbar-collapse {padding-left: inherit;padding-right: inherit;}}
-@media screen and (max-width: 992px) {.navbar-default .navbar-collapse {width: 100%;margin-left: 0;margin-right: 0;max-height: none;}}
+@media screen and (max-width: 992px) {.navbar-default .navbar-collapse {width: 100%;margin-left: 0;margin-right: 0;max-height: none; position: relative;}}
 @media (min-width:768px) {.navbar>.container .navbar-brand,.navbar>.container-fluid .navbar-brand {margin-left: 0;}}
 
 .main-navbar-nav {-moz-transition: all 0.3s linear;-o-transition: all 0.3s linear;-webkit-transition: all 0.3s linear;transition: all 0.3s linear;}
@@ -49,7 +49,7 @@ a.none:hover {text-decoration: none;}
 @media screen and (max-width: 992px) {.navbar-toggle {display: block;}.navbar-collapse.collapse {display: none !important;}.main-navbar-nav.navbar-nav,.main-navbar-nav.navbar-nav > li {float: none !important;}.navbar-collapse.collapse.in {display: block !important;overflow-y: auto !important;}}
 
 /* Hero */
-.hero_area {background-image: url(../img/hero.png);background-position: center center;background-repeat: no-repeat;background-size: cover;max-width: 1300px;max-height: 475px;padding: 0;}
+.hero_area {background-image: url(../img/hero.png);background-position: center center;background-repeat: no-repeat;background-size: cover;max-height: 475px;padding: 0;}
 .hero_content {padding: 475px 0;}
 .hero_content h1 {text-shadow: 1px 1px 2px rgba(0,0,0,0.75);color: #005FA6;font-weight: 700;font-size: 42px;}
 .hero_content h2 {text-shadow: 1px 1px 2px rgba(0,0,0,0.25);color: #000;font-weight: 700;font-size: 32px;margin-top: 0;width: 45%;line-height: 38px;}
@@ -69,7 +69,7 @@ a.none:hover {text-decoration: none;}
 .box i {position: absolute;right: 0;top: 0;margin: 0;color: #005FA6;font-size: 45px;}
 .boxes_area h3 {font-size: 16px;font-weight: 500;margin-top: 0;margin-bottom: 18px;}
 .services {padding-top: 50px;padding-bottom: 50px;}
-h2.section-title {text-align: center;color: #404040;}
+h2.section-title {text-align: center;color: #404040; font-weight: 700;}
 .services p.desc {text-align: center;font-size: 13px;margin-bottom: 20px;}
 .services .media {margin-top: 30px;}
 .services .media i {font-size: 45px;color: #005FA6;}

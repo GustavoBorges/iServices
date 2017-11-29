@@ -12,7 +12,17 @@
 
 	$idCliente = $_SESSION['idCliente'];
 
-	$sql = mysqli_query($conexao, "SELECT idServico, tiposervico, valor, descricao, horarioInicial, horarioFinal, diaInicial, diaFinal, checkClicado, ativo FROM servico WHERE idcliente = '{$idCliente}'");
+	$sql = mysqli_query($conexao, "SELECT idServico, 
+										  tiposervico, 
+										  valor, 
+										  descricao, 
+										  horarioInicial, 
+										  horarioFinal, 
+										  diaInicial, 
+										  diaFinal, 
+										  checkClicado, 
+										  ativo FROM servico 
+								    WHERE idcliente = '{$idCliente}'");
 	
 	 
 	while ($recebe = mysqli_fetch_array($sql)) {
@@ -166,11 +176,28 @@
 
 	function carregaServicoUsuario($conexao) {
 
+	$idUsuario = $_SESSION['idUsuario'];	
 
 	$servicos = array();
 
-	$sql = mysqli_query($conexao, "SELECT servico.idServico, servico.tiposervico, servico.valor, servico.descricao, cliente.nome, cliente.telefone FROM servico 
-								   INNER JOIN cliente ON servico.idCliente = cliente.idCliente");
+	$sql = mysqli_query($conexao, "SELECT servico.idServico, 
+										  servico.tiposervico, 
+										  servico.valor, 
+										  servico.descricao,
+										  servico.horarioInicial,
+										  servico.horarioFinal,
+										  servico.diaInicial,
+										  servico.diaFinal,
+										  servico.checkClicado,
+										  cliente.idCliente, 
+										  cliente.nome, 
+										  cliente.telefone,
+                                          favoritos.adicionado  FROM favoritos
+                                   RIGHT JOIN servico
+                                   ON favoritos.idServico = servico.idServico AND favoritos.idUsuario = '$idUsuario'
+								   INNER JOIN cliente 
+								   ON servico.idCliente = cliente.idCliente
+								   WHERE servico.ativo = '1'");
 	 
 	while ($recebe = mysqli_fetch_array($sql)) {
 		array_push($servicos, $recebe);			
@@ -189,13 +216,24 @@
 
 		$idUsuario = $_SESSION['idUsuario'];
 
-		$sql = mysqli_query($conexao, "SELECT c.idContrato, s.tiposervico, s.valor, s.descricao, cl.nome, cl.telefone, c.status FROM contrato AS c
+		$sql = mysqli_query($conexao, "SELECT c.idContrato,
+											  c.pgto, 
+											  s.tiposervico, 
+											  s.valor, 
+											  s.descricao, 
+											  cl.nome, 
+											  cl.telefone, 
+											  c.status FROM contrato AS c
 							INNER JOIN servico AS s
 							ON c.idServico = s.idServico
 							INNER JOIN usuario AS u
 							ON c.idUsuario = u.idUsuario
                             INNER JOIN cliente AS cl 
-                            ON c.idCliente = cl.idCliente WHERE c.idUsuario = '{$idUsuario}' AND c.status = 'Finalizado' OR c.status = 'Cancelado' OR c.status = 'Rejeitado'");
+                            ON c.idCliente = cl.idCliente 
+                            WHERE c.idUsuario = '{$idUsuario}' 
+                            AND c.status = '3' 
+                            OR c.status = '4' 
+                            OR c.status = '5'");
 
 		while($recebe = mysqli_fetch_array($sql)){
 			array_push($contratos, $recebe);
@@ -205,6 +243,76 @@
 
 	}
 
+
+?>
+
+<?php
+
+	function recebeAvaliacao($conexao){
+
+				$avaliacao = array();
+
+				$idCliente = $_SESSION['idCliente'];
+
+				$sql = mysqli_query($conexao, "SELECT usuario.nome, 
+													  usuario.telefone, 
+													  usuario.email, 
+													  avaliacao.comentario, 
+													  avaliacao.voto FROM avaliacao 
+											   INNER JOIN usuario
+											   ON avaliacao.idUsuario = usuario.idUsuario
+											   WHERE avaliacao.idCliente = '{$idCliente}'");
+
+
+				
+				while($recebe = mysqli_fetch_assoc($sql)){
+				array_push($avaliacao, $recebe);
+
+				}
+
+				return $avaliacao;
+}
+
+?>
+
+<?php
+
+function recebeFavoritos($conexao){
+
+				$favoritos = array();
+
+				$idUsuario = $_SESSION['idUsuario'];
+
+				$sql = mysqli_query($conexao, "SELECT cliente.idCliente,
+													  cliente.nome, 
+													  cliente.telefone,
+													  servico.tiposervico,
+													  servico.idServico,
+													  servico.valor,
+													  servico.descricao,
+													  servico.horarioInicial,
+													  servico.horarioFinal,
+													  servico.diaInicial,
+													  servico.diaFinal,
+													  servico.checkClicado
+													   FROM favoritos 
+											   INNER JOIN cliente
+											   ON favoritos.idCliente = cliente.idCliente
+											   INNER JOIN servico
+											   ON favoritos.idServico = servico.idServico
+											   WHERE favoritos.idUsuario = '{$idUsuario}' 
+											   AND servico.ativo = '1'");
+
+				
+				while($recebe = mysqli_fetch_assoc($sql)){
+				array_push($favoritos, $recebe);
+
+				}
+
+				return $favoritos;
+}
+
+	
 
 ?>
 
@@ -234,6 +342,8 @@
 
 				return $recebeu;
 
-	}
+}
+
+
 	
 ?>

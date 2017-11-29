@@ -235,17 +235,31 @@ label {
           #menu-modal-contratacao {
           width: 100%;
           }   
+          #menu-modal-contratacao-favorito {
+          width: 100%;
+        }  
     }
 
 
 @media only screen and (max-width: 2200px) {
           #menu-modal-contratacao {
           width: 49%;
-        }   
+        }
+          #menu-modal-contratacao-favorito {
+            width: 49%;
+          }     
     }
 
 #icon-contratacao{
   font-size: 22px;
+}
+
+#icon-favoritos{
+  font-size: 20px;
+}
+
+#icon-favoritos:hover{
+  color: red;
 }
 
 #icon-contratacao:hover{
@@ -324,6 +338,32 @@ label {
 }
 
 #editar-horario-atendimento select.dia{
+  width: 140px;
+  display: inline;
+}
+
+#horario-urgencia{
+  display: inline;
+}
+
+#horario-urgencia span{
+  font-family: tahoma;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+#horario-atendimento span{
+  font-family: tahoma;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+#horario-atendimento select.horario{
+  width: 85px;
+  display: inline;
+}
+
+#horario-atendimento select.dia{
   width: 140px;
   display: inline;
 }

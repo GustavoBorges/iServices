@@ -5,7 +5,7 @@ $(document).ready(function() {
     filtroPesquisaTable();
 
     //Balões de informações dos botões
-    $('[data-toggle="tooltip"]').tooltip(); 
+    $('[data-balao="tooltip"]').tooltip(); 
 
     //Pegando posição atual do usuário
     getPosition();
@@ -22,9 +22,16 @@ $(document).ready(function() {
 
     //Verifica o status do serviço solicitado e faz o bloqueio dos botões de acordo com o status
     verificaButtonsAcoesUsuario();
+    //
+    verificaFavorito();
+
+    $('.sliding-link').click(function(e) {
+      e.preventDefault();
+      var id = $(this).attr("href");
+      $('html,body').animate({scrollTop: $(id).offset().top},'slow');
+    });
+
 });
-
-
 
 
 //Functions criadas para execução do carregamento da página e condições
@@ -32,6 +39,18 @@ $(document).ready(function() {
 function filtroPesquisaTable(){
 
    $('#tab-servicos').DataTable({
+        "language": {
+            "url": "http://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Portuguese-Brasil.json",
+        }
+    });
+
+   $('#tab-avaliacoes').DataTable({
+        "language": {
+            "url": "http://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Portuguese-Brasil.json",
+        }
+    });
+
+   $('#tab-favoritos').DataTable({
         "language": {
             "url": "http://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Portuguese-Brasil.json",
         }
@@ -56,6 +75,21 @@ function filtroPesquisaTable(){
     });
 }
 
+function verificaFavorito(){
+
+$('.favoritos-usuario').each(function() {
+  
+var favorito = $(this).data('favorito');
+
+if (favorito == "1"){
+  $(this).css('color', 'red');
+
+  }
+
+}); 
+
+}
+
 function escondeDivs(){
 
     //Itens da página index.php
@@ -67,7 +101,12 @@ function escondeDivs(){
     $('#alert-warning-cadastrar').hide();
     $('#acesso-prestador').hide();
     $('#acesso-usuario').hide();
-    $('#alert-warning-login').hide();   
+    $('#alert-warning-login').hide(); 
+    $('.dados-endereco').hide();    
+    $('#alert-warning-cadastrar-existe').hide();
+    $('#alert-danger-aceita-cadastrar').hide();
+    $('#alert-warning-cadastrar-existe-usuario').hide();
+    $('#arquivo-cadastro').hide();
       
     //Itens da página cliente.php
     $('#alert-danger-aceita-servico-prestador-dois').hide();
@@ -90,6 +129,10 @@ function escondeDivs(){
     $('#alert-warning-cadastro-servico').hide();
     $('#alert-success-cadastrar-servico').hide();
     $('span.id-servico').hide();    
+    $('#carregando-modal-cancelar-servico').hide();
+    $('#alert-warning-cancelar-servico').hide();
+    $('#alert-success-cancelar-servico').hide();
+    $('#alert-danger-cancelar-servico').hide();    
 
     //Itens da página usuario.php
     $('#modal-body-comentario').hide();
@@ -97,18 +140,24 @@ function escondeDivs(){
     $('#alert-success-contratar').hide('slow');    
     $('#alert-warning-contratar').hide('slow');
     $('#carregando-modal-contratar').hide('slow');
+    $('#alert-success-contratar-favorito').hide('slow');    
+    $('#alert-warning-contratar-favorito').hide('slow');
+    $('#carregando-modal-contratar-favorito').hide('slow');
     $("textarea[name=messagem-text-termo]").prop('disabled', true);
     $('#div-recebe-id-servico').hide('slow');      
+    $('#div-recebe-id-servico-favorito').hide('slow');
     $('#form-enddiferente').hide('slow');    
     $('#btn-contratar-modal').prop('disabled', true);
-    $('#carregando-modal-cancelar-servico').hide();
-    $('#alert-warning-cancelar-servico').hide();
-    $('#alert-success-cancelar-servico').hide();
-    $('#alert-danger-cancelar-servico').hide();
+    $('#btn-contratar-modal-favorito').prop('disabled', true);
+    $('#carregando-modal-cancelar-servico-usuario').hide();
+    $('#alert-warning-cancelar-servico-usuario').hide();
+    $('#alert-success-cancelar-servico-usuario').hide();
+    $('#alert-danger-cancelar-servico-usuario').hide();
     $('#alert-warning-confirma-pagamento').hide();
     $('#alert-success-confirma-pagamento').hide();
     $('#carregando-modal-confirma-pagamento').hide();
     $('#alert-warning-confirma-pagamento-preco').hide();
+    $('#form-enddiferente-favorito').hide('slow'); 
 
 
 }
@@ -220,7 +269,6 @@ function getPosition(){
   // Verifica se o browser do usuario tem suporte a Geolocation
   if ( navigator.geolocation ){
     navigator.geolocation.getCurrentPosition( function( posicao ){
-      console.log( posicao.coords.latitude, posicao.coords.longitude );
     } );
   }
 }
@@ -314,7 +362,6 @@ $('.btn-rejeitar-proposta').each(function(index, value) {
     var recebeStatus = propriedadeButton.data('status');
 
     if (recebeStatus == "0" || recebeStatus == "1"){
-      console.log("teste");
 
       propriedadeButton.prop('disabled', false);
       propriedadeButton.hover(function() {
@@ -332,6 +379,18 @@ $('.btn-rejeitar-proposta').each(function(index, value) {
 
 //FUNÇÕES DE BOTÕES SEM REQUISIÇÕES AJAX
 
+$('#proximo').click(function() {
+  $('.dados-endereco').show();  
+  $('.dados-acesso').hide();
+
+});
+
+$('#voltar').click(function() {
+  $('.dados-endereco').hide();  
+  $('.dados-acesso').show();
+
+});
+
 $('.btn-rejeitar-proposta').click(function(event) {
     var button = $(this);
     var idContrato = button.data('idcontrato');
@@ -348,6 +407,7 @@ $('.btn-excluir').click(function(event) {
     var id = button.data('id');
     $('span.nome').text(nome);
     $('span.id-servico').text(id);
+    $('#retorno').html('');
     $('#excluir-servico-modal').modal('show');
     
 });
@@ -369,6 +429,15 @@ $('#check-termo').change(function(){
         }
         else {
             $('#btn-contratar-modal').prop('disabled', true);
+        }
+});
+
+$('#check-termo-favorito').change(function(){
+        if ($('#check-termo-favorito').is(':checked')){
+            $('#btn-contratar-modal-favorito').prop('disabled', false);
+        }
+        else {
+            $('#btn-contratar-modal-favorito').prop('disabled', true);
         }
 });
 
@@ -423,11 +492,21 @@ $('#contratacao-modal').on('show.bs.modal', function(event) {
     var nome = button.data('name');
     var id = button.data('id');
     var valor = button.data('valor');
-    $('#recebe-nome-servico').val(nome);
-    $('#recebe-valor-servico').val(valor);
-    $('#recebe-id-servico').val(id);
+    $('#recebe-nome-servico').text(nome);
+    $('#recebe-valor-servico').text(valor);
+    $('#recebe-id-servico').text(id);
 });
 
+
+$('#contratacao-modal-favorito').on('show.bs.modal', function(event) {
+    var button = $(event.relatedTarget);
+    var nome = button.data('name');
+    var id = button.data('id');
+    var valor = button.data('valor');
+    $('#recebe-nome-servico-favorito').text(nome);
+    $('#recebe-valor-servico-favorito').text(valor);
+    $('#recebe-id-servico-favorito').text(id);
+});
 
 $('.visualizar-servico').click(function(event) {
 
@@ -468,6 +547,56 @@ $('.visualizar-servico').click(function(event) {
 
    
    $('#modal-visualizacao-dois').modal('show');
+
+}
+    
+});
+
+$('.btn-detalhe-buscar-servicos').click(function(event) {
+
+   var button = $(this);
+   var id = button.data('idservico');
+   var tipoServico = button.data('tiposervico');
+   var valor = button.data('preco');
+   var descricao = button.data('descricao');
+   var nomePrestador = button.data('name');
+   var telefonePrestador = button.data('tel');
+   var horarioInicial = button.data('horarioinicial');
+   var horarioFinal = button.data('horariofinal');
+   var diaInicial = button.data('diainicial');
+   var diaFinal = button.data('diafinal');
+   var check = button.data('check');
+
+   if(check == "0"){
+
+   $('span[name=visualizacao-id-servico-usuario-buscar-servico]').text(id);
+   $('span[name=visualizacao-tipo-servico-usuario-buscar-servico]').text(tipoServico);
+   $('span[name=visualizacao-valor-servico-usuario-buscar-servico]').text(valor);
+   $('span[name=visualizacao-descricao-servico-usuario-buscar-servico]').text(descricao);
+   $('span[name=visualizacao-prestador-servico-usuario-buscar-servico]').text(nomePrestador);
+   $('span[name=visualizacao-telefone-servico-usuario-buscar-servico]').text(telefonePrestador);
+   $('span[name=visualizacao-horainicial-servico-usuario-buscar-servico]').text(horarioInicial);
+   $('span[name=visualizacao-horafinal-servico-usuario-buscar-servico]').text(horarioFinal);
+   $('span[name=visualizacao-diainicial-servico-usuario-buscar-servico]').text(diaInicial);
+   $('span[name=visualizacao-diafinal-servico-usuario-buscar-servico]').text(diaFinal);
+
+   
+   $('#modal-visualizacao-usuario-buscar-servico').modal('show');
+}
+
+    else {
+
+   $('span[name=visualizacao-id-servico-usuario-buscar-servico-dois]').text(id);
+   $('span[name=visualizacao-tipo-servico-usuario-buscar-servico-dois]').text(tipoServico);
+   $('span[name=visualizacao-valor-servico-usuario-buscar-servico-dois]').text(valor);
+   $('span[name=visualizacao-descricao-servico-usuario-buscar-servico-dois]').text(descricao);
+   $('span[name=visualizacao-prestador-servico-usuario-buscar-servico-dois]').text(nomePrestador);
+   $('span[name=visualizacao-telefone-servico-usuario-buscar-servico-dois]').text(telefonePrestador);     
+   $('span[name=visualizacao-horainicial-servico-usuario-buscar-servico-dois]').text(horarioInicial);
+   $('span[name=visualizacao-diainicial-servico-usuario-buscar-servico-dois]').text(diaInicial);
+
+   
+   $('#modal-visualizacao-usuario-buscar-servico-dois').modal('show');
 
 }
     
@@ -582,12 +711,43 @@ $('#check-enddiferentecadastro').change( function (){
      }
 });
 
+$('#check-endcadastrado-favorito').change( function (){
+    $('#form-enddiferente-favorito').hide('slow');
+
+        if ($('#check-enddiferentecadastro-favorito').is(':checked')){
+            $('#check-enddiferentecadastro-favorito').prop('checked', false);
+        }
+
+});
+
+
+$('#check-enddiferentecadastro-favorito').change( function (){
+    if ($('#check-endcadastrado-favorito').is(':checked')){
+            $('#check-endcadastrado-favorito').prop('checked', false);
+        }
+
+            $('#form-enddiferente-favorito').show('slow');
+
+            if ($('#check-enddiferentecadastro-favorito').is(':checked') == false){
+                    $('#form-enddiferente-favorito').hide('slow');
+     }
+});
+
 
 
 $('.close').click(function(event) {
+
+  //alerts modal cadastro usuário e prestador
+   $('#alert-success-cadastrar').hide();
+   $('#alert-warning-cadastrar').hide();   
+   $('#alert-warning-cadastrar-existe').hide();
+   $('#alert-danger-aceita-cadastrar').hide();
+   $('#alert-warning-cadastrar-existe-usuario').hide();
+
+   //
    $('#alert-warning-cadastrar').hide();
    $('#alert-warning-login').hide();
-   $('#alert-warning').hide();
+   $('#alert-warning-contratar').hide();
    $('#alert-warning-cadastro-servico').hide();
    $('#alert-success-cadastrar-servico').hide();
    //alerts modal alteração do serviço
@@ -601,19 +761,34 @@ $('.close').click(function(event) {
    $('#alert-warning-aceita-servico-prestador').hide();
    $('#alert-warning-aceita-servico-prestador-dois').hide();
    //alerts modal cancelamento do serviço pelo usuário
+   $('#alert-warning-cancelar-servico-usuario').hide();
+   $('#alert-success-cancelar-servico-usuario').hide();
+   $('#alert-danger-cancelar-servico-usuario').hide();
+
+   //alerts modal cancelamento do serviço pelo cliente
    $('#alert-warning-cancelar-servico').hide();
    $('#alert-success-cancelar-servico').hide();
    $('#alert-danger-cancelar-servico').hide();
+
    //alerts modal pagamento do serviço pelo usuário
    $('#alert-warning-confirma-pagamento').hide();
    $('#alert-success-confirma-pagamento').hide();
    $('#alert-warning-confirma-pagamento-preco').hide();
+   //alerts modal contratação do serviço pelo usuário na Tab Favoritos
+   $('#alert-success-contratar-favorito').hide('slow');    
+   $('#alert-warning-contratar-favorito').hide('slow');
+   $('#carregando-modal-contratar-favorito').hide('slow');
 
 
 });
 
 
 $('#checkbox3').change(function() {
+
+    $('#alert-warning-login').hide();
+    $('input[name=senha-acesso]').val("");
+    $('input[name=email-acesso]').val("");
+
     $('#checkbox2').prop('checked', false);
     $('#acesso-usuario').show('slow');
     $('#acesso-prestador').hide('slow');
@@ -625,6 +800,11 @@ $('#checkbox3').change(function() {
 
 
 $('#checkbox2').change(function() {
+
+    $('#alert-warning-login').hide();
+    $('input[name=senha-acesso]').val("");
+    $('input[name=cnpj-acesso]').val("");
+
     $('#checkbox3').prop('checked', false);
     $('#acesso-prestador').show('slow');
     $('#acesso-usuario').hide('slow');
@@ -638,10 +818,12 @@ $('#checkbox2').change(function() {
 $('#checkbox4').change(function(event) {
     $('#checkbox5').prop('checked', false);
     $('#dados-acesso-prestador').show();
+    $('#arquivo-cadastro').show();
     $('#dados-acesso-usuario').hide();
 
     if ($('#checkbox4').is(':checked') == false){
         $('#dados-acesso-prestador').hide();
+        $('#arquivo-cadastro').hide();
     }
 });
 
@@ -650,6 +832,7 @@ $('#checkbox5').change(function(event) {
     $('#checkbox4').prop('checked', false);
     $('#dados-acesso-usuario').show();
     $('#dados-acesso-prestador').hide();
+    $('#arquivo-cadastro').hide();
 
     if ($('#checkbox5').is(':checked') == false){
         $('#dados-acesso-usuario').hide();
@@ -911,10 +1094,7 @@ $('.detalhe-contrato-tab-servico-usuario').click(function(event) {
         }
         if (status == "4"){
            status = "Serviço Concluido";
-        }
-
-        console.log(idContrato,checkClidado, horarioInicial, horarioFinal, dataInicial);
-        
+        }        
         
         if (checkClidado == "0"){
 
@@ -957,6 +1137,28 @@ $('.detalhe-contrato-tab-servico-usuario').click(function(event) {
 
 
 //FUNÇÕES DE BOTÕES COM REQUISIÇÃO AJAX
+
+$('.deslogar').click(function(event) {
+      var deslogar = "logout";
+
+      $.ajax({
+        url: '../functions/validacao.php',
+        type: 'GET',
+        dataType: 'json',
+        data: {
+          deslogar: deslogar
+        },
+
+        success: function(resultado){
+
+            if (resultado == "sucesso") {
+
+                window.location.href = "../index.php";
+            }
+        }
+    })
+      
+});
 
 $('.btn-confirmar-pagamento').click(function(event) {
 
@@ -1002,7 +1204,6 @@ $('.btn-confirmar-pagamento').click(function(event) {
         },
 
         success: function(resultado){
-          console.log(resultado);
 
           if (resultado == "sucesso"){
 
@@ -1036,6 +1237,79 @@ $('.btn-confirmar-pagamento').click(function(event) {
      }
   }         
 
+});
+
+$('.favoritos-usuario').click(function(event) {
+    var pegaPropriedade = $(this);
+    var favorito = "favorito";
+    var favoritoMarcado = $(this).data('favorito');
+    var idCliente = pegaPropriedade.data('idcliente');
+    var idServico = pegaPropriedade.data('idservico');    
+    var decisao = "0"; 
+
+    if (favoritoMarcado == ""){ 
+    
+    $.ajax({
+      url: '../functions/acoes.php',
+      type: 'GET',
+      dataType: 'json',
+      data: {
+        idCliente: idCliente,
+        idServico: idServico,
+        decisao: decisao,
+        favorito: favorito
+      },
+
+      success: function(resultado){
+        if(resultado == "sucesso"){
+            location.reload();            
+                  
+        } else if (resultado == "insucesso") {
+          $('.resultado-favorito').text('Não foi possível inserir o prestador de serviço como Favoritos.');
+          $('#modal-favorito').modal('show');
+          
+
+        } else if (resultado == "existe"){
+          $('.resultado-favorito').text('Prestador de serviço já inserido como Favoritos.');
+          $('#modal-favorito').modal('show');
+        }
+      }
+
+    })
+  
+  }  else {
+
+      decisao = "1";
+
+      $.ajax({
+        url: '../functions/acoes.php',
+        type: 'GET',
+        dataType: 'json',
+        data: {
+          idCliente: idCliente,
+          idServico: idServico,
+          decisao: decisao,
+          favorito: favorito
+        },
+      
+        success: function(resultado){
+
+          if(resultado == "sucesso"){
+            location.reload();            
+                  
+        } else if (resultado == "insucesso") {
+          $('.resultado-favorito').text('Não foi possível retirar o prestador de serviço como Favoritos.');
+          $('#modal-favorito').modal('show');          
+
+        } else if (resultado == "inexistente"){
+          $('.resultado-favorito').text('Prestador de serviço já retirado dos Favoritos.');
+          $('#modal-favorito').modal('show');
+        }
+        
+      }
+
+    })
+  }
 });
 
 $('.btn-conclui-proposta').click(function(event) {
@@ -1089,9 +1363,9 @@ $('.btn-conclui-proposta').click(function(event) {
 
 $('.btn-sim-cancela-servico-usuario').click(function(event) {
 
-        $('#alert-warning-cancelar-servico').hide();
-        $('#alert-success-cancelar-servico').hide();
-        $('#alert-danger-cancelar-servico').hide();
+        $('#alert-warning-cancelar-servico-usuario').hide();
+        $('#alert-success-cancelar-servico-usuario').hide();
+        $('#alert-danger-cancelar-servico-usuario').hide();
 
               
 
@@ -1112,22 +1386,22 @@ $('.btn-sim-cancela-servico-usuario').click(function(event) {
 
           success: function(resultado){
 
-            $('#carregando-modal-cancelar-servico').show();
+            $('#carregando-modal-cancelar-servico-usuario').show();
 
             setTimeout(function() {
-              $('#carregando-modal-cancelar-servico').hide();
+              $('#carregando-modal-cancelar-servico-usuario').hide();
             if (resultado == "sucesso"){    
-                $('#alert-success-cancelar-servico').show();                
+                $('#alert-success-cancelar-servico-usuario').show();                
              
               setTimeout(function() {
                 location.reload();
               }, 4000);
 
             } else if (resultado == "aceito"){
-              $('#alert-warning-cancelar-servico').show();
+              $('#alert-warning-cancelar-servico-usuario').show();
 
             } else{
-              $('#alert-danger-cancelar-servico').show();
+              $('#alert-danger-cancelar-servico-usuario').show();
               
             }
 
@@ -1189,11 +1463,24 @@ $('.btn-sim-cancela-servico-prestador').click(function(event) {
 
 $('#btn-alterar-servico').click(function(event) {
 
+  $('#alert-warning-alterar').hide();
+  $('#alert-danger-alterar').hide();
+  $('#alert-success-alterar').hide();
+  $('#alert-warning-alterar').html('<a href="#" class="close" aria-label="close">&times;</a><strong>Atenção!</strong> Não foi selecionada nenhuma modalidade de atendimento.');
+
    var button = $('button[name=alterar]').val();
    var id = $('input[name=editar-identificador]').val();
    var tipoServico = $('select[name=editar-tipoServico]').val();
    var valor = $('input[name=editar-valor]').val();
    var descricao = $('textarea[name=editar-descricao-servico]').val();
+
+   if (tipoServico == "Selecione Serviço"){
+
+   $('#alert-warning-alterar').html('<a href="#" class="close" aria-label="close">&times;</a><strong>Atenção!</strong> Selecione um tipo de serviço.');
+
+   $('#alert-warning-alterar').show();
+   
+   } else {
 
    if($('#checkbox10').is(':checked') == true){
 
@@ -1222,7 +1509,6 @@ $('#btn-alterar-servico').click(function(event) {
     },
    
        success: function(resultado){
-        console.log(resultado);
 
         if(resultado == "sucesso"){
 
@@ -1273,7 +1559,6 @@ $('#btn-alterar-servico').click(function(event) {
     },
    
        success: function(resultado){
-        console.log(resultado);
 
         if(resultado == "sucesso"){
 
@@ -1302,6 +1587,8 @@ $('#btn-alterar-servico').click(function(event) {
         $('#alert-warning-alterar').show();
 }
 
+}
+
 });
 
 $('#avaliando-prestador').click(function(event) {
@@ -1325,8 +1612,7 @@ $('#avaliando-prestador').click(function(event) {
       
       },
     
-      success: function(resultado){
-       console.log(resultado); 
+      success: function(resultado){ 
        
        if (resultado == "sucesso"){
 
@@ -1344,6 +1630,9 @@ $('#avaliando-prestador').click(function(event) {
 });
 
 $('.btn-confirma-exclusao').click(function(event) {
+
+    $('#retorno').html('');
+
     var id = $('span.id-servico').text();
     var button = $('button[name=btn-ok]').val();
 
@@ -1363,7 +1652,7 @@ $('.btn-confirma-exclusao').click(function(event) {
         if(resultado == "sucesso"){
             location.reload();
         }else{
-            $('#retorno').prepend('<span>Registro não pode ser excluido, pois o mesmo possui ligação com serviços contratados. Gentileza desativar o serviço!</span>')
+            $('#retorno').html('<span>Registro não pôde ser excluído, pois o mesmo está associado a serviços contratados.</br>Caso deseje que o serviço não seja apresentado ao contratante, gentileza desativá-lo!</span>');
         }
    },
 
@@ -1372,16 +1661,23 @@ $('.btn-confirma-exclusao').click(function(event) {
 
 $('#btn-contratar-modal').click( function(){
 
-        var preco = $('input[name=recebe-preco-servico]').val();
+      $('#alert-success-contratar').hide();
+      $('#alert-warning-contratar').hide();
+
+        var preco = $('span[name=recebe-preco-servico]').text();
         var button = $('button[name=btn-contratar-modal]').val();
-        var id = $('input[name=recebe-id-servico]').val();
+        var id = $('span[name=recebe-id-servico]').text();
         var enderecoCadastrado = "0";
         var detalhes = $('textarea[name=detalhes-modal-contratar]').val(); 
 
         if ($('#check-endcadastrado').is(':checked') == false && $('#check-enddiferentecadastro').is(':checked') == false){
-            $('#alert-warning').show('slow');
+            $('#alert-warning-contratar').html('<a href="#" class="close" aria-label="close">×</a><strong>Atenção!</strong> Selecione uma modalidade de endereço.');                      
+            $('#alert-warning-contratar').show('slow');
         } else {
                 if ($('#check-endcadastrado').is(':checked')){
+
+                  $('#alert-success-contratar').hide();
+                  $('#alert-warning-contratar').hide();
                     
                     $.ajax({
                         url: '../functions/contrata.php',
@@ -1415,13 +1711,23 @@ $('#btn-contratar-modal').click( function(){
         }); 
 
         }else {                 
-                                      
+
                     var rua = $('input[name=rua]').val();
                     var numero = $('input[name=numero]').val();
                     var complemento = $('input[name=complemento]').val();
                     var bairro = $('input[name=bairro]').val();
                     var cidade = $('input[name=cidade]').val();
-                    enderecoCadastrado = "1";                    
+                    enderecoCadastrado = "1";
+
+                  if (rua == "" || numero == "" || complemento == "" || bairro == "" || cidade == ""){
+
+                      $('#alert-warning-contratar').html('<a href="#" class="close" aria-label="close">×</a><strong>Atenção!</strong> Preencha todos os campos do Endereço.');
+                      $('#alert-warning-contratar').show();
+
+                  } else { 
+
+                    $('#alert-success-contratar').hide();
+                    $('#alert-warning-contratar').hide();
 
                     $.ajax({
                         url: '../functions/contrata.php',
@@ -1457,9 +1763,123 @@ $('#btn-contratar-modal').click( function(){
                        },
 
                     });
+
+                  }                 
+
                 }   
            }
     });
+
+$('#btn-contratar-modal-favorito').click( function(){
+
+  $('#alert-success-contratar-favorito').hide();
+  $('#alert-warning-contratar-favorito').hide();
+
+        var preco = $('span[name=recebe-preco-servico-favorito]').text();
+        var button = $('button[name=btn-contratar-modal-favorito]').val();
+        var id = $('span[name=recebe-id-servico-favorito]').text();
+        var enderecoCadastrado = "0";
+        var detalhes = $('textarea[name=detalhes-modal-contratar-favorito]').val(); 
+
+        if ($('#check-endcadastrado-favorito').is(':checked') == false && $('#check-enddiferentecadastro-favorito').is(':checked') == false){
+            $('#alert-warning-contratar-favorito').html('<a href="#" class="close" aria-label="close">×</a><strong>Atenção!</strong> Selecione uma modalidade de endereço.');
+            $('#alert-warning-contratar-favorito').show('slow');
+        } else {
+                if ($('#check-endcadastrado-favorito').is(':checked')){
+
+                    $('#alert-success-contratar-favorito').hide();
+                    $('#alert-warning-contratar-favorito').hide();
+                    
+                    $.ajax({
+                        url: '../functions/contrata.php',
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {
+                            contratarSemEnd: button,
+                            id: id,
+                            enderecoCadastrado: enderecoCadastrado,
+                            preco: preco,
+                            detalhes: detalhes
+                        },
+                    
+                    success: function(resultado) {
+                      
+                        if (resultado == "sucesso"){
+                                    $('#carregando-modal-contratar-favorito').show();
+                        setTimeout(function() {   
+                                    $('#carregando-modal-contratar-favorito').hide();
+                                    $('#alert-success-contratar-favorito').show();
+                        }, 3000);
+                        setTimeout(function() {   
+                                    location.reload();
+                        }, 4000);
+                      } else {
+                    }
+
+                                                
+             },
+
+        }); 
+
+        }else {                 
+                                      
+                    var rua = $('input[name=rua-favorito]').val();
+                    var numero = $('input[name=numero-favorito]').val();
+                    var complemento = $('input[name=complemento-favorito]').val();
+                    var bairro = $('input[name=bairro-favorito]').val();
+                    var cidade = $('input[name=cidade-favorito]').val();
+                    enderecoCadastrado = "1";
+
+                    if (rua == "" || numero == "" || complemento == "" || bairro == "" || cidade == ""){
+
+                      $('#alert-warning-contratar-favorito').html('<a href="#" class="close" aria-label="close">×</a><strong>Atenção!</strong> Preencha todos os campos do Endereço.');
+                      $('#alert-warning-contratar-favorito').show();
+
+
+                  } else {
+
+                    $('#alert-success-contratar-favorito').hide();
+                    $('#alert-warning-contratar-favorito').hide();
+
+                    $.ajax({
+                        url: '../functions/contrata.php',
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {
+                            id: id,
+                            contratar: button,
+                            rua: rua,
+                            numero: numero,
+                            complemento: complemento,
+                            bairro: bairro,
+                            cidade: cidade,
+                            preco: preco,
+                            enderecoCadastrado: enderecoCadastrado,
+                            detalhes: detalhes
+                        },
+
+                    success: function(resultado) {
+                        
+                        if (resultado == "sucesso"){
+                                    $('#carregando-modal-contratar-favorito').show();
+                        setTimeout(function() {   
+                                    $('#carregando-modal-contratar-favorito').hide();
+                                    $('#alert-success-contratar-favorito').show();
+                        }, 3000);
+                        setTimeout(function() {   
+                                    location.reload();
+                        }, 4000);
+                      } else {
+                    }
+                       
+                       },
+
+                    });
+                  }
+                }   
+           }
+    });
+
 
 $('#btn-login').click( function() {
 
@@ -1468,7 +1888,7 @@ $('#btn-login').click( function() {
      var senha = $('input[name=senha-acesso]').val();
      var button = $('button[name=acessar]').val();
 
-            
+
         if ($('#checkbox2').is(':checked') == true){
 
             var cnpj = $('input[name=cnpj-acesso]').val();
@@ -1488,8 +1908,9 @@ $('#btn-login').click( function() {
 
             success: function(resultado){
 
+              $('#carregando-acesso').show('slow');
+
               if (resultado == "sucesso"){
-                $('#carregando-acesso').show('slow');
 
                 setTimeout( function() {
                 window.location.href = "./pages/cliente.php";
@@ -1498,8 +1919,6 @@ $('#btn-login').click( function() {
               }
 
               else {
-
-                $('#carregando-acesso').show('slow');
 
                 setTimeout( function() {
                   $('#carregando-acesso').hide();
@@ -1514,12 +1933,12 @@ $('#btn-login').click( function() {
     } else if ($('#checkbox3').is(':checked') == true){
 
             var email = $('input[name=email-acesso]').val();
-            var tipoAcesso = "1"
+            var tipoAcesso = "1";
         
            $.ajax({
                 url: './functions/validacao.php',
                 type: 'POST',
-                dataType: 'html',
+                dataType: 'json',
                 data: {
                     email: email,
                     senha: senha,
@@ -1528,13 +1947,26 @@ $('#btn-login').click( function() {
 
                 },
 
-            complete: function(resultado) {
+            success: function(resultado) {
 
-               $('#carregando-acesso').show('slow');
+
+              $('#carregando-acesso').show('slow');
+
+              if(resultado == "sucesso"){
 
                 setTimeout( function() {
                 window.location.href = "./pages/usuario.php";
                 }, 3000);
+
+            } else {
+
+              setTimeout( function() {
+                $('#carregando-acesso').hide();
+                $('#alert-warning-login').show();
+                }, 3000);
+
+
+            }
 
             },
 
@@ -1549,7 +1981,16 @@ $('#btn-login').click( function() {
 });
 
 
+
+
 $('#btn-enviar-cadastro').click(function(event) {
+
+    $('#alert-success-cadastrar').hide();
+    $('#alert-warning-cadastrar').html('<a href="#" class="close" aria-label="close" id="close">&times;</a><strong>Atenção!</strong> Não foi selecionada nenhuma modalidade de acesso.');
+    $('#alert-warning-cadastrar').hide();
+    $('#alert-warning-cadastrar-existe').hide();
+    $('#alert-warning-cadastrar-existe-usuario').hide();
+    $('#alert-danger-aceita-cadastrar').hide();
 
     var senha = $('input[name=senha-cadastro]').val();
     var confirmaSenha = $('input[name=confirma-senha-cadastro]').val();
@@ -1569,10 +2010,19 @@ if ($('#checkbox4').is(':checked') == true){
     var cpfcnpj = $('input[name=cpfcnpj]').val();
     var tipo = "0";
 
+    if (razaoSocial == "" || cpfcnpj == "" || senha == "" || confirmaSenha == "" || rua == "" || numero == "" || complemento == "" || bairro == "" || cidade == "" || estado == "" || cep == "" || telefone == ""){
+
+      $('#alert-warning-cadastrar').html('<a href="#" class="close" aria-label="close" id="close">&times;</a><strong>Atenção!</strong> Preencha todos os campos.');
+      $('#alert-warning-cadastrar').show();
+
+    } else {
+
+      if (senha == confirmaSenha){
+
         $.ajax({
         url: './functions/cadastro.php',
         type: 'POST',
-        dataType: 'html',
+        dataType: 'json',
         data: {
             razaoSocial: razaoSocial,
             cpfcnpj: cpfcnpj,
@@ -1590,19 +2040,50 @@ if ($('#checkbox4').is(':checked') == true){
             enviar: button
         },
 
-        complete: function (resultado){
-            
+        success: function (resultado){
+
         $('#carregando-modal-cadastro').show();
+
+        if (resultado == "cadastrado"){
 
         setTimeout(function() {
         $('#carregando-modal-cadastro').hide();
         $('#alert-success-cadastrar').show();
+
+        setTimeout(function() {
+          location.reload();
+        }, 1000);
+
         }, 3000);
 
-        },
+      } else if (resultado == "existe"){
 
+        setTimeout(function() {
+        $('#carregando-modal-cadastro').hide();
+        $('#alert-warning-cadastrar-existe').show();
+        }, 3000);
 
-    });   
+      } else if (resultado == "erro"){
+
+        setTimeout(function() {
+        $('#carregando-modal-cadastro').hide();        
+        $('#alert-danger-aceita-cadastrar').show();
+        }, 3000);
+      
+      } 
+            
+    },
+});
+
+} else {
+
+      $('#alert-warning-cadastrar').html('<a href="#" class="close" aria-label="close" id="close">&times;</a><strong>Atenção!</strong> Campo senha diferente do campo confirma senha.');
+      $('#alert-warning-cadastrar').show();
+
+}
+
+}
+
 
 } else if($('#checkbox5').is(':checked') == true){
 
@@ -1610,10 +2091,19 @@ if ($('#checkbox4').is(':checked') == true){
     var email = $('input[name=email]').val();
     var tipo = "1"
 
+    if (nome == "" || email == "" || senha == "" || confirmaSenha == "" || rua == "" || numero == "" || complemento == "" || bairro == "" || cidade == "" || estado == "" || cep == "" || telefone == ""){
+
+      $('#alert-warning-cadastrar').html('<a href="#" class="close" aria-label="close" id="close">&times;</a><strong>Atenção!</strong> Preencha todos os campos.');
+      $('#alert-warning-cadastrar').show();
+
+    } else {
+
+    if (senha == confirmaSenha){
+
     $.ajax({
         url: './functions/cadastro.php',
         type: 'POST',
-        dataType: 'html',
+        dataType: 'json',
         data: {
             nome: nome,
             email: email,
@@ -1631,18 +2121,47 @@ if ($('#checkbox4').is(':checked') == true){
             enviar: button
         },          
 
-        complete: function (resultado){
-            
+        success: function (resultado){
+
         $('#carregando-modal-cadastro').show();
+
+        if (resultado == "cadastrado"){
 
         setTimeout(function() {
         $('#carregando-modal-cadastro').hide();
-        $('#alert-su ccess-cadastrar').show();
-        console.log(resultado);
+        $('#alert-success-cadastrar').show();
+
+        setTimeout(function() {
+          location.reload();
+        }, 1000);
+
         }, 3000);
+
+      } else if (resultado == "existe") {
+
+        setTimeout(function() {
+        $('#carregando-modal-cadastro').hide();
+        $('#alert-warning-cadastrar-existe-usuario').show();
+        }, 3000);
+
+      } else if (resultado == "erro"){
+
+        setTimeout(function() {
+        $('#carregando-modal-cadastro').hide();        
+        $('#alert-danger-aceita-cadastrar').show();
+        }, 3000);
+      }            
 
         },
      });
+
+  } else {
+
+    $('#alert-warning-cadastrar').html('<a href="#" class="close" aria-label="close" id="close">&times;</a><strong>Atenção!</strong> Campo senha diferente do campo confirma senha.');
+    $('#alert-warning-cadastrar').show();
+
+  }
+ }
   } else {
         $('#alert-warning-cadastrar').show();
   }
@@ -1650,17 +2169,29 @@ if ($('#checkbox4').is(':checked') == true){
 });
 
 $('#btn-cadastrar-servico').click(function(event) {
+
+    $('#alert-success-cadastrar-servico').hide();
+    $('#alert-warning-cadastro-servico').hide();
+    $('#alert-warning-cadastro-servico').html('<a href="#" class="close" aria-label="close">&times;</a><strong>Atenção!</strong> Selecione uma modalidade de atendimento.');
    
     var tipoServico = $('select[name=tipo-servico-cadastro]').val();
     var valor = $('input[name=valor-servico]').val();
     var descricao = $('textarea[name=descricao-servico]').val();
     var button = $('button[name=cadastro-servico]').val();
 
-     if($('#checkbox8').is(':checked') == false && $('#checkbox9').is(':checked') == false){
-        $('#alert-warning-cadastro-servico').show();
-    }
+  if (tipoServico == "Selecione Serviço"){
 
-    else if ($('#checkbox8').is(':checked') == true){
+         $('#alert-warning-cadastro-servico').html('<a href="#" class="close" aria-label="close">&times;</a><strong>Atenção!</strong> Selecione um tipo de serviço.');
+         $('#alert-warning-cadastro-servico').show();   
+  
+  }  else if($('#checkbox8').is(':checked') == false && $('#checkbox9').is(':checked') == false){
+        $('#alert-warning-cadastro-servico').show();     
+  
+  } else {
+    
+    if ($.isNumeric(valor)){
+
+    if ($('#checkbox8').is(':checked') == true){
     var horarioInicial = $('select[name=horario-atendimento-inicial]').val();
     var horarioFinal = $('select[name=horario-atendimento-final]').val();
     var diaInicial = $('select[name=dia-atendimento-inicial]').val();
@@ -1742,6 +2273,13 @@ $('#btn-cadastrar-servico').click(function(event) {
         });
     }
 
+  } else {
+
+    $('#alert-warning-cadastro-servico').html('<a href="#" class="close" aria-label="close">&times;</a><strong>Atenção!</strong> Valor digitado inválido.');
+    $('#alert-warning-cadastro-servico').show();
+  }
+}
+
 });
 
 
@@ -1749,6 +2287,7 @@ $('button.btn-aceita-contratar-modal-dois').click(function(event) {
 
       $('#alert-success-aceita-servico-prestador-dois').hide();
       $('#alert-danger-aceita-servico-prestador-dois').hide();
+      $('#alert-warning-aceita-servico-prestador-dois').hide();  
 
       var button = $(this).val();
       var data = $('input[name=data-inicial-dois').val();
@@ -1811,6 +2350,10 @@ $('button.btn-aceita-contratar-modal-dois').click(function(event) {
 });
 
 $('button.btn-aceita-contratar-modal').click(function(event) {
+
+      $('#alert-success-aceita-servico-prestador').hide();
+      $('#alert-danger-aceita-servico-prestador').hide();
+      $('#alert-warning-aceita-servico-prestador').hide();
 
       var button = $(this).val();
       var data = $('input[name=data-inicial').val();

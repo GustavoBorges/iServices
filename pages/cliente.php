@@ -11,7 +11,7 @@
     <link rel="shortcut icon" href="../img/favicon.png">
     <link rel="stylesheet" type="text/css" href="../css/switch.css">
     <link rel="stylesheet" type="text/css" href="../css/estilo.css">
-    <link href="https://fortawesome.github.io/Font-Awesome/assets/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
 </head>
 <body>
     <div class="navbar-header">
@@ -27,14 +27,18 @@
             <li role="presentation">
                 <a href="#historico" arial-controls="historico" data-toggle="tab" role="tab">Histórico</a>
             </li>
-            <li role="presentation"><a href="#servicoSolicitado" arial-controls="servicoSolicitado" data-toggle="tab" role="tab">Serviços Solicitados</a>
+            <li role="presentation">
+                <a href="#servicoSolicitado" arial-controls="servicoSolicitado" data-toggle="tab" role="tab">Serviços Solicitados</a>
+            </li>
+            <li role="presentation">
+                <a href="#avaliacoes" arial-controls="avaliacaes" data-toggle="tab" role="tab">Avaliações</a>
             </li>
             <li class="navbar-right"><a href="" id="dropdownLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="glyphicon glyphicon-user"></i>&nbspSeja bem vindo, <?=$recebeu;?>!</a>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown" href="#"><i class="glyphicon glyphicon-pencil"></i>&nbspMeu Perfil</a></li>
-                    <li><a class="dropdown" href="#"><i class="glyphicon glyphicon-file"></i>&nbspContratos</a></li>
-                    <li><a class="dropdown" href="#"><i class="glyphicon glyphicon-off"></i>&nbspSair</a></li>
+                    <li><a class="dropdown" href="#funcao-construcao-modal" data-toggle="modal"><i class="glyphicon glyphicon-pencil"></i>&nbspMeu Perfil</a></li>
+                    <li><a class="dropdown" href="#servicoSolicitado" data-toggle="tab"><i class="glyphicon glyphicon-file"></i>&nbspContratos</a></li>
+                    <li><a class="deslogar dropdown" href="#"><i class="glyphicon glyphicon-off"></i>&nbspSair</a></li>
                 </ul>
             </li>
         </ul>
@@ -81,7 +85,10 @@
                                     <td>R$ <?=$recebe['valor'];?>
                                     </td>
                                     <td class="actions">
-                                        <a href="" class="visualizar-servico btn btn-default" data-toggle="modal"
+                                        <a href="" class="visualizar-servico btn btn-default"
+                                        data-toggle="modal" 
+                                        data-balao="tooltip"
+                                        title="Clicando neste botão você estará visualizando o serviço."
                                         data-id="<?=$recebe['idServico'];?>"
                                         data-tipo="<?=$recebe['tiposervico'];?>"
                                         data-valor="<?=$recebe['valor'];?>"
@@ -93,7 +100,10 @@
                                         data-check="<?=$recebe['checkClicado'];?>">
                                         <i class="glyphicon glyphicon-file"></i>
                                         </a> 
-                                        <a href="" class="editar-servico btn btn-primary" data-toggle="modal"
+                                        <a href="" class="editar-servico btn btn-primary"
+                                        data-toggle="modal" 
+                                        data-balao="tooltip"
+                                        title="Clicando neste botão você estará editando o serviço."
                                         data-id="<?=$recebe['idServico'];?>"
                                         data-tipo="<?=$recebe['tiposervico'];?>"
                                         data-valor="<?=$recebe['valor'];?>"
@@ -105,7 +115,10 @@
                                         data-check="<?=$recebe['checkClicado'];?>">
                                         <i class="glyphicon glyphicon-edit"></i>
                                         </a> 
-                                        <a href="" class="btn-excluir btn btn-danger" data-toggle="modal"
+                                        <a href="" class="btn-excluir btn btn-danger" 
+                                        data-toggle="modal"
+                                        data-balao="tooltip"
+                                        title="Clicando neste botão você estará excluíndo o serviço."
                                         data-name="<?=$recebe['tiposervico'];?>"
                                         data-id="<?=$recebe['idServico'];?>">
                                         <i class="glyphicon glyphicon-trash"></i>
@@ -113,7 +126,9 @@
                                     </td>
                                     <td>
                                         <label class="switch"> 
-                                            <input type="checkbox" class="checkando" id="checkando" 
+                                            <input type="checkbox" class="checkando" id="checkando"
+                                            data-balao="tooltip"
+                                            title="Clicando neste botão você estará visualizando o serviço." 
                                             data-name="<?=$recebe['tiposervico'];?>"
                                             data-id="<?=$recebe['idServico'];?>"
                                             data-ativo = "<?=$recebe['ativo'];?>">
@@ -154,7 +169,7 @@
                                     <th>Telefone</th>
                                     <th>Status</th>
                                     <th class="actions">Ações</th>
-                                    <th>Detalhe</th>
+                                    <th>Detalhes</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -183,8 +198,8 @@
                                     </td>
                                     <td class="actions">
                                         <button class="btn-visualizar-modal-servico btn btn-default"
-                                            data-toggle="tooltip"
-                                            title="Ao clicar neste botão você estará 'Visualizando' os datalhes da proposta de serviço solicitado pelo <?=$recebe['nome'];?>. Posteriormente poderá aceitar a proposta de serviço"
+                                            data-balao="tooltip"
+                                            title="Clicando neste botão você estará 'Visualizando' a proposta de serviço solicitado pelo <?=$recebe['nome'];?>."
                                             data-id="<?=$recebe['idContrato']?>"
                                             data-tipo="<?=$recebe['tiposervico']?>"
                                             data-valor="<?=$recebe['preco']?>"
@@ -203,15 +218,15 @@
                                             <i class="glyphicon glyphicon-eye-open"></i>
                                         </button>
                                         <button class="btn-conclui-proposta btn btn-default" value="btn-conclui-proposta"
-                                            data-toggle="tooltip"
-                                            title="Ao clicar neste botão você estará 'Concluindo' a proposta de serviço solicitado pelo <?=$recebe['nome'];?>, a qual foi aceita e está com o pagamento confirmado."
+                                            data-balao="tooltip"
+                                            title="Clicando neste botão você estará 'Concluindo' a proposta de serviço solicitado pelo <?=$recebe['nome'];?>."
                                             data-idcontrato="<?=$recebe['idContrato']?>"
                                             data-status="<?=$recebe['status'];?>">
                                             <i class="glyphicon glyphicon-ok icon-success"></i>
                                         </button>
                                         <button class="btn-rejeitar-proposta btn btn-default"
-                                            data-toggle="tooltip"
-                                            title="Ao clicar neste botão você estará 'Rejeitando' a proposta de serviço solicitado pelo <?=$recebe['nome'];?>."
+                                            data-balao="tooltip"
+                                            title="Clicando neste botão você estará 'Rejeitando' a proposta de serviço solicitado pelo <?=$recebe['nome'];?>."
                                             data-idcontrato="<?=$recebe['idContrato']?>"
                                             data-status="<?=$recebe['status'];?>">                                            
                                             <i class="glyphicon glyphicon-remove icon-remove"></i>
@@ -219,7 +234,7 @@
                                     </td>
                                     <td>
                                         <button class="btn-detalhes-tab-solicitacao btn btn-default"
-                                            data-toggle="tooltip"
+                                            data-balao="tooltip"
                                             title="Ao clicar neste botão você estará 'Visualizando' os datalhes da proposta de serviço solicitado pelo <?=$recebe['nome'];?>."
                                             data-id="<?=$recebe['idContrato']?>"
                                             data-tipo="<?=$recebe['tiposervico']?>"
@@ -256,7 +271,7 @@
                             <div class="row">
                                 <div class="col col-xs-12 text-center">
                                     <h1 class="panel-title">Histórico</h1>
-                                    <a href="" class="btn btn-info pull-right h1"> 
+                                    <a href="#funcao-construcao-modal" data-toggle="modal" class="btn btn-info pull-right h1"> 
                                         <i class="glyphicon glyphicon-print"></i>&nbspGerar Relatório
                                     </a>
                                 </div>
@@ -317,6 +332,61 @@
                 </div>
             </div>
         </div>
+        <div role="tabpanel" class="tab-pane" id="avaliacoes">
+            <div class="container" style="margin-top: 2px;">
+                <div class="row">
+                    <div class="panel panel-primary panel-table animated slideInDown">
+                        <div class="panel-heading" style="padding: 37px;">
+                            <div class="row">
+                                <div class="col col-xs-12 text-center">
+                                    <h1 class="panel-title">Avaliações</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="list" class="row">
+                    <div class="table-responsive col-md-12">
+                        <table class="table table-striped table-bordered table-list" cellspacing="0" cellpadding="0" id="tab-avaliacoes">
+                            <thead>
+                                <tr>
+                                    <th>Contratante</th>
+                                    <th>Telefone</th>                                    
+                                    <th>E-mail</th>
+                                    <th>Comentário</th>
+                                    <th>Nota</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                         $avaliacao = recebeAvaliacao($conexao);
+                                         foreach ($avaliacao as $recebe) {
+                                         
+                                ?>
+                                <tr>
+                                    <td>
+                                        <?=$recebe['nome'];?>
+                                    </td>
+                                    <td>
+                                        <?=$recebe['telefone'];?>
+                                    </td>
+                                    <td>R$ <?=$recebe['email'];?>
+                                    </td>
+                                    <td>
+                                        <?=$recebe['comentario'];?>
+                                    </td>
+                                    <td>
+                                        <?=$recebe['voto'];?>
+                                    </td>
+                                </tr>
+                                <?php } ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     </div>
     <!-- Modal para cadastro de serviço -->
     <div id="modalCadastro" class="modal fade" role="dialog">
@@ -324,7 +394,9 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <img src="../img/logo.png" alt="Logo da empresa" class="logoTelaCadastroServico"></img>
+                    <div align="center">
+                        <img src="../img/logo.png" alt="Logo da empresa"></img>
+                    </div>
                 </div>
                 <div class="modal-body">
                     <form role="form" method="GET">
@@ -346,7 +418,7 @@
                             <input id="checkbox8" type="checkbox"> 
                             <label for="checkbox8">Horário de Atendimento:</label>
                             <div id="horario-atendimento">
-                                <span>De:</span> 
+                            <span>De:</span> 
                                 <select class="horario form-control" name="horario-atendimento-inicial">
                                     <option>00:00</option>
                                     <option>00:30</option>
@@ -478,12 +550,12 @@
                             </div>
                         </div>
                     </form>
-                    <div>
+                    <div align="right">
                         <button type="submit" name="cadastro-servico"
-                            value="cadastro-servico" class="btn btn-success" id="btn-cadastrar-servico">
+                            value="cadastro-servico" class="btn btn-primary" id="btn-cadastrar-servico">
                             <i class="glyphicon glyphicon-thumbs-up"></i>&nbspCadastrar
                         </button>
-                        <button type="button" name="fecha" class="btn btn-danger" data-dismiss="modal">
+                        <button type="button" name="fecha" class="btn btn-default" data-dismiss="modal">
                             <i class="glyphicon glyphicon-thumbs-down"></i>&nbspFechar
                         </button>
                     </div>
@@ -493,11 +565,11 @@
                     </div>
                     <div class="alert alert-warning" id="alert-warning-cadastro-servico">
                         <a href="#" class="close" aria-label="close">&times;</a> 
-                        <strong>Atenção!</strong>Não foi selecionada nenhuma modalidade de atendimento.
+                        <strong>Atenção!</strong> Selecione uma modalidade de atendimento.
                     </div>
                     <div class="alert alert-success" id="alert-success-cadastrar-servico">
                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                        <strong>Sucesso!</strong>O seu serviço foi cadastrado com sucesso.
+                        <strong>Sucesso!</strong> Serviço cadastrado.
                     </div>
                 </div>
             </div>
@@ -518,12 +590,32 @@
                     Deseja realmente excluir este item? <span class="nome"></span>&nbsp<span class="id-servico"></span>
                 </div>
                 <div class="modal-footer">
-                    <button name="btn-ok" value="excluir" type="button" class="btn-confirma-exclusao btn btn-success">
+                    <button name="btn-ok" value="excluir" type="button" class="btn-confirma-exclusao btn btn-primary">
                         <i class="glyphicon glyphicon-thumbs-up"></i>&nbspSim
                     </button>
-                    <a href="#" type="button" class="btn btn-danger" data-dismiss="modal"> 
+                    <a href="#" type="button" class="btn btn-default" data-dismiss="modal"> 
                         <i class="glyphicon glyphicon-thumbs-down"></i>&nbspN&atilde;o
                     </a>
+                </div>
+                <div id="retorno"></div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal para funções em construção Cadastro-->
+    <div class="modal fade" id="funcao-construcao-modal" tabindex="-1"
+        role="dialog" aria-labelledby="modalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Esta função está Inativa, pois a mesma se encontra em fase de desenvolvimento.
+                </div>
+                <div class="modal-footer">
+                    <a href="#" type="button" class="btn btn-primary" data-dismiss="modal">OK</a>
                 </div>
                 <div id="retorno"></div>
             </div>
@@ -544,10 +636,10 @@
                     Deseja realmente cancelar a proposta de serviço? <span class="cancela-idcontrato" style="display: none;"></span>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" name="" value="btn-sim-cancela-servico-prestador" class="btn-sim-cancela-servico-prestador btn btn-success"> 
+                    <button type="button" name="" value="btn-sim-cancela-servico-prestador" class="btn-sim-cancela-servico-prestador btn btn-primary"> 
                         <i class="glyphicon glyphicon-thumbs-up"></i>&nbspSim
                     </button> 
-                    <button href="#" type="button" class="btn btn-danger" data-dismiss="modal"> 
+                    <button href="#" type="button" class="btn btn-default" data-dismiss="modal"> 
                         <i class="glyphicon glyphicon-thumbs-down"></i>&nbspN&atilde;o
                     </button>
                     <div id="carregando-modal-cancelar-servico" align="center">
@@ -556,15 +648,15 @@
                 </div>
                 <div class="alert alert-warning" id="alert-warning-cancelar-servico">
                     <a href="#" class="close" aria-label="close">&times;</a> 
-                    <strong>Atenção!</strong>Não foi possível cancelar o serviço, pois o mesmo já foi pago.
+                    <strong>Atenção!</strong> Não foi possível cancelar o serviço, pois o mesmo já foi pago pelo contratante.
                 </div>
                 <div class="alert alert-success" id="alert-success-cancelar-servico">
                     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                    <strong>Sucesso!</strong>Proposta de serviço cancelada com sucesso.
+                    <strong>Sucesso!</strong> Proposta de serviço cancelada.
                 </div>
                 <div class="alert alert-danger" id="alert-danger-cancelar-servico">
                     <a href="#" class="close" aria-label="close">&times;</a>
-                    <strong>Error!</strong>Ocorreu um erro ao aceitar o serviço.
+                    <strong>Error!</strong> Ocorreu uma inconsistência ao aceitar o serviço.
                 </div>
             </div>
         </div>
@@ -584,7 +676,7 @@
                     <img src="../img/carregando.gif"></br><span>Concluindo Serviço</span>
                 </div>
                 <div id="modal-body-agradecimento" class="step3" style="display: block;">
-                    <p class="thanks">Serviço concluido, obrigado!</p>
+                    <p class="thanks">Serviço concluído, obrigado!</p>
                 </div> 
                 </br>
             </div>
@@ -602,14 +694,14 @@
                     <h4 class="modal-title" id="modalLabel">Ativar Serviço</h4>
                 </div>
                 <div class="modal-body">
-                    Deseja realmente ativar o serviço? <span id="ativando-servico"></span>
+                    Deseja realmente ativar o serviço? <span id="ativando-servico" style="display: none;"></span>
                 </div>
                 <div class="modal-footer">
                     <a name="ativar" value="excluir" type="button"
-                        class="btn btn-success" id="ativar-servico"> 
+                        class="btn btn-primary" id="ativar-servico"> 
                         <i class="glyphicon glyphicon-thumbs-up"></i>&nbspSim
                     </a> 
-                    <a type="button" class="btn btn-danger"
+                    <a type="button" class="btn btn-default"
                         data-dismiss="modal" id="nao-ativa"> 
                         <i class="glyphicon glyphicon-thumbs-down"></i>&nbspN&atilde;o
                     </a>
@@ -630,14 +722,14 @@
                     <h4 class="modal-title" id="modalLabel">Desativar Serviço</h4>
                 </div>
                 <div class="modal-body">
-                    Deseja realmente desativar o serviço? <span id="desativando-servico"></span>
+                    Deseja realmente desativar o serviço? <span id="desativando-servico" style="display:none;"></span>
                 </div>
                 <div class="modal-footer">
                     <a name="desativar" value="excluir" type="button"
-                        class="btn btn-success" id="desativar-servico"> 
+                        class="btn btn-primary" id="desativar-servico"> 
                         <i class="glyphicon glyphicon-thumbs-up"></i>&nbspSim
                     </a> 
-                    <a href="#" type="button" class="btn btn-danger"
+                    <a href="#" type="button" class="btn btn-default"
                         data-dismiss="modal" id="nao-desativa"> 
                         <i class="glyphicon glyphicon-thumbs-down"></i>&nbspN&atilde;o
                     </a>
@@ -651,7 +743,9 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <img src="../img/logo.png" alt="Logo da empresa" class="logoTelaCadastroServico"></img>
+                    <div align="center">
+                        <img src="../img/logo.png" alt="Logo da empresa"></img>
+                    </div>
                 </div>
                 <div class="modal-body">
                     <form role="form" method="GET">
@@ -808,10 +902,10 @@
                         </div>
                     </form>
                     <button type="submit" name="alterar" value="alterar-servico"
-                        id="btn-alterar-servico" class="btn btn-success">
+                        id="btn-alterar-servico" class="btn btn-primary">
                         <i class="glyphicon glyphicon-ok"></i>&nbspAlterar
                     </button>
-                    <button type="button" name="cancelar" class="btn btn-danger" data-dismiss="modal">
+                    <button type="button" name="cancelar" class="btn btn-default" data-dismiss="modal">
                         <i class="glyphicon glyphicon-remove"></i>&nbspCancelar
                     </button>
                     <div id="carregando-modal-alterar" align="center">
@@ -820,15 +914,15 @@
                 </div>
                 <div class="alert alert-warning" id="alert-warning-alterar">
                     <a href="#" class="close" aria-label="close">&times;</a> 
-                    <strong>Atenção!</strong>Não foi selecionada nenhuma modalidade de atendimento.
+                    <strong>Atenção!</strong> Não foi selecionada nenhuma modalidade de atendimento.
                 </div>
                 <div class="alert alert-success" id="alert-success-alterar">
                     <a href="#" class="close" aria-label="close">&times;</a> 
-                    <strong>Sucesso!</strong>O seu serviço foi alterado com sucesso.
+                    <strong>Sucesso!</strong> Serviço foi alterado com sucesso.
                 </div>
                 <div class="alert alert-danger" id="alert-danger-alterar">
                     <a href="#" class="close" aria-label="close">&times;</a> 
-                    <strong>Error!</strong>Não foi possível realizar a alteração do serviço.
+                    <strong>Error!</strong> Não foi possível realizar a alteração do serviço.
                 </div>
             </div>
         </div>
@@ -839,7 +933,9 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <img src="../img/logo.png" alt="Logo da empresa" class="logoTelaCadastroServico"></img>
+                    <div align="center">
+                        <img src="../img/logo.png" alt="Logo da empresa"></img>
+                    </div>
                 </div>
                 <div class="modal-body">
                     <div id="dados-visualizacao-servico">
@@ -854,9 +950,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-success" data-dismiss="modal">
-                        <i class="glyphicon glyphicon-eye-close"></i>&nbspFechar
-                    </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
                 </div>
             </div>
         </div>
@@ -867,7 +961,9 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <img src="../img/logo.png" alt="Logo da empresa" class="logoTelaCadastroServico"></img>
+                    <div align="center">                        
+                        <img src="../img/logo.png" alt="Logo da empresa"></img>
+                    </div>
                 </div>
                 <div class="modal-body">
                     <div id="dados-visualizacao-servico">
@@ -880,9 +976,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-success" data-dismiss="modal">
-                        <i class="glyphicon glyphicon-eye-close"></i>&nbspFechar
-                    </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
                 </div>
             </div>
         </div>
@@ -943,11 +1037,11 @@
                 </div>
                 <div class="modal-footer">
                     <button type="submit"
-                        class="btn-aceita-contratar-modal-dois btn btn-success"
+                        class="btn-aceita-contratar-modal-dois btn btn-primary"
                         name="aceitar" value="aceitar-servico">
                         <i class="glyphicon glyphicon-ok"></i>&nbspAceitar Proposta
                     </button>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
                         <i class="glyphicon glyphicon-remove"></i>&nbspCancelar
                     </button>
                     </br></br>
@@ -956,16 +1050,16 @@
                 </div>
                 <div class="alert alert-danger" id="alert-danger-aceita-servico-prestador-dois">
                     <a href="#" class="close" aria-label="close">&times;</a>
-                    <strong>Error!</strong>Ocorreu um erro ao aceitar o serviço.
+                    <strong>Error!</strong> Ocorreu uma inconsistência ao aceitar o serviço.
                 </div>
                 <div class="alert alert-success" id="alert-success-aceita-servico-prestador-dois">
                     <a href="#" class="close">&times;</a> 
-                    <strong>Sucesso!</strong>Proposta de serviço aceita com sucesso.
+                    <strong>Sucesso!</strong> Proposta de serviço aceita.
                 </div>
                 <div class="alert alert-warning"
                     id="alert-warning-aceita-servico-prestador-dois">
                     <a href="#" class="close">&times;</a> 
-                    <strong>Atenção!</strong>Informe a data inicial do serviço.
+                    <strong>Atenção!</strong> Informe a data inicial do serviço.
                 </div>
             </div>
         </div>
@@ -1028,11 +1122,11 @@
                 </div>
                 <div class="modal-footer">
                     <button type="submit"
-                        class="btn-aceita-contratar-modal btn btn-success" name="aceitar"
+                        class="btn-aceita-contratar-modal btn btn-primary" name="aceitar"
                         value="aceitar-servico">
                         <i class="glyphicon glyphicon-ok"></i>&nbspAceitar Proposta
                     </button>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
                         <i class="glyphicon glyphicon-remove"></i>&nbspCancelar
                     </button>
                     </br> </br>
@@ -1042,15 +1136,15 @@
                 </div>
                 <div class="alert alert-danger" id="alert-danger-aceita-servico-prestador">
                     <a href="#" class="close" aria-label="close">&times;</a> 
-                    <strong>Error!</strong>Ocorreu um erro ao aceitar o serviço.
+                    <strong>Error!</strong> Ocorreu uma inconsistência ao aceitar o serviço.
                 </div>
                 <div class="alert alert-success" id="alert-success-aceita-servico-prestador">
                     <a href="#" class="close">&times;</a> 
-                    <strong>Sucesso!</strong>Proposta de serviço aceita com sucesso.
+                    <strong>Sucesso!</strong> Proposta de serviço aceita.
                 </div>
                 <div class="alert alert-warning" id="alert-warning-aceita-servico-prestador">
                     <a href="#" class="close">&times;</a> 
-                    <strong>Atenção!</strong>Informe a data inicial do serviço.
+                    <strong>Atenção!</strong> Informe a data inicial do serviço.
                 </div>
             </div>
         </div>
@@ -1110,7 +1204,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
                         <i class="glyphicon glyphicon-remove"></i>&nbspFechar
                     </button>
                 </div>
@@ -1174,7 +1268,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
                         <i class="glyphicon glyphicon-remove"></i>&nbspFechar
                     </button>
                 </div>
