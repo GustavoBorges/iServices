@@ -183,7 +183,7 @@
                 <div class="col-sm-4">
                     <div class="about__icon">
                         <img width="130" height="130" alt="Faça seu pedido"
-                            src="https://www.getninjas.com.br/assets/home_new/about/faca-seu-pedido-a5687cfd5b3bba89c136f333835d40a4a66f7ea8d25957ff91bc549a238d6a68.gif"/>
+                            src="https://www.getninjas.com.br/assets/home/about/faca-seu-pedido-a5687cfd5b3bba89c136f333835d40a4a66f7ea8d25957ff91bc549a238d6a68.gif"/>
                     </div>
                     <span class="about__step-title">Faça sua proposta </br>
                         <small>Fale o que você precisa. É rápido e de graça!</small>
@@ -192,7 +192,7 @@
                 <div class="col-sm-4">
                     <div class="about__icon">
                         <img width="130" height="130" alt="Receba até 3 orçamentos"
-                            src="https://www.getninjas.com.br/assets/home_new/about/receba-orcamentos-a5dd9b5475950736a7c540831c623d02e0cfcbcb9b81bf9b6ee1ff63cb5d4331.gif"/>
+                            src="https://www.getninjas.com.br/assets/home/about/receba-orcamentos-a5dd9b5475950736a7c540831c623d02e0cfcbcb9b81bf9b6ee1ff63cb5d4331.gif"/>
                     </div>
                     <span class="about__step-title"> Receba sua solicitação de proposta </br>
                         <small>Profissionais entram em contato com você em instantes!</small>
@@ -201,7 +201,7 @@
                 <div class="col-sm-4">
                     <div class="about__icon">
                         <img width="130" height="130" alt="Escolha o melhor"
-                            src="https://www.getninjas.com.br/assets/home_new/about/escolha-melhor-eb84dd74fa0df8c89a507b4f1d9fbde0627a47604d7d256df9f32741346e372b.gif"/>
+                            src="https://www.getninjas.com.br/assets/home/about/escolha-melhor-eb84dd74fa0df8c89a507b4f1d9fbde0627a47604d7d256df9f32741346e372b.gif"/>
                     </div>
                     <span class="about__step-title"> Escolha o melhor prestador de serviço </br>
                         <small>Negocie direto com eles. Fácil como nunca foi antes!</small>
